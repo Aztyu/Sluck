@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body>
     <h1>Hello World!</h1>
@@ -10,10 +11,22 @@
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
+
+    <div>
+      <p><p>Pseudo :</p><input type='text' id='pseudo'/></p>
+
+      <div id='messages'>
+      </div>
+
+      <p><input type='text' id='message'/><button onClick='sendMessage()'>Envoyer</button></p>
+      <button onClick='updateMessageThread()'>MAJ</button>
+    </div>
   </body>
 
   <script>
     // You can also require other files to run in this process
     require('./renderer.js')
   </script>
+  <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script>
+  <script type="text/javascript" src="js/chat.js"></script>
 </html>
