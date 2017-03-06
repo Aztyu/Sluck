@@ -1,0 +1,88 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Sluck API",
+		"_postman_id": "f22bbd4d-14a8-ffc4-bb5d-723020198497",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/server/login",
+			"request": {
+				"url": "http://localhost:8080/server/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Corentin",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "aztyu43",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Utiliser les champs name et password pour se connecter"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/server/api/test",
+			"request": {
+				"url": "http://localhost:8080/server/api/test",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "k8ui4ot223p4lqn1p5hrjdn91b",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Tester si l'API fonctionne en passant le token renvoyer par le login"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/server/register",
+			"request": {
+				"url": "http://localhost:8080/server/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "kiki",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "boucher",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Pour s'enregistrer remplacer le name et password par les données voulues"
+			},
+			"response": []
+		}
+	]
+}
