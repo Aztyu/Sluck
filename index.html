@@ -13,6 +13,24 @@
     and Electron <script>document.write(process.versions.electron)</script>.
 
     <div>
+      <h2>Register</h2>
+      <form class="" action="http://localhost:8080/server/register" method="post">
+        <p>Username</p>
+        <input name="name" type="text"/>
+        <p>Password</p>
+        <input name="password" type="password"/>
+        <input type="submit"/>
+      </form>
+
+      <h2>Login</h2>
+      <form class="" action="http://localhost:8080/server/login" method="post">
+        <p>Username</p>
+        <input name="name" type="text"/>
+        <p>Password</p>
+        <input name="password" type="password"/>
+        <input type="submit"/>
+      </form>
+
       <p><p>Pseudo :</p><input type='text' id='pseudo'/></p>
 
       <div id='messages'>
@@ -22,6 +40,7 @@
       <button onClick='updateMessageThread()'>MAJ</button>
     </div>
   </body>
+
 
   <script>
     // You can also require other files to run in this process

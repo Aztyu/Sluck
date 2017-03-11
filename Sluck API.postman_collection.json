@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/server/login",
+			"name": "API Login",
 			"request": {
 				"url": "http://localhost:8080/server/login",
 				"method": "POST",
@@ -35,7 +35,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/server/api/test",
+			"name": "API Test",
 			"request": {
 				"url": "http://localhost:8080/server/api/test",
 				"method": "GET",
@@ -52,7 +52,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/server/register",
+			"name": "API Register User",
 			"request": {
 				"url": "http://localhost:8080/server/register",
 				"method": "POST",
@@ -81,6 +81,150 @@
 					]
 				},
 				"description": "Pour s'enregistrer remplacer le name et password par les données voulues"
+			},
+			"response": []
+		},
+		{
+			"name": "API Conversation create",
+			"request": {
+				"url": "http://localhost:8080/server/api/conversation/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "90sfdqarj7j97td56chf9hni0u",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Test préparé",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "shared",
+							"value": "false",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Créer une conversation, par défaut l'utilisateur est ajouté à cette conversation"
+			},
+			"response": []
+		},
+		{
+			"name": "API Conversation List ",
+			"request": {
+				"url": "http://localhost:8080/server/api/conversation/list",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "rtgqc11gggbtgspsdo0mpfpg3q",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Liste des conversations de l'utilisateur connecté"
+			},
+			"response": []
+		},
+		{
+			"name": "API Conversation Join",
+			"request": {
+				"url": "http://localhost:8080/server/api/conversation/join/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "rtgqc11gggbtgspsdo0mpfpg3q",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Permet de rejoindre une conversation public en indiquant son id"
+			},
+			"response": []
+		},
+		{
+			"name": "API Conversation Search",
+			"request": {
+				"url": "http://localhost:8080/server/api/conversation/search?search=test",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "dtch14mn0do86noug93pmmiu21",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Pour rechercher parmis les conversations publiques. (parametre search optionnel)"
+			},
+			"response": []
+		},
+		{
+			"name": "API Message Send",
+			"request": {
+				"url": "http://localhost:8080/server/api/message/send/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "ibet94d96m2r58gcib5f8uvm6s",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "content",
+							"value": "test kiki 1er message téçst ",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "user_id",
+							"value": "3",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Envoyer un message sur une conversation en renseignant l'ID"
+			},
+			"response": []
+		},
+		{
+			"name": "API Message List",
+			"request": {
+				"url": "http://localhost:8080/server/api/message/list/1/3",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "4soevaotf65cmn7cqmt0rtedh2",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "permet de récupérer une liste des messages d'une conversation"
 			},
 			"response": []
 		}
