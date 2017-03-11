@@ -1,13 +1,21 @@
 var pseudo_string; //On sauvegarde le pseudo
 var last_index = 0; //Dernier message reçu pour savoir lequel envoyer
 
+function testLogin(){
+  login('kiki', 'boucher');
+}
+
+function testList(){
+  listConversation();
+}
+
 $(document).ready(function() {
     console.log("ready!");
 
-    let timeout = 2000; //Toute les deux secondes
+    /*let timeout = 2000; //Toute les deux secondes
     var action = updateMessageThread; //On récupère la liste
     setInterval(action, timeout);
-    action(); //On démarre la boucle
+    action(); //On démarre la boucle*/
 });
 
 function updateMessageThread(){

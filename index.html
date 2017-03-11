@@ -13,8 +13,15 @@
     and Electron <script>document.write(process.versions.electron)</script>.
 
     <div>
+
+
+      <button onClick="testLogin()">Test API login</button>
+      <button onClick="testList()">Test API list conversation</button>
+
+      <!--
+
       <h2>Register</h2>
-      <form class="" action="http://localhost:8080/server/register" method="post">
+      <form id="form_register" class="" action="http://localhost:8080/server/register" method="post">
         <p>Username</p>
         <input name="name" type="text"/>
         <p>Password</p>
@@ -23,13 +30,13 @@
       </form>
 
       <h2>Login</h2>
-      <form class="" action="http://localhost:8080/server/login" method="post">
+      <form id="form_login" class="" action="http://localhost:8080/server/login" method="post">
         <p>Username</p>
         <input name="name" type="text"/>
         <p>Password</p>
         <input name="password" type="password"/>
         <input type="submit"/>
-      </form>
+      </form> -->
 
       <p><p>Pseudo :</p><input type='text' id='pseudo'/></p>
 
@@ -39,13 +46,15 @@
       <p><input type='text' id='message'/><button onClick='sendMessage()'>Envoyer</button></p>
       <button onClick='updateMessageThread()'>MAJ</button>
     </div>
+
+
   </body>
 
 
   <script>
-    // You can also require other files to run in this process
     require('./renderer.js')
   </script>
   <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script>
   <script type="text/javascript" src="js/chat.js"></script>
+  <script type="text/javascript" src="js/http.js"></script>
 </html>
