@@ -3,7 +3,7 @@ var querystring = require('querystring');
 
 var connected_user;
 var conversations;
-var SERVER_URL = 'http://localhost:8080/server';
+let SERVER_URL = 'http://localhost:8080/server';    //Adresse de base utilisée pour appeler l'API
 
 function getAuthHeader(){
   if(user){
@@ -35,6 +35,7 @@ function login(name, password){
     if(res.statusCode == 200){
       user = JSON.parse(body);
       navigateTo('main');
+      listConversation();
     }
   });
 }
@@ -78,6 +79,7 @@ function listConversation(){
     console.log(body);
     if(res.statusCode == 200){
       conversations = JSON.parse(body);
+      updateConversations(conversations);
     }
   });
 }

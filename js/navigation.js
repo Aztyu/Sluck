@@ -9,3 +9,22 @@ function navigateTo(page_dest){
     }
   }
 }
+
+function updateConversations(conversations){
+  var main_div = document.getElementById('conversations');
+
+  for(var i=0; i<conversations.length; i++){
+    var conversation = conversations[i];
+
+    var conv_div = document.createElement('div');
+    conv_div.classList.add('conversation');
+    conv_div.setAttribute('data-id', conversation.id);
+
+    var conv_name = document.createElement('p');
+    conv_name.classList.add('name');
+    conv_name.innerHTML = conversation.name;
+
+    conv_div.appendChild(conv_name);
+    main_div.appendChild(conv_div);
+  }
+}
