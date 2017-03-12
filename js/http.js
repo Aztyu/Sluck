@@ -40,6 +40,25 @@ function login(name, password){
   });
 }
 
+function getMessageForConversation(conversation_id, last_message){
+  return new Promise(function (resolve, reject) {
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/message/list/' + conversation_id + '/' + last_message,
+      method: 'GET'
+    }, function (err, res, body) {
+      console.log(err);
+      console.log(res);
+      console.log(body);
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
 function register(name, password){
   //TODO: implementer
   /*var form = {

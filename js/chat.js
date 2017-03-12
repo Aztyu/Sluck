@@ -34,12 +34,16 @@ function updateMessageThread(){
     var conversation = conversations[0];
     var messages = conversation.messages;
     var last_message = 0;
-    if(messages){   //Si il y a déjà des messages on envoie l'ID du dernier
-        last_message = 66;
+    if(messages){                    //Si il y a déjà des messages on envoie l'ID du dernier
+        last_message = messages[messages.length-1].id;
+    }else{
+        conversation.messages = [];
     }
 
     getMessageForConversation(conversation.id, last_message).then(function (data) {
         console.log(data);
+        var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
+        conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
     }, function (err) {
         console.error(err);
         console.log(err);
