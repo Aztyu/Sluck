@@ -5,49 +5,44 @@
     <title>Hello World!</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
+
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div data-page="register">
+      <button onClick="navigateTo('login')">Go to login</button>
 
-    <div>
+      <p>Username</p>
+      <input id="name_reg" type="text"/>
+      <p>Password</p>
+      <input id="password_reg" type="password"/>
+      <p>Confirm Password</p>
+      <input id="password_confirm_reg" type="password"/>
 
-
-      <button onClick="testLogin()">Test API login</button>
-      <button onClick="testList()">Test API list conversation</button>
-
-      <!--
-
-      <h2>Register</h2>
-      <form id="form_register" class="" action="http://localhost:8080/server/register" method="post">
-        <p>Username</p>
-        <input name="name" type="text"/>
-        <p>Password</p>
-        <input name="password" type="password"/>
-        <input type="submit"/>
-      </form>
-
-      <h2>Login</h2>
-      <form id="form_login" class="" action="http://localhost:8080/server/login" method="post">
-        <p>Username</p>
-        <input name="name" type="text"/>
-        <p>Password</p>
-        <input name="password" type="password"/>
-        <input type="submit"/>
-      </form> -->
-
-      <p><p>Pseudo :</p><input type='text' id='pseudo'/></p>
-
-      <div id='messages'>
-      </div>
-
-      <p><input type='text' id='message'/><button onClick='sendMessage()'>Envoyer</button></p>
-      <button onClick='updateMessageThread()'>MAJ</button>
+      <button onClick="registerAccount()">Register</button>
     </div>
 
+    <div data-page="login" class="hidden">
+      <button onClick="navigateTo('register')">Go to register</button>
+      <p>Username</p>
+      <input id="name_log" type="text"/>
+      <p>Password</p>
+      <input id="password_log" type="password"/>
 
+      <button onClick="loginAccount()">Login</button>
+    </div>
+
+    <div data-page="main" class="hidden">
+      <div id="side">
+        <div id="conversations">
+        </div>
+      </div>
+
+      <div id="main">
+        <div id="messages"></div>
+        <div id="chat_div">
+          <input id="chat_box"/>
+        </div>
+      </div>
+    </div>
   </body>
 
 
@@ -57,4 +52,5 @@
   <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
+  <script type="text/javascript" src="js/navigation.js"></script>
 </html>

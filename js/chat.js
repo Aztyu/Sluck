@@ -1,6 +1,21 @@
 var pseudo_string; //On sauvegarde le pseudo
 var last_index = 0; //Dernier message reçu pour savoir lequel envoyer
 
+function loginAccount(){
+  var name = document.getElementById('name_log').value;
+  var password = document.getElementById('password_log').value;
+
+  login(name, password);
+}
+
+function registerAccount(){
+  var name = document.getElementById('name_reg').value;
+  var password = document.getElementById('password_reg').value;
+  var password_confirm = document.getElementById('password_confirm_reg').value;
+
+  register(name, password);
+}
+
 function testLogin(){
   login('kiki', 'boucher');
 }

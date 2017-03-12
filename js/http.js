@@ -34,8 +34,37 @@ function login(name, password){
     console.log(body);
     if(res.statusCode == 200){
       user = JSON.parse(body);
+      navigateTo('main');
     }
   });
+}
+
+function register(name, password){
+  //TODO: implementer
+  /*var form = {
+      name: name,
+      password: password
+  };
+
+  var formData = querystring.stringify(form);
+  var contentLength = formData.length;
+
+  request({
+    headers: {
+      'Content-Length': contentLength,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    uri: SERVER_URL + '/login',
+    body: formData,
+    method: 'POST'
+  }, function (err, res, body) {
+    console.log(err);
+    console.log(res);
+    console.log(body);
+    if(res.statusCode == 200){
+      user = JSON.parse(body);
+    }
+  });*/
 }
 
 function listConversation(){
