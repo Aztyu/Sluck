@@ -41,10 +41,14 @@ function switchConversation(event){
   console.log(event);
   var target = event.target;
 
-  var conversation_id = target.getAttribute('data-id');
-  if(!conversation_id){
-      conversation_id = target.parentNode.getAttribute('data-id');
+  var conversation_div = target;
+  if(!conversation_div.getAttribute('data-id')){
+      conversation_div = target.parentNode;
   }
+
+  var conversation_id = conversation_div.getAttribute('data-id');
+  var status = conversation_div.querySelector('.status');
+  status.classList.remove('new');
 
   var conversation;
   for(var i=0; i<conversations.length; i++){
@@ -78,21 +82,37 @@ function clearMessages(){
   message_div.innerHTML = '';
 }
 
+function getUser(user_id){
+  if(user_map[user_id]){
+    return user_map[user_id];
+  }else{
+    getUserDetail(user_id, function(data){
+        console.log(data);
+        var user = JSON.parse(data);
+
+        user_map[user.id] = user;
+        return user;
+    });
+  }
+}
+
+function getUserDiv(user_id){
+  var user = getUser(user_id);
+
+  if(user){
+    return user.name;
+  }
+}
+
 function getMessageDiv(message){
   var message_div = document.createElement('p');
   message_div.classList.add('message');
-  message_div.innerHTML = message.user_id + ' - ' + message.content;
+  message_div.innerHTML = getUserDiv(message.user_id) + ' - ' + message.content;
   return message_div;
 }
 
 function sendNewMessage(){
   var message = document.getElementById('chat_box').value;
-
-  /*var temp_message = {};
-  temp_message.user_id = user.id;
-  temp_message.content = message;
-
-  addNewMessage(temp_message);*/
 
   createMessage(message, current_conversation.id).then(function (data) {
       console.log(data);

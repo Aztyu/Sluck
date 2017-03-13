@@ -3,19 +3,35 @@ var querystring = require('querystring');
 
 var connected_user;
 var conversations;
+var user_map = {};
+
 let SERVER_URL = 'http://localhost:8080/server';    //Adresse de base utilisée pour appeler l'API
 var current_conversation = 0;
 
 function getAuthHeader(){
-  if(user){
-    return {'Authorization': user.token };
+  if(connected_user){
+    return {'Authorization': connected_user.token };
   }
 }
 
 function getAuth(){
-  if(user){
-    return user.token;
+  if(connected_user){
+    return connected_user.token;
   }
+}
+
+function getUserDetail(user_id, callback){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/user/detail/' + user_id,
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        callback(body);
+      }else{
+        callback(err);
+      }
+    });
 }
 
 function login(name, password){
@@ -37,7 +53,7 @@ function login(name, password){
     method: 'POST'
   }, function (err, res, body) {
     if(res.statusCode == 200){
-      user = JSON.parse(body);
+      connected_user = JSON.parse(body);
       navigateTo('main');
       listConversation();
       startMessageUpdates();
