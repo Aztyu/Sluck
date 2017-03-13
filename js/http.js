@@ -4,6 +4,7 @@ var querystring = require('querystring');
 var connected_user;
 var conversations;
 let SERVER_URL = 'http://localhost:8080/server';    //Adresse de base utilisée pour appeler l'API
+var current_conversation = 0;
 
 function getAuthHeader(){
   if(user){
@@ -39,6 +40,7 @@ function login(name, password){
       user = JSON.parse(body);
       navigateTo('main');
       listConversation();
+      startMessageUpdates();
     }
   });
 }
@@ -114,6 +116,61 @@ function newConversation(conversation, shared){
     method: 'POST'
   }, function (err, res, body) {
     console.log(body)
+    listConversation();
+  });
+}
+
+function createMessage(message, current_conversation){
+  return new Promise(function (resolve, reject) {
+    var form = {
+       content: message
+    };
+
+    var formData = querystring.stringify(form);
+    var contentLength = formData.length;
+
+    request({
+      headers: {
+        'Content-Length': contentLength,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': getAuth()
+      },
+      uri: SERVER_URL + '/api/message/send/' + current_conversation,
+      body: formData,
+      method: 'POST'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
+function searchPublicConversation(){
+  return new Promise(function (resolve, reject) {
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/conversation/search',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
+function joinConversation(id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/conversation/join/' + id,
+    method: 'GET'
+  }, function (err, res, body) {
+    console.log(body);
     listConversation();
   });
 }

@@ -6,3 +6,12 @@
 .hidden{
   display: none;
 }
+
+#main{
+    float: left;
+}
+
+#side{
+    float: left;
+    width: 300px;
+}

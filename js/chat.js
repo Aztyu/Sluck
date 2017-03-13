@@ -39,23 +39,39 @@ function startMessageUpdates(){
 }
 
 function updateMessageThread(){
-  for(var i=0; i<conversations.length; i++){
-    var conversation = conversations[0];
-    var messages = conversation.messages;
-    var last_message = 0;
-    if(messages){                    //Si il y a déjà des messages on envoie l'ID du dernier
-        last_message = messages[messages.length-1].id;
-    }else{
-        conversation.messages = [];
+  if(conversations){
+    for(var i=0; i<conversations.length; i++){
+      updateConversation(conversations[i]);
     }
-
-    getMessageForConversation(conversation.id, last_message).then(function (data) {
-        console.log(data);
-        var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
-        conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
-    }, function (err) {
-        console.error(err);
-        console.log(err);
-    });
   }
+}
+
+function updateConversation(conversation){
+  var messages = conversation.messages;
+  var last_message = 0;
+  if(messages && messages.length > 0){                    //Si il y a déjà des messages on envoie l'ID du dernier
+      last_message = messages[messages.length-1].id;
+  }else{
+      conversation.messages = [];
+  }
+
+  getMessageForConversation(conversation.id, last_message).then(function (data) {
+      console.log(data);
+      var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
+      conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
+
+      if(debug.length > 0){
+        var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');
+        conv_div.querySelector('.status').classList.add('new');
+
+        if(conversation.id == current_conversation.id){
+          for(var i = 0; i<debug.length; i++){
+            addNewMessage(debug[i]);
+          }
+        }
+
+      }
+  }, function (err) {
+      console.log(err);
+  });
 }
