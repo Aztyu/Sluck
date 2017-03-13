@@ -15,7 +15,16 @@ function registerAccount(){
   var password = document.getElementById('password_reg').value;
   var password_confirm = document.getElementById('password_confirm_reg').value;
 
-  register(name, password);
+  if(password == password_confirm){
+      register(name, password);
+  }
+}
+
+function createConversation(){
+  var conversation = document.getElementById('conversation_name').value;
+  var shared = document.getElementById('conversation_shared').checked;
+
+  newConversation(conversation, shared);
 }
 
 function testLogin(){

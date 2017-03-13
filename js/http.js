@@ -11,6 +11,12 @@ function getAuthHeader(){
   }
 }
 
+function getAuth(){
+  if(user){
+    return user.token;
+  }
+}
+
 function login(name, password){
   var form = {
       name: name,
@@ -29,9 +35,6 @@ function login(name, password){
     body: formData,
     method: 'POST'
   }, function (err, res, body) {
-    console.log(err);
-    console.log(res);
-    console.log(body);
     if(res.statusCode == 200){
       user = JSON.parse(body);
       navigateTo('main');
@@ -47,9 +50,6 @@ function getMessageForConversation(conversation_id, last_message){
       uri: SERVER_URL + '/api/message/list/' + conversation_id + '/' + last_message,
       method: 'GET'
     }, function (err, res, body) {
-      console.log(err);
-      console.log(res);
-      console.log(body);
       if(res.statusCode == 200){
         resolve(body);
       }else{
@@ -60,8 +60,7 @@ function getMessageForConversation(conversation_id, last_message){
 }
 
 function register(name, password){
-  //TODO: implementer
-  /*var form = {
+  var form = {
       name: name,
       password: password
   };
@@ -74,17 +73,12 @@ function register(name, password){
       'Content-Length': contentLength,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    uri: SERVER_URL + '/login',
+    uri: SERVER_URL + '/register',
     body: formData,
     method: 'POST'
   }, function (err, res, body) {
-    console.log(err);
-    console.log(res);
-    console.log(body);
-    if(res.statusCode == 200){
-      user = JSON.parse(body);
-    }
-  });*/
+    //Verifier les erreur
+  });
 }
 
 function listConversation(){
@@ -93,12 +87,33 @@ function listConversation(){
     uri: SERVER_URL + '/api/conversation/list',
     method: 'GET'
   }, function (err, res, body) {
-    console.log(err);
-    console.log(res);
-    console.log(body);
     if(res.statusCode == 200){
       conversations = JSON.parse(body);
       updateConversations(conversations);
     }
+  });
+}
+
+function newConversation(conversation, shared){
+  var form = {
+      name: conversation,
+      shared: shared
+  };
+
+  var formData = querystring.stringify(form);
+  var contentLength = formData.length;
+
+  request({
+    headers: {
+      'Content-Length': contentLength,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': getAuth()
+    },
+    uri: SERVER_URL + '/api/conversation/create',
+    body: formData,
+    method: 'POST'
+  }, function (err, res, body) {
+    console.log(body)
+    listConversation();
   });
 }
