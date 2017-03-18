@@ -1,13 +1,21 @@
 var pseudo_string; //On sauvegarde le pseudo
 var last_index = 0; //Dernier message reçu pour savoir lequel envoyer
 
-let UPDATE_TIME = 2000; //Intervalle entre la récupération des messages
+//let UPDATE_TIME = 2000; //Intervalle entre la récupération des messages
 
 function loginAccount(){
   var name = document.getElementById('name_log').value;
   var password = document.getElementById('password_log').value;
 
-  login(name, password);
+  login(name, password).then(function (data) {
+    connected_user = data;
+    navigateTo('main');
+    listConversation();
+    startMessageUpdates();
+    startLazyLoadUpdate();
+  }, function (err) {
+      console.log(err);
+  });
 }
 
 function registerAccount(){
@@ -27,10 +35,6 @@ function createConversation(){
   newConversation(conversation, shared);
 }
 
-function testLogin(){
-  login('kiki', 'boucher');
-}
-
 function startMessageUpdates(){
   let timeout = UPDATE_TIME;
   var action = updateMessageThread; //On récupère la liste
@@ -46,6 +50,49 @@ function updateMessageThread(){
   }
 }
 
+function startLazyLoadUpdate(){
+  let timeout = 2000;
+  var action = lazyLoadUpdateThread; //On récupère la liste
+  setInterval(action, timeout);
+  action();                         //On démarre la boucle
+}
+
+function lazyLoadUpdateThread(){
+    loadUser();
+}
+
+function loadUser(){
+  for(var i=0; i<user_to_load.length; i++){
+    var user_id = user_to_load[i]
+    var user = getUser(user_id);
+
+    if(user){
+      loadUserInfo(user);
+    }else{
+      getUserDetail(user_id).then(function (data) {
+          user = data;
+          user_map[user.id] = user;
+          loadUserInfo(user);
+      }, function (err) {
+          console.log(err);
+      });
+    }
+    user_to_load.splice(i, 1);
+  }
+}
+
+function loadUserInfo(user){
+  console.log(user);
+  var elements = document.querySelectorAll('.lazy-load[data-id="' + user.id + '"]');
+
+  for(var i=0; i< elements.length; i++){
+    var element = elements[i];
+
+    element.innerHTML = user.name;
+    element.classList.remove('lazy-load');
+  }
+}
+
 function updateConversation(conversation){
   var messages = conversation.messages;
   var last_message = 0;
@@ -56,7 +103,6 @@ function updateConversation(conversation){
   }
 
   getMessageForConversation(conversation.id, last_message).then(function (data) {
-      console.log(data);
       var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
       conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
 

@@ -38,7 +38,6 @@ function updateConversations(conversations){
 }
 
 function switchConversation(event){
-  console.log(event);
   var target = event.target;
 
   var conversation_div = target;
@@ -85,29 +84,45 @@ function clearMessages(){
 function getUser(user_id){
   if(user_map[user_id]){
     return user_map[user_id];
-  }else{
-    getUserDetail(user_id, function(data){
-        console.log(data);
-        var user = JSON.parse(data);
-
-        user_map[user.id] = user;
-        return user;
-    });
   }
 }
 
 function getUserDiv(user_id){
   var user = getUser(user_id);
 
-  if(user){
+  if(user){   //Si l' username est dejà récupéré alors en l'envoi sinon on le charge plus tard
     return user.name;
   }
 }
 
 function getMessageDiv(message){
-  var message_div = document.createElement('p');
+  var message_div = document.createElement('div');
   message_div.classList.add('message');
-  message_div.innerHTML = getUserDiv(message.user_id) + ' - ' + message.content;
+  message_div.setAttribute('data-id', message.id);
+
+  var username_elem = document.createElement('p');
+  username_elem.setAttribute('data-id', message.user_id);
+  username_elem.classList.add('name');
+
+  var username = getUserDiv(message.user_id);
+
+  if(username){
+    username_elem.innerHTML = username;
+  }else{
+    username_elem.classList.add('lazy-load');
+    if(!user_to_load.includes(message.user_id)){
+      user_to_load.push(message.user_id);
+    }
+  }
+
+  var message_elem = document.createElement('p');
+  message_elem.setAttribute('data-id', message.id);
+  message_elem.classList.add('content');
+  message_elem.innerHTML = message.content;
+
+  message_div.appendChild(username_elem);
+  message_div.appendChild(message_elem);
+
   return message_div;
 }
 
@@ -115,7 +130,6 @@ function sendNewMessage(){
   var message = document.getElementById('chat_box').value;
 
   createMessage(message, current_conversation.id).then(function (data) {
-      console.log(data);
       var message_obj = JSON.parse(data)    //On récupére une liste d'objet Message JSON
 
       if(!current_conversation.messages){
@@ -132,7 +146,6 @@ function sendNewMessage(){
 
 function searchConversation(){
   searchPublicConversation().then(function (data) {
-      console.log(data);
       var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
 
       var conv_div = document.getElementById('conversations_join');
@@ -146,7 +159,6 @@ function searchConversation(){
         var conv_button = document.createElement('button');
         conv_button.setAttribute('data-id', debug[i].id);
         conv_button.addEventListener("click", function(elem){
-            console.log(elem);
             var button = elem.target;
             var conversation_id = button.getAttribute('data-id');
             joinConversation(conversation_id);

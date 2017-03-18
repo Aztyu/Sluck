@@ -4,8 +4,8 @@ var querystring = require('querystring');
 var connected_user;
 var conversations;
 var user_map = {};
+var user_to_load = new Array();
 
-let SERVER_URL = 'http://localhost:8080/server';    //Adresse de base utilisée pour appeler l'API
 var current_conversation = 0;
 
 function getAuthHeader(){
@@ -20,44 +20,47 @@ function getAuth(){
   }
 }
 
-function getUserDetail(user_id, callback){
+function getUserDetail(user_id){
+  return new Promise(function (resolve, reject) {
     request({
       headers: getAuthHeader(),
       uri: SERVER_URL + '/api/user/detail/' + user_id,
       method: 'GET'
     }, function (err, res, body) {
       if(res.statusCode == 200){
-        callback(body);
+        resolve(JSON.parse(body));
       }else{
-        callback(err);
+        return reject(err);
       }
     });
+  });
 }
 
 function login(name, password){
-  var form = {
-      name: name,
-      password: password
-  };
+  return new Promise(function (resolve, reject) {
+    var form = {
+        name: name,
+        password: password
+    };
 
-  var formData = querystring.stringify(form);
-  var contentLength = formData.length;
+    var formData = querystring.stringify(form);
+    var contentLength = formData.length;
 
-  request({
-    headers: {
-      'Content-Length': contentLength,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    uri: SERVER_URL + '/login',
-    body: formData,
-    method: 'POST'
-  }, function (err, res, body) {
-    if(res.statusCode == 200){
-      connected_user = JSON.parse(body);
-      navigateTo('main');
-      listConversation();
-      startMessageUpdates();
-    }
+    request({
+      headers: {
+        'Content-Length': contentLength,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      uri: SERVER_URL + '/login',
+      body: formData,
+      method: 'POST'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(JSON.parse(body));
+      }else{
+        return reject(err);
+      }
+    });
   });
 }
 
@@ -131,7 +134,6 @@ function newConversation(conversation, shared){
     body: formData,
     method: 'POST'
   }, function (err, res, body) {
-    console.log(body)
     listConversation();
   });
 }
@@ -186,7 +188,6 @@ function joinConversation(id){
     uri: SERVER_URL + '/api/conversation/join/' + id,
     method: 'GET'
   }, function (err, res, body) {
-    console.log(body);
     listConversation();
   });
 }

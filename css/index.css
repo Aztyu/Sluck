@@ -28,3 +28,16 @@ div.status.new{
   margin-right: 10px;
   border-radius: 10px;
 }
+
+.message{
+  margin-bottom: 10px;
+  background-color: #F1F1F1;
+}
+
+.message .name{
+  font-weight: bold;
+}
+
+.message .content{
+  padding-left: 16px;
+}
