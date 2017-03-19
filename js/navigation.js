@@ -35,6 +35,8 @@ function updateConversations(conversations){
       main_div.appendChild(conv_div);
     }
   }
+
+  scrollMessages();
 }
 
 function switchConversation(event){
@@ -74,6 +76,8 @@ function switchConversation(event){
 function addNewMessage(message){
   var message_div = document.getElementById('messages');
   message_div.appendChild(getMessageDiv(message));
+
+  scrollMessages();
 }
 
 function clearMessages(){
@@ -100,6 +104,13 @@ function getMessageDiv(message){
   message_div.classList.add('message');
   message_div.setAttribute('data-id', message.id);
 
+  var profil_img = document.createElement('img');
+  profil_img.classList.add('profile');
+  profil_img.src = SERVER_URL + '/user/profile/' + message.user_id;
+
+  var message_elem = document.createElement('div');
+  message_elem.classList.add('chat');
+
   var username_elem = document.createElement('p');
   username_elem.setAttribute('data-id', message.user_id);
   username_elem.classList.add('name');
@@ -115,13 +126,18 @@ function getMessageDiv(message){
     }
   }
 
-  var message_elem = document.createElement('p');
-  message_elem.setAttribute('data-id', message.id);
-  message_elem.classList.add('content');
-  message_elem.innerHTML = message.content;
+  var content_elem = document.createElement('p');
+  content_elem.setAttribute('data-id', message.id);
+  content_elem.classList.add('content');
+  content_elem.innerHTML = message.content;
 
-  message_div.appendChild(username_elem);
+  message_elem.appendChild(username_elem);
+  message_elem.appendChild(content_elem);
+
+  message_div.appendChild(profil_img);
   message_div.appendChild(message_elem);
+  /*message_div.appendChild(username_elem);
+  message_div.appendChild(message_elem);*/
 
   return message_div;
 }
@@ -173,4 +189,9 @@ function searchConversation(){
   }, function (err) {
       console.log(err);
   });
+}
+
+function scrollMessages(){
+  var messages = document.getElementById('messages');
+  messages.scrollTop = messages.scrollHeight
 }

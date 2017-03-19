@@ -3,6 +3,11 @@
   margin-bottom: 2px;
 }
 
+#messages{
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
 .hidden{
   display: none;
 }
@@ -32,6 +37,8 @@ div.status.new{
 .message{
   margin-bottom: 10px;
   background-color: #F1F1F1;
+  display: flex;
+  flex-direction: row;
 }
 
 .message .name{
@@ -40,4 +47,14 @@ div.status.new{
 
 .message .content{
   padding-left: 16px;
+}
+
+.message .profile{
+  margin: 5px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.message .chat{
+  flex: 1;
 }

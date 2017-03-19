@@ -1,7 +1,23 @@
+
+
 var pseudo_string; //On sauvegarde le pseudo
 var last_index = 0; //Dernier message reçu pour savoir lequel envoyer
+var profile_image;
 
-//let UPDATE_TIME = 2000; //Intervalle entre la récupération des messages
+const ipc = require('electron').ipcRenderer
+
+function openFile(){
+  ipc.send('open-file-dialog');
+}
+
+ipc.on('selected-directory', function (event, path) {
+  console.log(path[0]);
+
+  var image_preview = document.getElementById('img_preview');
+  image_preview.src = path[0];
+
+  console.log(`You selected: ${path}`);
+})
 
 function loginAccount(){
   var name = document.getElementById('name_log').value;
@@ -22,9 +38,11 @@ function registerAccount(){
   var name = document.getElementById('name_reg').value;
   var password = document.getElementById('password_reg').value;
   var password_confirm = document.getElementById('password_confirm_reg').value;
-
+  var profile_img = document.getElementById('img_preview').src;
+  console.log(profile_img);
+  console.log(document.getElementById('profile_img_reg'));
   if(password == password_confirm){
-      register(name, password);
+      register(name, password, profile_img.substring(8));    //On enlève le file:///
   }
 }
 
