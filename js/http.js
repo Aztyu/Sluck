@@ -60,7 +60,7 @@ function login(name, password){
       if(res.statusCode == 200){
         resolve(JSON.parse(body));
       }else{
-        return reject(err);
+        return reject(body);
       }
     });
   });

@@ -23,14 +23,21 @@ function loginAccount(){
   var name = document.getElementById('name_log').value;
   var password = document.getElementById('password_log').value;
 
-  login(name, password).then(function (data) {
-    connected_user = data;
-    navigateTo('main');
+  document.getElementById('status_log').value = ''; //On vide le message d'erreur
+
+  login(name, password).then(function (data) {    //Si on se connecte
+    connected_user = data;   //On rempli l'utilisateur connecté
+    user_map[connected_user.id] = connected_user; //On ajoute l'utilisateur à la map des utilisateurs
+    navigateTo('main');      //alors on passe sur l'affichage principal
     listConversation();
-    startMessageUpdates();
-    startLazyLoadUpdate();
+    startMessageUpdates();  //on démarre la récupération des messages
+    startLazyLoadUpdate();  //et des pseudos
   }, function (err) {
-      console.log(err);
+    document.getElementById('name_log').value = '';
+    document.getElementById('password_log').value = '';
+
+    var login_status = document.getElementById('status_log');
+    login_status.innerHTML = err;
   });
 }
 

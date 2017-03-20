@@ -58,3 +58,7 @@ div.status.new{
 .message .chat{
   flex: 1;
 }
+
+#status_log{
+  color: red;
+}
