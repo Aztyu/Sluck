@@ -66,6 +66,7 @@ function createConversation(){
 }
 
 function startMessageUpdates(){
+  updateMessageThread();    //On le démarre une première fois
   let timeout = UPDATE_TIME;
   var action = updateMessageThread; //On récupère la liste
   setInterval(action, timeout);
@@ -81,7 +82,8 @@ function updateMessageThread(){
 }
 
 function startLazyLoadUpdate(){
-  let timeout = 2000;
+  lazyLoadUpdateThread();//On le démarre une première fois
+  let timeout = 50;
   var action = lazyLoadUpdateThread; //On récupère la liste
   setInterval(action, timeout);
   action();                         //On démarre la boucle
