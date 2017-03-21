@@ -48,8 +48,13 @@ function registerAccount(){
   var profile_img = document.getElementById('img_preview').src;
   console.log(profile_img);
   console.log(document.getElementById('profile_img_reg'));
+
+  if(profile_img){    //Si profile img n'est pas undefined alors on enlève le 'file:///'
+    profile_img.substring(8);
+  }
+
   if(password == password_confirm){
-      register(name, password, profile_img.substring(8));    //On enlève le file:///
+      register(name, password, profile_img);
   }
 }
 

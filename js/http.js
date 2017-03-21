@@ -83,36 +83,33 @@ function getMessageForConversation(conversation_id, last_message){
 }
 
 function register(name, password, profile_img){
-  fs.stat(profile_img, function(err, stats) {
-    console.log(stats);
+  if(profile_img){    //Si profile_img est défini alors on récupére la photo
+    fs.stat(profile_img, function(err, stats) {
+      console.log(stats);
 
+
+      var user = {name: name, password: password};
+      restler.post(SERVER_URL + '/register', {
+          multipart: true,
+          data: {
+              "user": JSON.stringify(user),
+              "file": restler.file(profile_img, null, stats.size, null, mime.lookup(profile_img))
+          }
+      }).on("complete", function(data) {
+          console.log(data);
+      });
+    });
+  }else{    //Sinon on envoie sans photo de profil
     var user = {name: name, password: password};
     restler.post(SERVER_URL + '/register', {
         multipart: true,
         data: {
             "user": JSON.stringify(user),
-            "file": restler.file(profile_img, null, stats.size, null, mime.lookup(profile_img))
         }
     }).on("complete", function(data) {
         console.log(data);
     });
-  });
-
-  /*var req = request.post(SERVER_URL + '/register', function (err, resp, body) {
-    if (err) {
-      console.log('Error!');
-    } else {
-      console.log('URL: ' + body);
-    }
-  });
-
-  var form = req.form();
-  form.append('file', fs.createReadStream(profile_img));
-  form.append('user', "{name: " + name + ", password: " + password + "}");
-
-  form.getLength(function(err, length) {
-    req.setHeader('Content-Length', length);
-  });*/
+  }
 }
 
 function listConversation(){
