@@ -2,36 +2,103 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Sluck</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
 
   <body>
-    <div data-page="register">
-      <button onClick="navigateTo('login')">Go to login</button>
-
-      <p>Username</p>
-      <input id="name_reg" type="text"/>
-      <p>Password</p>
-      <input id="password_reg" type="password"/>
-      <p>Confirm Password</p>
-      <input id="password_confirm_reg" type="password"/>
-      <p>Image de profil</p>
-      <img id="img_preview"/>
-      <button onClick="openFile()">Charger une image</button>
-
-      <button onClick="registerAccount()">Register</button>
+    <div data-page="register" class="login-page authentication">
+     <div class="container">
+    <div class="card-top"></div>
+    <div class="card">
+        <h1 class="title"><span></span>S'inscrire sur Sluck <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
+        <div class="col-md-12">
+            <form id="sign_up" class="col-xs-12" method="POST" />            
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="zmdi zmdi-account"></i>
+                </span>
+                <div class="form-line">
+                    <input type="text" class="form-control" id="name_reg" placeholder="Pseudo" required="" autofocus="" />
+                </div>
+            </div>
+            <!--<div class="input-group">
+                <span class="input-group-addon">
+                    <i class="zmdi zmdi-email"></i>
+                </span>
+                <div class="form-line">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required="" />
+                </div>
+            </div>-->
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="zmdi zmdi-lock"></i>
+                </span>
+                <div class="form-line">
+                    <input type="password" class="form-control" id="password_reg" placeholder="Mot de passe" required="" />
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="zmdi zmdi-lock"></i>
+                </span>
+                <div class="form-line">
+                    <input type="password" class="form-control" id="password_confirm_reg" placeholder="Confirmer votre mot de passe" required="" />
+                </div>
+            </div>
+            
+            <button type="button" onClick="openFile()" class="btn btn-raised bg-blue-grey waves-effect" style="margin-left: 15px;padding: 7px 15px;">Ajouter une photo de profil  <i class="zmdi zmdi-camera-add"></i></button>
+            <div class="form-group">
+                <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" />
+                <label for="terms">J'ai lu les <a href="javascript:void(0);">conditions d'utilisation</a>.</label>
+            </div>
+            <div class="text-center">
+                <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
+            </div>
+            <div class="m-t-10 m-b--5 align-center">
+                <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Sluck ? </a>
+            </div>
+        </form>
+        </div>
+    </div>  
+</div>
     </div>
 
-    <div data-page="login" class="hidden">
-      <button onClick="navigateTo('register')">Go to register</button>
-      <p>Username</p>
-      <input id="name_log" type="text"/>
-      <p>Password</p>
-      <input id="password_log" type="password"/>
-      <p id="status_log"></p>
-
-      <button onClick="loginAccount()">Login</button>
+    <div data-page="login" class="hidden login-page authentication">
+    
+<div class="container">
+    <div class="card-top"></div>
+    <div class="card">
+        <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
+        <div class="col-md-12">
+            <form id="sign_in" method="POST" />
+                
+                <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-account"></i> </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" id="name_log" placeholder="Pseudo" required="" autofocus="" />
+                    </div>
+                </div>
+                <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-lock"></i> </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" id="password_log" placeholder="Mot de passe" required="" />
+                    </div>
+                </div>
+                <div>
+                    <div class="">
+                        <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink" />
+                        <label for="rememberme">Se rappeler de moi</label>
+                    </div>
+                    <p id="status_log"></p>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
+                        <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
+                    </div>
+                    <div class="text-center"> <a href="./forgot-password.html">Mot de passe oublié ?</a></div>
+                </div>
+            </form>
+        </div>
+    </div>    
+</div>
     </div>
 
     <div data-page="main" class="hidden">
