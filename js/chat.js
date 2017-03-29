@@ -30,7 +30,8 @@ function loginAccount(){
     navigateTo('main');                             //alors on passe sur l'affichage principal
     listConversation();
     startMessageUpdates();                          //on démarre la récupération des messages
-    startLazyLoadUpdate();                          //et des pseudos
+    startLazyLoadUpdate();
+    initProfile(connected_user);                          //et des pseudos
   }, function (err) {
     document.getElementById('name_log').value = '';             //En cas d'erreur on remets les champs à zéro
     document.getElementById('password_log').value = '';
@@ -155,4 +156,9 @@ function updateConversation(conversation){
   }, function (err) {
       console.log(err);
   });
+}
+
+function initProfile(connected_user) {
+  username.innerHTML = connected_user.name;
+  $("#profile_picture").attr('src', SERVER_URL + '/user/profile/' + connected_user.id);
 }

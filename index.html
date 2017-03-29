@@ -16,7 +16,7 @@
       <input id="password_reg" type="password"/>
       <p>Confirm Password</p>
       <input id="password_confirm_reg" type="password"/>
-      <p>Image de profil</p>
+      <p>Profile picture</p>
       <img id="img_preview"/>
       <button onClick="openFile()">Charger une image</button>
 
@@ -41,10 +41,14 @@
       </div>
 
       <div id="main">
+        <div class="float-right" id="profile">
+          <div class="float-left" id="username"></div>
+          <img class="float-right profile" id="profile_picture" />
+        </div>
         <h1 id="conversation_title"></h1>
         <div id="messages"></div>
         <div id="chat_div">
-        <input  id="chat_box"/><button onClick="sendNewMessage()">Envoyer</button>
+          <input  id="chat_box"/><button onClick="sendNewMessage()">Envoyer</button>
         </div>
 
         <h2>Debug</h2>
