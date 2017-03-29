@@ -23668,7 +23668,7 @@ div.conversation div.status, div.conversation p.name{
 }
 
 div.status.new{
-  background-color: green;
+  background-color: #23dbf2;
   width: 10px;
   height: 10px;
   margin-right: 10px;
@@ -23690,7 +23690,7 @@ div.status.new{
   padding-left: 16px;
 }
 
-.message .profile{
+.profile{
   margin: 5px;
   max-width: 50px;
   max-height: 50px;
@@ -23702,4 +23702,18 @@ div.status.new{
 
 #status_log{
   color: red;
+}
+
+.float-right{
+  float: right;
+}
+
+.float-left{
+  float: left;
+}
+
+#username{
+  margin-top: 18px;
+  font-size: 1.5em;
+  color: #ff5f56;
 }
