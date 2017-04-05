@@ -73,6 +73,22 @@ function login(name, password){
   });
 }
 
+function logout(){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/logout',
+    method: 'GET'
+  }, function (err, res, body) {
+    if(res.statusCode == 200){
+      connected_user = null;
+      conversations = null;
+      navigateTo('login');
+    }else{
+      console.log('Erreur de déconnexion');
+    }
+  });
+}
+
 //La fonction permet de récupérer tous les messages d'une conversation depuis un certain id de message
 //param conversation_id L'id de la conversation
 //param last_message L'id du dernier message ou 0
