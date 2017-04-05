@@ -12,6 +12,20 @@ function navigateTo(page_dest){
   }
 }
 
+//La fonction permet d' afficher une page voulue en cachant les autres via une logique d'onglet
+//param page_dest Une String qui contient l'élément à afficher
+function navigateToTab(page_dest){
+  var pages = document.querySelectorAll('[data-tab]');   //Récupération de tous les événements
+  for(var i=0; i<pages.length; i++){
+    var page = pages[i];
+    if(page.getAttribute('data-tab') == page_dest){    //Si l'élément est celui que l'on veut acheter
+      page.classList.remove('hidden');    //On affiche l'élément
+    }else{
+      page.classList.add('hidden');       //Sinon on cache l'éléemnt
+    }
+  }
+}
+
 //La fonction permet de mettre à jour la liste des conversations
 //param conversations La liste de toutes les conversations
 function updateConversations(conversations){

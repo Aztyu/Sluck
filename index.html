@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Sluck</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/template.css">
   </head>
 
   <body>
@@ -101,31 +102,57 @@
     </div>
 
     <div data-page="main" class="hidden">
+
       <div id="side">
+        <h2>Liste des conversations</h2>
         <div id="conversations">
         </div>
+        <h2>Créer une conversation</h2>
+        <p>Nom: <input id="conversation_name"/></p>
+        <p>Publique ?: <input id="conversation_shared" type="checkbox"/>
+        <button onClick="createConversation()">Créer conversation</button>
       </div>
 
+
       <div id="main">
-        <div class="float-right" id="profile">
-          <div class="float-left" id="username"></div>
-          <img class="float-right profile" id="profile_picture" />
-        </div>
-        <h1 id="conversation_title"></h1>
-        <div id="messages"></div>
-        <div id="chat_div">
-          <input  id="chat_box"/><button onClick="sendNewMessage()">Envoyer</button>
+        <div class="tabs">
+          <p onClick="navigateToTab('main')">Discussion</p>
+          <p onClick="navigateToTab('contacts')">Contacts</p>
+          <p onClick="navigateToTab('profil')">Profil</p>
         </div>
 
-        <h2>Debug</h2>
-        <button onClick="updateMessageThread()">Update conversations</button>
+        <div data-tab="main">
+          <div class="float-right" id="profile">
+            <div class="float-left" id="username"></div>
+            <img class="float-right profile" id="profile_picture" />
+          </div>
+          <h1 id="conversation_title"></h1>
+          <div id="messages"></div>
+          <div id="chat_div">
+            <input  id="chat_box"/><button onClick="sendNewMessage()">Envoyer</button>
+          </div>
 
-        <p>Nouvelle conversion: <input id="conversation_name"/></p>
-        <p>Conversation publique: <input id="conversation_shared" type="checkbox"/>
-        <button onClick="createConversation()">Créer conversation</button>
+          <h2>Debug</h2>
+          <button onClick="updateMessageThread()">Update conversations</button>
 
-        <button onClick="searchConversation()">MAJ conversation</button>
-        <div id="conversations_join"></div>
+          <p>Nouvelle conversion: <input id="conversation_name"/></p>
+          <p>Conversation publique: <input id="conversation_shared" type="checkbox"/>
+          <button onClick="createConversation()">Créer conversation</button>
+
+          <button onClick="searchConversation()">MAJ conversation</button>
+          <div id="conversations_join"></div>
+        </div>
+
+        <div data-tab="contacts" class="hidden">
+            <!-- Affichage des contacts -->
+            <h2>Contacts</h2>
+        </div>
+
+        <div data-tab="profil" class="hidden">
+            <!-- Affichage du profil -->
+            <h2>Profil</h2>
+        </div>
+
       </div>
     </div>
   </body>
