@@ -14,11 +14,12 @@
 
 #main{
     float: left;
+    width: 80%;
 }
 
 #side{
     float: left;
-    width: 300px;
+    width: 20%;
 }
 
 div.conversation div.status, div.conversation p.name{
@@ -79,4 +80,10 @@ div.status.new{
 
 .tabs p{
   display: inline-block;
+}
+
+input[type="checkbox"].no-template{
+  position: inherit;
+  left: inherit;
+  opacity: initial;
 }
