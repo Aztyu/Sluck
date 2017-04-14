@@ -46,14 +46,20 @@ function registerAccount(){
   var name = document.getElementById('name_reg').value;             //On récupére les valeurs dans le HTML
   var password = document.getElementById('password_reg').value;
   var password_confirm = document.getElementById('password_confirm_reg').value;
-  var profile_img = document.getElementById('img_preview').src;     //Pour la photo de profil on récupére la source
+  var profile_img = document.getElementById('img_preview');
 
-  if(profile_img){    //Si profile img n'est pas undefined alors on enlève le 'file:///' pour utiliser avec FS
-    profile_img.substring(8);
+  if(profile_img){      //Pour la photo de profil on récupére la source
+    profile_img_src = profile_img.src;
+  }else{
+    profile_img_src = '';
+  }
+
+  if(profile_img_src){    //Si profile img n'est pas undefined alors on enlève le 'file:///' pour utiliser avec FS
+    profile_img_src.substring(8);
   }
 
   if(password == password_confirm){           //Si les password coïncident
-      register(name, password, profile_img);
+      register(name, password, profile_img_src);
   }
 }
 
