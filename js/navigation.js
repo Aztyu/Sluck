@@ -48,8 +48,13 @@ function updateConversations(conversations){
       conv_name.classList.add('name');
       conv_name.innerHTML = conversation.name;    //Affichage du nom de la conversation
 
+      var conv_close = document.createElement('img');
+      conv_close.src = 'img/close.png';
+      conv_close.addEventListener("click", quitConversationEvt);
+
       conv_div.appendChild(conv_status);
       conv_div.appendChild(conv_name);
+      conv_div.appendChild(conv_close);
       main_div.appendChild(conv_div);
     }
   }
@@ -91,6 +96,37 @@ function switchConversation(event){
   }
 
   current_conversation = conversation;
+}
+
+//La fonction permet de quitter une conversation
+function quitConversationEvt(event){
+  var target = event.target;
+
+  var conversation_div = target.parentNode;
+  if(!conversation_div.getAttribute('data-id')){    //On récupére l'id la conversation sélectionnée
+      conversation_div = target.parentNode;
+  }
+
+  var conversation_id = conversation_div.getAttribute('data-id');
+
+  //Appeler le code pour quitter une conversation
+  quitConversation(conversation_id).then(function (data) {
+     console.log(data);
+     removeConversation(conversation_id);
+  }, function(data){
+    console.log(data);
+  });
+}
+
+function removeConversation(conversation_id){
+  var conversation = document.querySelector('.conversation[data-id="' + conversation_id + '"]');
+  conversation.remove();
+
+  for(var i = 0; i < conversations.length; i++){
+    if(conversations[i].id == conversation_id){
+      conversations.splice(i, 1);   //On en enlève la conversation du tableau des conversations
+    }
+  }
 }
 
 //La fonction permet d'afficher un nouveau message dans l'affichage principal

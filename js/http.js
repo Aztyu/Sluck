@@ -89,6 +89,22 @@ function logout(){
   });
 }
 
+function quitConversation(conversation_id){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/conversation/quit/' + conversation_id,
+      method: 'DELETE'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
 //La fonction permet de récupérer tous les messages d'une conversation depuis un certain id de message
 //param conversation_id L'id de la conversation
 //param last_message L'id du dernier message ou 0
