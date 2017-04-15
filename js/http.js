@@ -73,6 +73,8 @@ function login(name, password){
   });
 }
 
+
+//La fonction qui déconnecte l'utilisateur dans l'API
 function logout(){
   request({
     headers: getAuthHeader(),
@@ -89,6 +91,8 @@ function logout(){
   });
 }
 
+//La fonction permet de quitter une conversation via l'API
+//param conversation_id L'id de la conversation à supprimer
 function quitConversation(conversation_id){
   return new Promise(function (resolve, reject){
     request({

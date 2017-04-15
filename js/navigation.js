@@ -39,7 +39,7 @@ function updateConversations(conversations){
       var conv_div = document.createElement('div');
       conv_div.classList.add('conversation');
       conv_div.setAttribute('data-id', conversation.id);    //On stocke l'id de la conversation
-      conv_div.addEventListener("click", switchConversation); //On défini le onClick
+      conv_div.addEventListener("click", switchConversationEvt); //On défini le onClick
 
       var conv_status = document.createElement('div');
       conv_status.classList.add('status');
@@ -62,9 +62,9 @@ function updateConversations(conversations){
   scrollMessages();   //On scroll les messages
 }
 
-//La fonction permet de changer les messages
+//La fonction permet de récupérer le clic sur la conversation pour enclencher le changement
 //param event L' événement du bouton
-function switchConversation(event){
+function switchConversationEvt(event){
   var target = event.target;
 
   var conversation_div = target;
@@ -72,6 +72,12 @@ function switchConversation(event){
       conversation_div = target.parentNode;
   }
 
+  switchConversation(conversation_div);
+}
+
+//La fonction permet de changer la conversation actuelle
+//param conversation_id La conversation à passer au 1er plan
+function switchConversation(conversation_div){
   var conversation_id = conversation_div.getAttribute('data-id');
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
@@ -111,13 +117,21 @@ function quitConversationEvt(event){
 
   //Appeler le code pour quitter une conversation
   quitConversation(conversation_id).then(function (data) {
-     console.log(data);
      removeConversation(conversation_id);
+
+     if(current_conversation.id == conversation_id){
+       switchConversation(document.querySelector('.conversation[data-id="' + conversations[0].id + '"]'));
+     }
   }, function(data){
-    console.log(data);
+    console.log("Erreur de départ de la conversation");
   });
+
+  //On évite de propager le clic
+  event.stopPropagation();
 }
 
+//La fonction permet de supprimer la conversation de la liste et de l'affichage
+//param conversation_id L'id de la conversation à supprimer
 function removeConversation(conversation_id){
   var conversation = document.querySelector('.conversation[data-id="' + conversation_id + '"]');
   conversation.remove();
