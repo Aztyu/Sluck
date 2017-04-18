@@ -3,13 +3,9 @@ var connection;
 
 function startPeerConnection(){
   peer = new Peer({
-    /*config: {
-      'iceServers': [
-          { url: 'stun:stun.l.google.com:19302' },
-      ]
-    },*/
-    key: PEERJS_KEY,
-    debug: 3
+    host: '193.70.38.229',
+    port: 3389,
+    path: '/'
   });
 
   console.log(peer);
