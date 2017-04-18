@@ -119,6 +119,7 @@
           <p onClick="navigateToTab('main')">Discussion</p>
           <p onClick="navigateToTab('contacts')">Contacts</p>
           <p onClick="navigateToTab('profil')">Profil</p>
+          <p onClick="navigateToTab('webrtc')">WebRTC</p>
 
           <div class="float-right" id="profile">
             <div class="float-left" id="username"></div>
@@ -148,6 +149,11 @@
         <div data-tab="profil" class="hidden">
             <!-- Affichage du profil -->
             <h2>Profil</h2>
+        </div>
+
+        <div data-tab="webrtc" class="hidden">
+          <h2>Chat RTC</h2>
+          <video id="webrtcvideo"/>
         </div>
       </div>
     </div>
