@@ -32,6 +32,7 @@ function loginAccount(){
     startMessageUpdates();                          //on démarre la récupération des messages
     startLazyLoadUpdate();
     initProfile(connected_user);                          //et des pseudos
+    startPeerConnection();      //On démarre le composant webrtc
   }, function (err) {
     document.getElementById('name_log').value = '';             //En cas d'erreur on remets les champs à zéro
     document.getElementById('password_log').value = '';

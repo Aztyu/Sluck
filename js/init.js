@@ -2,6 +2,7 @@ let fs = require('fs');
 
 var SERVER_URL;
 var UPDATE_TIME;
+var PEERJS_KEY;
 
 //Lecture du fichier de configuration
 fs.readFile('properties/configuration.json', 'utf8', function (err,data) {
@@ -11,4 +12,5 @@ fs.readFile('properties/configuration.json', 'utf8', function (err,data) {
   var conf = JSON.parse(data);
   SERVER_URL = conf.server_url;
   UPDATE_TIME = conf.update_time;
+  PEERJS_KEY = conf.peerjs_key;
 });
