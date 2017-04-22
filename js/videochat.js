@@ -126,3 +126,29 @@ function videoStreamDisconnect(event){
     document.getElementById('webrtcvideo').src = '';
     document.getElementById('localvideo').src = '';
 }
+
+function muteMicrophone(element){
+  console.log(element);
+  var status = element.getAttribute('data-mic');
+
+  if(status === "on"){
+    if(localstream){
+      localstream.getAudioTracks()[0].enabled = false;
+    }
+    element.innerHTML = 'mic_off';
+    element.setAttribute('data-mic', 'off');
+  }else{
+    if(localstream){
+      localstream.getAudioTracks()[0].enabled = true;
+    }
+    element.innerHTML = 'mic_on';
+    element.setAttribute('data-mic', 'on');
+  }
+}
+
+function setVolume() {
+   var volume_ctrl = document.getElementById("volume-stream");
+   var stream_elem = document.getElementById("webrtcvideo");
+
+   stream_elem.volume = volume_ctrl.value;
+}

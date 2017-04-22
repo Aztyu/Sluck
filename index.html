@@ -154,6 +154,10 @@
         <div data-tab="webrtc" class="hidden">
           <h2>Chat RTC</h2>
 
+          <p>Controls</p>
+          <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
+          <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
+
           <p>Remote</p>
           <video id="webrtcvideo"></video>
 
@@ -175,5 +179,6 @@
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="js/videochat.js"></script>
   <script type="text/javascript" src="js/peer.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> -->
 </html>
