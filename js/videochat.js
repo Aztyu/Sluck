@@ -1,5 +1,7 @@
 var peer;
 var connection;
+var mediastream;
+var localstream;
 
 function startPeerConnection(){
   peer = new Peer({
@@ -39,8 +41,27 @@ function startPeerConnection(){
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
       call.answer(stream); // Answer the call with an A/V stream.
 
+      localstream = stream;
+      var video_local = document.getElementById('localvideo');    //On ajoute le stream local
+      video_local.src = (URL || webkitURL || mozURL).createObjectURL(stream);
+      video_local.play();
+      video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
+
       call.on('stream', function(remoteStream) {
         console.log('Appel entrant' + remoteStream);
+        var mediastream = remoteStream;
+
+        mediastream.oninactive = videoStreamDisconnect;
+
+        mediastream.onaddtrack = function(event){
+          console.log("Add track");
+          console.log(event);
+        }
+
+        mediastream.onactive = function(event){
+          console.log("actif");
+          console.log(event);
+        }
 
         var video = document.getElementById('webrtcvideo');
         video.src = (URL || webkitURL || mozURL).createObjectURL(remoteStream);
@@ -93,4 +114,15 @@ function connectVideo(id){
   }, function(err) {
     console.log('Failed to get local stream' ,err);
   });
+}
+
+function videoStreamDisconnect(event){
+    console.log("Inactif");
+    console.log(event);
+
+    localstream = null;
+    mediastream = null;
+
+    document.getElementById('webrtcvideo').src = '';
+    document.getElementById('localvideo').src = '';
 }
