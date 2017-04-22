@@ -158,6 +158,10 @@
           <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
           <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
 
+          <p>Call</p>
+          <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
+          <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
+          <span id="call_status"></span>
           <p>Remote</p>
           <video id="webrtcvideo"></video>
 

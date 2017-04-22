@@ -2,6 +2,7 @@ var peer;
 var connection;
 var mediastream;
 var localstream;
+var current_call;
 
 function startPeerConnection(){
   peer = new Peer({
@@ -38,8 +39,17 @@ function startPeerConnection(){
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
   peer.on('call', function(call) {
-    navigator.getUserMedia({video: true, audio: true}, function(stream) {
-      call.answer(stream); // Answer the call with an A/V stream.
+    current_call = call;
+    console.log(call);
+    document.getElementById('call_status').innerHTML = 'Appel en cours...';
+  });
+}
+
+function actionCall(action){
+  navigator.getUserMedia({video: true, audio: true}, function(stream) {
+    if(action === 'accept'){
+      current_call.answer(stream); // Answer the call with an A/V stream.
+      document.getElementById('call_status').innerHTML = 'Appel accepté';
 
       localstream = stream;
       var video_local = document.getElementById('localvideo');    //On ajoute le stream local
@@ -47,7 +57,7 @@ function startPeerConnection(){
       video_local.play();
       video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
 
-      call.on('stream', function(remoteStream) {
+      current_call.on('stream', function(remoteStream) {
         console.log('Appel entrant' + remoteStream);
         var mediastream = remoteStream;
 
@@ -67,12 +77,23 @@ function startPeerConnection(){
         video.src = (URL || webkitURL || mozURL).createObjectURL(remoteStream);
         video.play();
       });
-    }, function(err) {
-      console.log('Failed to get local stream' ,err);
-    });
+    }else{
+      current_call.answer(); // Answer the call with an A/V stream.
+
+      current_call.on('stream', function(toto){
+        console.log('Call stream');
+        setTimeout(function(){
+            current_call.close();
+            document.getElementById('call_status').innerHTML = 'Appel refusé';
+        }, 1500);
+        //current_call.close();
+
+      });
+    }
+  }, function(err) {
+    console.log('Failed to get local stream' ,err);
   });
 }
-
 
 
 function connectTo(id){
@@ -87,13 +108,6 @@ function connectTo(id){
     // Send messages
     connection.send('Hello!');
   });
-  /*connection.on('open', function(data){
-    console.log(data);
-  });
-
-  connection.on('data', function(data) {
-    console.log('Received', data);
-  });*/
 }
 
 function sendMessage(message){
@@ -111,6 +125,11 @@ function connectVideo(id){
       video.src = (URL || webkitURL || mozURL).createObjectURL(remoteStream);
       video.play();
     });
+
+    call.on('close', function(){
+      console.log("Appel refusé");
+    });
+
   }, function(err) {
     console.log('Failed to get local stream' ,err);
   });
