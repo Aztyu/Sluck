@@ -261,3 +261,116 @@ function joinConversation(id){
     listConversation();
   });
 }
+
+//La fonction permet de récupérer la liste des contacts
+function contactList(){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/contact/list',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
+
+//La fonction permet de récupérer les invitations
+function contactInviteList(){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/contact/invitation/list',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
+
+//La fonction permet de chercher un contact
+//param search Le pseudo ou bout de pseudo à chercher
+function searchContact(search){
+  var url = SERVER_URL + '/api/contact/search';
+  if(search && search !== ''){
+    url += '?search=' + search;
+  }
+
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: url,
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
+
+//La fonction permet d'accepter une invitations
+//param id L'id de l'invitation
+function acceptInvite(id){
+  return updateInvite(id, true);
+}
+
+//La focntion permet de refuser une invitations
+//param id L'id de l'invitation
+function refuseInvite(id){
+  return updateInvite(id, false);
+}
+
+//La fonction permet de mettre à jour le status d'une invitation
+//param id L'id de l'invitation
+//param accept Boolean true si on accepte false si on refuse
+function updateInvite(id, accept){
+  var method;
+  if(accept){
+    method = 'POST';
+  }else{
+    method = 'DELETE';
+  }
+
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/contact/invitation/' + id,
+      method: method
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
+
+//La fonction permet de faire une demande de contact
+//param id l'id du contact
+function inviteContact(id){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/contact/add/' + id,
+      method: 'POST'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}

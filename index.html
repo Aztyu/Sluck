@@ -143,11 +143,22 @@
         <div data-tab="contacts" class="hidden">
             <!-- Affichage des contacts -->
             <h2>Contacts</h2>
+            <div id="contacts"></div>
+
+            <h2>Invitations</h2>
+            <div id="invitations"></div>
+
+            <h2>Chercher contact</h2>
+            <input id="contact_search">
+            <button onClick="searchForContact()">Chercher</button>
+            <div id="searches"></div>
         </div>
 
         <div data-tab="profil" class="hidden">
             <!-- Affichage du profil -->
             <h2>Profil</h2>
+
+
         </div>
       </div>
     </div>
@@ -162,4 +173,5 @@
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="js/contact.js"></script>
 </html>
