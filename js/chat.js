@@ -29,8 +29,7 @@ function loginAccount(){
     user_map[connected_user.id] = connected_user;   //On ajoute l'utilisateur à la map des utilisateurs
     navigateTo('main');                             //alors on passe sur l'affichage principal
     listConversation();
-    startMessageUpdates();                          //on démarre la récupération des messages
-    startLazyLoadUpdate();
+    startBackgroundUpdates();
     initProfile(connected_user);                          //et des pseudos
   }, function (err) {
     document.getElementById('name_log').value = '';             //En cas d'erreur on remets les champs à zéro
@@ -39,6 +38,14 @@ function loginAccount(){
     var login_status = document.getElementById('status_log');   //On affiche l'erreur
     login_status.innerHTML = err;
   });
+}
+
+//la fonction permet de lancer toutes les requêtes en fond
+function startBackgroundUpdates(){
+  startMessageUpdates();                          //on démarre la récupération des messages
+  startLazyLoadUpdate();
+  startContactUpdate();
+  startInviteUpdate();
 }
 
 //La fonction appelée quand on veut créer un utilisateur
@@ -75,7 +82,7 @@ function createConversation(){
 //La fonction démarre la mise à jour automatique des messages
 function startMessageUpdates(){
   updateMessageThread();    //On le démarre une première fois
-  let timeout = UPDATE_TIME;
+  let timeout = UPDATE_MESSAGE_TIME;
   var action = updateMessageThread; //On récupère la liste
   setInterval(action, timeout);
   action();                         //On démarre la boucle
@@ -93,7 +100,7 @@ function updateMessageThread(){
 //La fonction démarre la mise à jour automatique des pseudos
 function startLazyLoadUpdate(){
   lazyLoadUpdateThread();//On le démarre une première fois
-  let timeout = 50;
+  let timeout = PSEUDO_TIME;
   var action = lazyLoadUpdateThread; //On récupère la liste
   setInterval(action, timeout);
   action();                         //On démarre la boucle

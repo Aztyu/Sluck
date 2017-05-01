@@ -1,4 +1,7 @@
 {
   "server_url":"http://localhost:8080/server",
-  "update_time":2000
+  "update_time":2000,
+  "pseudo_time":50,
+  "update_invite":5000,
+  "update_contact":5000
 }

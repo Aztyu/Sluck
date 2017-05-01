@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Sluck</title>
+    <title>Qwirkly</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/template.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
   </head>
 
   <body>
@@ -12,7 +13,7 @@
       <div class="container">
         <div class="card-top"></div>
           <div class="card">
-            <h1 class="title"><span></span>S'inscrire sur Sluck <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
+            <h1 class="title"><span></span>S'inscrire sur Qwirkly <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
             <div class="col-md-12">
               <form id="sign_up" class="col-xs-12" method="POST" />
                 <div class="input-group">
@@ -57,7 +58,7 @@
                   <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
               </div>
               <div class="m-t-10 m-b--5 align-center">
-                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Sluck ? </a>
+                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ? </a>
               </div>
             </form>
           </div>
@@ -69,7 +70,7 @@
       <div class="container">
           <div class="card-top"></div>
           <div class="card">
-              <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
+              <h1 class="title"><span></span>CONNEXION - Qwirkly <div class="msg">Connectez vous pour profiter de nos services</div></h1>
               <div class="col-md-12">
                   <form id="sign_in" method="POST" />
 
@@ -168,11 +169,14 @@
   <script>
     require('./renderer.js')
   </script>
-  <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script>
+
+  <!-- <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script> -->
+  <script>window.jQuery = window.$ = require('jquery');</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="js/contact.js"></script>
-  <script type="text/javascript" src="js/lib/jquery.textcomplete.min.js"></script>
+  <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
+  <!-- <script type="text/javascript" src="./bower_components/jQuery/dist/jquery.min.js"></script> -->
 </html>
