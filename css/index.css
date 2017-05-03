@@ -88,6 +88,14 @@ input[type="checkbox"].no-template{
   opacity: initial;
 }
 
+.context-menu-item{
+  padding: 0 !important;
+}
 .emojione {
   width: 20px;
+}
+.context-menu-item p{
+  display: inline;
+  vertical-align: super;
+  margin-left: 5px;
 }

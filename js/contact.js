@@ -28,10 +28,19 @@ function getContactList(){
           var contact_p = document.createElement('p');
           contact_p.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
 
+          var contact_settings = document.createElement('i');
+          contact_settings.classList.add('material-icons');
+          contact_settings.classList.add('context-contact');
+          contact_settings.innerHTML = 'face';
+
           var contact_list = document.getElementById('contacts');
 
           contact_div.appendChild(contact_p);
+          contact_div.appendChild(contact_settings);
+
           contact_list.appendChild(contact_div);
+
+          initContextMenu();
         }
       }
     }
@@ -74,7 +83,7 @@ function getContactInviteList(){
           accept_button.onclick = acceptInvitation;
 
           var refuse_button = document.createElement('button');
-          refuse_button.innerHTML = 'Accepter';
+          refuse_button.innerHTML = 'Refuser';
           refuse_button.setAttribute('data-id', invitation_id)
           refuse_button.onclick = refuseInvitation;
 
@@ -159,4 +168,33 @@ function searchForContact(){
 function createContactInvite(event){
   var id = event.srcElement.getAttribute('data-id');
   inviteContact(id);
+}
+
+function initContextMenu(){
+  $.contextMenu({
+      selector: '.context-contact',
+      trigger: 'left',
+      callback: function(key, options) {
+          var m = "clicked: " + key;
+          window.console && console.log(m) || alert(m);
+      },
+      items: {
+          "profile": {
+              name: "<i class='material-icons'>account_box</i><p>Voir profil</p>",
+              isHtmlName: true
+          },
+          "direct_message": {
+              name: "<i class='material-icons'>mail</i><p>Message direct</p>",
+              isHtmlName: true
+          },
+          "audio_call": {
+              name: "<i class='material-icons'>call</i><p>Appel audio</p>",
+              isHtmlName: true
+          },
+          "video_call": {
+              name: "<i class='material-icons'>video_call</i><p>Appel video</p>",
+              isHtmlName: true
+          }
+      }
+  });
 }
