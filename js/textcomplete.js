@@ -38,7 +38,5 @@ $(document).ready(function() {
             index: 1,
             maxCount: 10
         }
-        ],{
-            footer: '<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>'
-        });
+        ]);
     });

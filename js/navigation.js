@@ -208,7 +208,8 @@ function getMessageDiv(message){
   var content_elem = document.createElement('p');     //Remplissage du contenu du message
   content_elem.setAttribute('data-id', message.id);
   content_elem.classList.add('content');
-  content_elem.innerHTML = message.content;
+  var output = emojione.shortnameToImage(message.content); 
+  content_elem.innerHTML = output;
 
   message_elem.appendChild(username_elem);
   message_elem.appendChild(content_elem);
