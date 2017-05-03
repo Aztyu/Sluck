@@ -87,3 +87,13 @@ input[type="checkbox"].no-template{
   left: inherit;
   opacity: initial;
 }
+
+.context-menu-item{
+  padding: 0 !important;
+}
+
+.context-menu-item p{
+  display: inline;
+  vertical-align: super;
+  margin-left: 5px;
+}
