@@ -91,7 +91,9 @@ input[type="checkbox"].no-template{
 .context-menu-item{
   padding: 0 !important;
 }
-
+.emojione {
+  width: 20px;
+}
 .context-menu-item p{
   display: inline;
   vertical-align: super;
