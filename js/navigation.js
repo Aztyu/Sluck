@@ -1,3 +1,5 @@
+var shell = require('electron').shell;
+
 //La fonction permet d' afficher une page voulue en cachant les autres
 //param page_dest Une String qui contient l'élément à afficher
 function navigateTo(page_dest){
@@ -208,7 +210,8 @@ function getMessageDiv(message){
   var content_elem = document.createElement('p');     //Remplissage du contenu du message
   content_elem.setAttribute('data-id', message.id);
   content_elem.classList.add('content');
-  var output = emojione.shortnameToImage(message.content); 
+  message.content = urlify(message.content);
+  var output = emojione.shortnameToImage(message.content);
   content_elem.innerHTML = output;
 
   message_elem.appendChild(username_elem);
@@ -219,6 +222,19 @@ function getMessageDiv(message){
 
   return message_div;
 }
+
+function urlify(text) {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    })
+}
+
+//open links externally by default
+$(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});
 
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
