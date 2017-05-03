@@ -210,6 +210,7 @@ function getMessageDiv(message){
   var content_elem = document.createElement('p');     //Remplissage du contenu du message
   content_elem.setAttribute('data-id', message.id);
   content_elem.classList.add('content');
+  message.content = markdown.toHTML(message.content);
   message.content = urlify(message.content);
   var output = emojione.shortnameToImage(message.content);
   content_elem.innerHTML = output;
