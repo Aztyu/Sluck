@@ -51,6 +51,26 @@
                   </div>
               </div>
 
+              <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="zmdi zmdi-email"></i>
+                  </span>
+                  <div class="form-line">
+                      <input type="text" class="form-control" id="email_reg" placeholder="Adresse mail" required="" />
+                  </div>
+              </div>
+              <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="zmdi zmdi-email"></i>
+                  </span>
+                  <div class="form-line">
+                      <input type="text" class="form-control" id="email_confirm_reg" placeholder="Confirmer votre adresse mail" required="" />
+                  </div>
+              </div>
+
+              <div id="profile_preview">
+                <img id="img_preview"/>
+              </div>
               <button type="button" onClick="openFile()" class="btn btn-raised bg-blue-grey waves-effect" style="margin-left: 15px;padding: 7px 15px;">Ajouter une photo de profil  <i class="zmdi zmdi-camera-add"></i></button>
               <div class="form-group">
                   <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" />
@@ -60,11 +80,74 @@
                   <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
               </div>
               <div class="m-t-10 m-b--5 align-center">
-                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ? </a>
+                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ?</a>
               </div>
             </form>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div data-page="reset" class="hidden login-page authentication">
+      <div class="container">
+          <div class="card-top"></div>
+          <div class="card">
+              <h1 class="title">
+                <div class="msg">Rentrez votre adresse mail pour réinitialiser votre mot de passe</div>
+              </h1>
+
+              <div class="col-md-12">
+                  <form id="sign_in" method="POST" />
+                      <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-email"></i> </span>
+                          <div class="form-line">
+                              <input type="text" class="form-control" id="email_reset" placeholder="Email" required="" autofocus="" />
+                          </div>
+                      </div>
+                      <div>
+                          <p id="status_log_reset"></p>
+                          <div class="text-center">
+                              <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="resetAccount()">Envoyer le code de réinitialisation</a>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="card">
+              <h1 class="title">
+                <div class="msg">Rentrez votre code de réinitialisation</div>
+              </h1>
+              <div class="col-md-12">
+                  <form id="sign_in" method="POST" />
+                      <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-shield-security"></i> </span>
+                          <div class="form-line">
+                              <input type="text" class="form-control" id="code_reset" placeholder="Code" required="" autofocus="" />
+                          </div>
+                      </div>
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <div class="form-line">
+                              <input type="password" class="form-control" id="password_reset" placeholder="Mot de passe" required="" />
+                          </div>
+                      </div>
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <div class="form-line">
+                              <input type="password" class="form-control" id="password_confirm_reset" placeholder="Confirmer votre mot de passe" required="" />
+                          </div>
+                      </div>
+                      <div>
+                          <p id="status_log_change"></p>
+                          <div class="text-center">
+                              <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="resetAccountPassword()">Réinitialiser le mot de passe</a>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
       </div>
     </div>
 
@@ -87,16 +170,12 @@
                           </div>
                       </div>
                       <div>
-                          <div class="">
-                              <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink" />
-                              <label for="rememberme">Se rappeler de moi</label>
-                          </div>
                           <p id="status_log"></p>
                           <div class="text-center">
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"> <a href="./forgot-password.html">Mot de passe oublié ?</a></div>
+                          <div class="text-center"> <a href="#" onClick="navigateTo('reset')">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>

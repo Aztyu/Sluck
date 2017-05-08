@@ -53,6 +53,8 @@ function registerAccount(){
   var name = document.getElementById('name_reg').value;             //On récupére les valeurs dans le HTML
   var password = document.getElementById('password_reg').value;
   var password_confirm = document.getElementById('password_confirm_reg').value;
+  var email = document.getElementById('email_reg').value;
+  var email_confirm = document.getElementById('email_confirm_reg').value;
   var profile_img = document.getElementById('img_preview');
 
   if(profile_img){      //Pour la photo de profil on récupére la source
@@ -62,11 +64,54 @@ function registerAccount(){
   }
 
   if(profile_img_src){    //Si profile img n'est pas undefined alors on enlève le 'file:///' pour utiliser avec FS
-    profile_img_src.substring(8);
+    profile_img_src = profile_img_src.substring(8);
   }
 
-  if(password == password_confirm){           //Si les password coïncident
-      register(name, password, profile_img_src);
+  if(password == password_confirm && email == email_confirm){           //Si les password coïncident
+      register(name, password, email, profile_img_src);
+  }
+}
+
+function resetAccount(){
+  var email = document.getElementById('email_reset').value;
+  document.getElementById('status_log_reset').value = '';               //On vide le message d'erreur
+
+  if(email && email !== ''){
+    askForReset(email).then(function (data) {
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = 'Le code a été envoyé par mail';
+    }, function (err) {
+      document.getElementById('email_reset').value = '';             //En cas d'erreur on remets les champs à zéro
+
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = err;
+    });
+  }else{
+    document.getElementById('status_log_reset').value = 'Merci de renseigner un mail';
+  }
+}
+
+function resetAccountPassword(){
+  var code = document.getElementById('code_reset').value;
+  var password = document.getElementById('password_reset').value;
+  var password_verif = document.getElementById('password_confirm_reset').value;
+
+  document.getElementById('status_log_change').value = '';               //On vide le message d'erreur
+
+  if(password && password_verif && password_verif === password){
+    resetPassword(code, password).then(function (data) {
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = 'Le mot de passe a bien été changé';
+    }, function (err) {
+      document.getElementById('code_reset').value = '';             //En cas d'erreur on remets les champs à zéro
+      document.getElementById('password_reset').value = '';
+      document.getElementById('password_confirm_reset').value = '';
+
+      var reset_status = document.getElementById('status_log_change');   //On affiche l'erreur
+      reset_status.innerHTML = err;
+    });
+  }else{
+    document.getElementById('status_log_change').value = 'Les mots de passe doivent être identique';
   }
 }
 
@@ -77,7 +122,6 @@ function createConversation(){
 
   newConversation(conversation, shared);
 }
-
 
 //La fonction démarre la mise à jour automatique des messages
 function startMessageUpdates(){

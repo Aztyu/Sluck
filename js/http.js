@@ -132,13 +132,11 @@ function getMessageForConversation(conversation_id, last_message){
 //param name Le nom du nouvel utilisateur
 //param password Le mot de passe
 //param profile_img Le lien vers l'image de profil sur le disque ou undefined
-function register(name, password, profile_img){
+function register(name, password, email, profile_img){
   if(profile_img){    //Si profile_img est défini alors on récupére la photo
     fs.stat(profile_img, function(err, stats) {
       console.log(stats);
-
-
-      var user = {name: name, password: password};
+      var user = {name: name, password: password, email: email};
       restler.post(SERVER_URL + '/register', {
           multipart: true,
           data: {
@@ -160,6 +158,53 @@ function register(name, password, profile_img){
         console.log(data);
     });
   }
+}
+
+function askForReset(email){
+  return new Promise(function (resolve, reject) {
+    request({
+      uri: SERVER_URL + '/reset?email=' + email,
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(body);
+      }
+    });
+  });
+}
+
+function resetPassword(code, password){
+  return new Promise(function (resolve, reject) {
+    var form = {
+        code: code,
+        password: password
+    };
+
+    var formData = querystring.stringify(form);
+    var contentLength = formData.length;
+
+    request({
+      headers: {
+        'Content-Length': contentLength,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      uri: SERVER_URL + '/reset',
+      body: formData,
+      method: 'POST'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(body);
+      }
+    });
+  });
+
+
+
+
 }
 
 //La fonction permet de récupérer une liste des conversations dans lequel l'utilisateur est enregistré
