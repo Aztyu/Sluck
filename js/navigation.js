@@ -84,26 +84,30 @@ function switchConversation(conversation_div){
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
 
-  var conversation;
-  for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
-    if(conversations[i].id == conversation_id){
-      conversation = conversations[i];
-      break;
+  navigateToTab('main'); //On navigue vers la discussion
+
+  if(conversation_id != current_conversation.id){
+    var conversation;
+    for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
+      if(conversations[i].id == conversation_id){
+        conversation = conversations[i];
+        break;
+      }
     }
-  }
 
-  clearMessages();    //On vide les messages
+    clearMessages();    //On vide les messages
 
-  document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
+    document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
 
-  var current_messages = conversation.messages;
-  if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
-    for(var j=0; j<current_messages.length; j++){
-      addNewMessage(current_messages[j]);
+    var current_messages = conversation.messages;
+    if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
+      for(var j=0; j<current_messages.length; j++){
+        addNewMessage(current_messages[j]);
+      }
     }
-  }
 
-  current_conversation = conversation;
+    current_conversation = conversation;
+  }
 }
 
 //La fonction permet de quitter une conversation
@@ -149,7 +153,10 @@ function removeConversation(conversation_id){
 //param message Un objet message
 function addNewMessage(message){
   var message_div = document.getElementById('messages');
-  message_div.appendChild(getMessageDiv(message));
+
+  if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
+    message_div.appendChild(getMessageDiv(message));
+  }
 
   scrollMessages();
 }
