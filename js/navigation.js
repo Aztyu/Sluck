@@ -187,7 +187,7 @@ function getMessageDiv(message){
 
   var profil_img = document.createElement('img');
   profil_img.classList.add('profile');
-  profil_img.src = SERVER_URL + '/user/profile/' + message.user_id;   //On initialise l'url de la photo de profil
+  profil_img.src = 'http://cdn.qwirkly.fr/profile/' + message.user_id;   //On initialise l'url de la photo de profil
 
   var message_elem = document.createElement('div');
   message_elem.classList.add('chat');
@@ -210,9 +210,9 @@ function getMessageDiv(message){
   var content_elem = document.createElement('p');     //Remplissage du contenu du message
   content_elem.setAttribute('data-id', message.id);
   content_elem.classList.add('content');
-  message.content = markdown.toHTML(message.content);
-  message.content = urlify(message.content);
-  var output = emojione.shortnameToImage(message.content);
+
+  var content = urlify(markdown.toHTML(message.content));
+  var output = emojione.shortnameToImage(content);
   content_elem.innerHTML = output;
 
   message_elem.appendChild(username_elem);
