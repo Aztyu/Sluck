@@ -211,8 +211,9 @@ function getMessageDiv(message){
   content_elem.setAttribute('data-id', message.id);
   content_elem.classList.add('content');
 
-  var content = urlify(markdown.toHTML(message.content));
+  var content = urlify(message.content);
   var output = emojione.shortnameToImage(content);
+  content = markdown.toHTML(output);
   content_elem.innerHTML = output;
 
   message_elem.appendChild(username_elem);
