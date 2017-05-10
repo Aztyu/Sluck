@@ -14,8 +14,6 @@ function startContactUpdate(){
 
 function getContactList(){
   contactList().then(function (data) {    //Si on se connecte
-    console.log(data);
-
     if(data && data !== ''){
       var contacts = JSON.parse(data);
 
