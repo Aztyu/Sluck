@@ -134,9 +134,6 @@ function getMessageForConversation(conversation_id, last_message){
 //param profile_img Le lien vers l'image de profil sur le disque ou undefined
 function register(name, password, email, profile_img){
   if(profile_img){    //Si profile_img est défini alors on récupére la photo
-    console.log(stats);
-    var user = {name: name, password: password, email: email};
-
     var data = {name: name, password: password, email: email};
 
     var formData = {
@@ -211,10 +208,6 @@ function resetPassword(code, password){
       }
     });
   });
-
-
-
-
 }
 
 //La fonction permet de récupérer une liste des conversations dans lequel l'utilisateur est enregistré
@@ -263,7 +256,20 @@ function newConversation(conversation, shared){
 function createMessage(message, current_conversation){
   return new Promise(function (resolve, reject) {
     if(message.file){    //Si on passe un fichier
-      fs.stat(message.file, function(err, stats) {
+      var formData = {
+        'file': fs.createReadStream(message.file)
+      }
+
+      var url = SERVER_URL + '/api/message/send/' + current_conversation;
+      var req = request.post({url : url, formData: formData, header: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+
+      /*fs.stat(message.file, function(err, stats) {
         console.log(stats);
         restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
             headers: getAuthHeader(),
@@ -274,9 +280,18 @@ function createMessage(message, current_conversation){
         }).on("complete", function(data) {
             resolve(data);
         });
-      });
+      });*/
     }else{    //Sinon on envoie juste le message
-      restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
+      var url = SERVER_URL + '/api/message/send/' + current_conversation;
+      var req = request.post({url : url, form: {'message': message.content}, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+
+      /*restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
           headers: {
             'Authorization': getAuth()
           },
@@ -285,7 +300,7 @@ function createMessage(message, current_conversation){
           }
       }).on("complete", function(data) {
           resolve(data);
-      });
+      });*/
     }
 
     /*var form = {
