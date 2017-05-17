@@ -84,26 +84,30 @@ function switchConversation(conversation_div){
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
 
-  var conversation;
-  for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
-    if(conversations[i].id == conversation_id){
-      conversation = conversations[i];
-      break;
+  navigateToTab('main'); //On navigue vers la discussion
+
+  if(conversation_id != current_conversation.id){
+    var conversation;
+    for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
+      if(conversations[i].id == conversation_id){
+        conversation = conversations[i];
+        break;
+      }
     }
-  }
 
-  clearMessages();    //On vide les messages
+    clearMessages();    //On vide les messages
 
-  document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
+    document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
 
-  var current_messages = conversation.messages;
-  if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
-    for(var j=0; j<current_messages.length; j++){
-      addNewMessage(current_messages[j]);
+    var current_messages = conversation.messages;
+    if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
+      for(var j=0; j<current_messages.length; j++){
+        addNewMessage(current_messages[j]);
+      }
     }
-  }
 
-  current_conversation = conversation;
+    current_conversation = conversation;
+  }
 }
 
 //La fonction permet de quitter une conversation
@@ -149,7 +153,10 @@ function removeConversation(conversation_id){
 //param message Un objet message
 function addNewMessage(message){
   var message_div = document.getElementById('messages');
-  message_div.appendChild(getMessageDiv(message));
+
+  if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
+    message_div.appendChild(getMessageDiv(message));
+  }
 
   scrollMessages();
 }
@@ -212,17 +219,31 @@ function getMessageDiv(message){
     }
   }
 
-  var content_elem = document.createElement('p');     //Remplissage du contenu du message
-  content_elem.setAttribute('data-id', message.id);
-  content_elem.classList.add('content');
-
-  var content = urlify(message.content);
-  var output = emojione.shortnameToImage(content);
-  content = markdown.toHTML(output);
-  content_elem.innerHTML = output;
-
   message_elem.appendChild(username_elem);
-  message_elem.appendChild(content_elem);
+
+  if(message.content){
+    var content_elem = document.createElement('p');     //Remplissage du contenu du message
+
+    content_elem.setAttribute('data-id', message.id);
+    content_elem.classList.add('content');
+
+    var content = urlify(message.content);
+    var output = emojione.shortnameToImage(content);
+    content = markdown.toHTML(output);
+    content_elem.innerHTML = output;
+
+      message_elem.appendChild(content_elem);
+  }else if(message.file_id){
+    var content_div = document.createElement('div');
+
+    console.log(message);
+
+    content_div.setAttribute('data-id', message.id);
+    content_div.classList.add('file');
+
+    content_div.innerHTML = 'Test fichier !!!!!';
+    message_elem.appendChild(content_div);
+  }
 
   message_div.appendChild(profil_img);
   message_div.appendChild(message_elem);
@@ -245,9 +266,19 @@ $(document).on('click', 'a[href^="http"]', function(event) {
 
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
-  var message = document.getElementById('chat_box').value;    //On récupére le contenu du message
+  var message_box = document.getElementById('chat_box');    //On récupére le contenu du message
+  var message_file = document.getElementById('chat_files');
+
+  var message = {};
+
+  if(message_box.classList.contains('hidden')){
+    message.file = message_file.getAttribute('data-src');
+  }else{
+    message.content = message_box.value;
+  }
 
   createMessage(message, current_conversation.id).then(function (data) {    //Envoie du message à l'API
+      console.log(data);
       var message_obj = JSON.parse(data)    //On récupére une liste d'objet Message JSON
 
       if(!current_conversation.messages){   //Si la conversation n'a pas de message alors on l'initialise

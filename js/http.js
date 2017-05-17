@@ -134,28 +134,35 @@ function getMessageForConversation(conversation_id, last_message){
 //param profile_img Le lien vers l'image de profil sur le disque ou undefined
 function register(name, password, email, profile_img){
   if(profile_img){    //Si profile_img est défini alors on récupére la photo
-    fs.stat(profile_img, function(err, stats) {
-      console.log(stats);
-      var user = {name: name, password: password, email: email};
-      restler.post(SERVER_URL + '/register', {
-          multipart: true,
-          data: {
-              "user": JSON.stringify(user),
-              "file": restler.file(profile_img, null, stats.size, null, mime.lookup(profile_img))
-          }
-      }).on("complete", function(data) {
-          console.log(data);
-      });
+    var data = {name: name, password: password, email: email};
+
+    var formData = {
+      'user': JSON.stringify(data),
+      'file': fs.createReadStream(profile_img)
+    }
+
+    var url = SERVER_URL + '/register';
+    var req = request.post({url : url, formData: formData}, function (err, resp, body) {
+      if(!err){
+        return body;
+      }else{
+        return err;
+      }
     });
   }else{    //Sinon on envoie sans photo de profil
-    var user = {name: name, password: password};
-    restler.post(SERVER_URL + '/register', {
-        multipart: true,
-        data: {
-            "user": JSON.stringify(user),
-        }
-    }).on("complete", function(data) {
-        console.log(data);
+    var data = {name: name, password: password, email: email};
+
+    var form = {
+      user: data
+    }
+
+    var url = SERVER_URL + '/register';
+    var req = request.post({url : url, form: {'user': JSON.stringify(data)}}, function (err, resp, body) {
+      if(!err){
+        return body;
+      }else{
+        return err;
+      }
     });
   }
 }
@@ -201,10 +208,6 @@ function resetPassword(code, password){
       }
     });
   });
-
-
-
-
 }
 
 //La fonction permet de récupérer une liste des conversations dans lequel l'utilisateur est enregistré
@@ -252,7 +255,55 @@ function newConversation(conversation, shared){
 //param current_conversation L'id de la conversation sur laquelle envoyer le message
 function createMessage(message, current_conversation){
   return new Promise(function (resolve, reject) {
-    var form = {
+    if(message.file){    //Si on passe un fichier
+      var formData = {
+        'file': fs.createReadStream(message.file)
+      }
+
+      var url = SERVER_URL + '/api/message/send/' + current_conversation;
+      var req = request.post({url : url, formData: formData, header: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+
+      /*fs.stat(message.file, function(err, stats) {
+        console.log(stats);
+        restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
+            headers: getAuthHeader(),
+            multipart: true,
+            data: {
+                "file": restler.file(message.file, null, stats.size, null, mime.lookup(message.file))
+            }
+        }).on("complete", function(data) {
+            resolve(data);
+        });
+      });*/
+    }else{    //Sinon on envoie juste le message
+      var url = SERVER_URL + '/api/message/send/' + current_conversation;
+      var req = request.post({url : url, form: {'message': message.content}, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+
+      /*restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
+          headers: {
+            'Authorization': getAuth()
+          },
+          data: {
+              "message": message.content,
+          }
+      }).on("complete", function(data) {
+          resolve(data);
+      });*/
+    }
+
+    /*var form = {
        content: message
     };
 
@@ -274,7 +325,7 @@ function createMessage(message, current_conversation){
       }else{
         return reject(err);
       }
-    });
+    });*/
   });
 }
 
