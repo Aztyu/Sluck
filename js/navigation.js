@@ -214,17 +214,31 @@ function getMessageDiv(message){
     }
   }
 
-  var content_elem = document.createElement('p');     //Remplissage du contenu du message
-  content_elem.setAttribute('data-id', message.id);
-  content_elem.classList.add('content');
-
-  var content = urlify(message.content);
-  var output = emojione.shortnameToImage(content);
-  content = markdown.toHTML(output);
-  content_elem.innerHTML = output;
-
   message_elem.appendChild(username_elem);
-  message_elem.appendChild(content_elem);
+
+  if(message.content){
+    var content_elem = document.createElement('p');     //Remplissage du contenu du message
+
+    content_elem.setAttribute('data-id', message.id);
+    content_elem.classList.add('content');
+
+    var content = urlify(message.content);
+    var output = emojione.shortnameToImage(content);
+    content = markdown.toHTML(output);
+    content_elem.innerHTML = output;
+
+      message_elem.appendChild(content_elem);
+  }else if(message.file_id){
+    var content_div = document.createElement('div');
+
+    console.log(message);
+
+    content_div.setAttribute('data-id', message.id);
+    content_div.classList.add('file');
+
+    content_div.innerHTML = 'Test fichier !!!!!';
+    message_elem.appendChild(content_div);
+  }
 
   message_div.appendChild(profil_img);
   message_div.appendChild(message_elem);
@@ -247,9 +261,19 @@ $(document).on('click', 'a[href^="http"]', function(event) {
 
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
-  var message = document.getElementById('chat_box').value;    //On récupére le contenu du message
+  var message_box = document.getElementById('chat_box');    //On récupére le contenu du message
+  var message_file = document.getElementById('chat_files');
+
+  var message = {};
+
+  if(message_box.classList.contains('hidden')){
+    message.file = message_file.getAttribute('data-src');
+  }else{
+    message.content = message_box.value;
+  }
 
   createMessage(message, current_conversation.id).then(function (data) {    //Envoie du message à l'API
+      console.log(data);
       var message_obj = JSON.parse(data)    //On récupére une liste d'objet Message JSON
 
       if(!current_conversation.messages){   //Si la conversation n'a pas de message alors on l'initialise
