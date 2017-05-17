@@ -4,7 +4,6 @@
 }
 
 #messages{
-  max-height: 300px;
   overflow-y: scroll;
 }
 
@@ -25,6 +24,7 @@
 div.conversation div.status, div.conversation p.name{
   display: inline-block;
   margin: 5px;
+  color: white;
 }
 
 div.status.new{

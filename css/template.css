@@ -11,6 +11,29 @@
     font-weight: 400;
     src: local("Material Icons"), local("MaterialIcons-Regular"), url(https://fonts.gstatic.com/s/materialicons/v19/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format("woff2");
 }
+.theme-cyan .navbar-brand{
+    color: #fff;
+        float: left;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    height: 50px;
+    position: absolute;
+}
+.color-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 239px;
+    padding: 0;
+}
+.theme-cyan {
+    background: linear-gradient(60deg, #136a8a, #379c94);
+    overflow: hidden;
+}
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -3203,6 +3226,7 @@ tbody.collapse.in {
 .navbar-nav>li>a {
     padding-top: 10px;
     padding-bottom: 10px;
+    color: white;
     line-height: 20px;
 }
 @media (max-width: 767px) {
@@ -5282,7 +5306,7 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
     font-weight: 300;
     line-height: 1.5em;
 }
-a, a:hover, a:focus {
+a:hover, a:focus {
     color: #ea3808;
 }
 a .material-icons, a:hover .material-icons, a:focus .material-icons {
@@ -7653,7 +7677,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
 .zmdi {
     display: inline-block;
     font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
-    font-size: 18px;
+    font-size: 21px;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -15200,6 +15224,7 @@ to {
     height: calc(100vh - 70px);
     position: fixed;
     top: 55px;
+    padding-left: 3px;
     left: 0;
     z-index: 11 !important;
 }
@@ -15238,7 +15263,7 @@ to {
     white-space: nowrap;
     position: relative;
     border-bottom: 1px solid #e9e9e9;
-    height: 185px;
+    height: 120px;
 }
 .sidebar .user-info .admin-image {
     display: table-cell;
@@ -15339,7 +15364,7 @@ to {
 .sidebar .menu {
     position: relative;
     overflow-y: auto;
-    height: 90vh;
+    height: 80.3vh;
     background: #e9e9e9;
 }
 .sidebar .menu .list {
@@ -17054,6 +17079,25 @@ to {
     font-weight: bold;
     text-align: left;
 }
+.title-chat{
+        font-weight: 100;
+    font-size: 26px;
+    line-height: 40px;
+    text-align: center;
+    margin: 20px 0;
+    color: #aab3bd;
+}
+.compose-button{
+    border-radius: 100px;
+    padding: 10px 0px;
+    text-align: center;
+    font-weight: 400;
+    color: #61C7B3;
+    border: 2px solid #61C7B3;
+    display: block;
+    margin: 0 0px 20px 0px;
+    cursor: pointer;
+}
 .right-sidebar #chat {
     padding: 15px;
 }
@@ -17332,6 +17376,7 @@ section.content {
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     border-radius: 3px;
+    height: 100%;
 }
 .g-bg-cyan {
     background: linear-gradient(60deg,  #136a8a,  #379c94);
@@ -19368,8 +19413,10 @@ section.content {
     padding: 25px 25px 5px 25px;
 }
 .modal .modal-header .modal-title {
-    font-weight: bold;
-    font-size: 16px;
+        font-weight: 500;
+    font-size: 24px;
+    color: #2c817e;
+    text-align: -webkit-center;
 }
 .modal .modal-content {
     -webkit-border-radius: 0;
@@ -19378,6 +19425,7 @@ section.content {
     border-radius: 0;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.31) !important;
     border: none;
+    padding: 4px 20px 20px 20px;
 }
 .modal .modal-content .modal-body {
     color: #777;
@@ -22842,10 +22890,10 @@ to {
     float: left;
     background: #3d4c5a;
     border-radius: 3px 0 0 3px;
-    height: 92vh !important;
+    height: 89vh;
 }
 .people-list .search {
-    padding: 20px;
+    padding: 10px 10px 5px 10px;
 }
 .people-list .search .form-group {
     margin: 0;
@@ -22885,8 +22933,70 @@ to {
     margin-top: 8px;
     padding-left: 8px;
 }
-.people-list .status {
-    color: #999;
+.people-list #conversations{
+     float: left;
+    margin-top: 8px;
+    width: 100%;
+}
+.people-list #conversations .conversation{
+    padding: 10px;
+    background: rgba(166, 167, 169, 0.32);
+    height: 41px;
+    cursor: pointer;
+}
+.modalkiki button{
+    background-color: #8CD4F5;
+    color: white;
+    border: none;
+    box-shadow: none;
+    font-size: 17px!important;
+    font-weight: 500;
+    -webkit-border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 32px;
+    margin: 26px 5px 0 5px;
+    cursor: pointer;
+    font-size: 15px !important; */
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    border-radius: 0 !important;
+    padding: 5px 20px !important;
+}
+#sa-input-error{
+    padding: 5px 10px;
+    max-height: 100px;
+    margin-left: -20px;
+    line-height: normal;
+    margin-right: -20px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+#sa-input-error p{
+    font-size: 15px !important;
+    color: white;
+    text-align:center;
+}
+.input-newconvers{
+        width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #d7d7d7;
+    height: 43px;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 18px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.06);
+    padding: 0 12px;
+    display: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+        display: block;
+}
+.input-newconvers:hover{
+        outline: none;
+    box-shadow: 0px 0px 3px #c4e6f5;
+    border: 1px solid #b4dbed;
 }
 .chat {
     width: calc(100% - 260px);
@@ -22896,8 +23006,9 @@ to {
     color: #434651;
 }
 .chat .chat-header {
-    padding: 20px;
-    border-bottom: 2px solid white;
+        padding: 10px 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f1f1f1;
 }
 .chat .chat-header img {
     float: left;
