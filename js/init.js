@@ -11,10 +11,9 @@ fs.readFile('properties/configuration.json', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
-  var conf = JSON.parse(data);
-  SERVER_URL = conf.server_url;
-  UPDATE_MESSAGE_TIME = conf.update_time;
-  PSEUDO_TIME = conf.pseudo_time;
-  UPDATE_INVITE = conf.update_invite;
-  UPDATE_CONTACT = conf.update_contact;
+  SERVER_URL = "http://localhost:8080/server";
+  UPDATE_MESSAGE_TIME = 2000;
+  PSEUDO_TIME = 50;
+  UPDATE_INVITE = 5000;
+  UPDATE_CONTACT = 5000;
 });
