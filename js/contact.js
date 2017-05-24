@@ -92,6 +92,7 @@ function getContactInviteList(){
           invite_div.appendChild(refuse_button);
 
           invite_list.appendChild(invite_div);
+          doNotify();
         }
       }
     }

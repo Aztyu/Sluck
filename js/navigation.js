@@ -204,11 +204,6 @@ function getMessageDiv(message){
   username_elem.classList.add('name');
 
   var username = getUserDiv(message.user_id);
-  
-  /*.log(connected_user.id);
-  if (message.user_id !=  connected_user.id) {
-    doNotify();
-  }*/
 
   if(username){     //On vérifie si le username est connu
     username_elem.innerHTML = username;   //On l'affiche
