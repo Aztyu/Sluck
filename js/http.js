@@ -261,7 +261,7 @@ function createMessage(message, current_conversation){
       }
 
       var url = SERVER_URL + '/api/message/send/' + current_conversation;
-      var req = request.post({url : url, formData: formData, header: getAuthHeader()}, function (err, resp, body) {
+      var req = request.post({url : url, formData: formData, headers: getAuthHeader()}, function (err, resp, body) {
         if(!err){
           resolve(body);
         }else{

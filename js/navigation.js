@@ -236,7 +236,13 @@ function getMessageDiv(message){
     content_div.setAttribute('data-id', message.id);
     content_div.classList.add('file');
 
-    content_div.innerHTML = 'Test fichier !!!!!';
+    content_div.innerHTML = 'Télécharger :';
+
+    var content_a = document.createElement('a');
+    content_a.href = SERVER_URL + "/file/" + message.file_id;
+    content_a.innerHTML = message.file_obj.name;
+
+    content_div.appendChild(content_a);
     message_elem.appendChild(content_div);
   }
 
