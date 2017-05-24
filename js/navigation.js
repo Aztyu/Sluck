@@ -288,6 +288,8 @@ function sendNewMessage(){
 
       current_conversation.messages.push(message_obj);    //On ajoute le message
       addNewMessage(message_obj);     //On affiche le message
+      message_box.value = ''; // on vide la textarea
+
   }, function (err) {
       console.log(err);
   });
