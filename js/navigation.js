@@ -84,7 +84,7 @@ function switchConversation(conversation_div){
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
 
-  navigateToTab('main'); //On navigue vers la discussion
+  navigateToTab('chatbox'); //On navigue vers la discussion
 
   if(conversation_id != current_conversation.id){
     var conversation;
