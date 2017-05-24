@@ -69,7 +69,7 @@
     <div data-page="login" class="hidden login-page authentication">
       <div class="container">
           <div class="card-top"></div>
-          <div class="card">
+          <div class="card cardlogin">
               <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
               <div class="col-md-12">
                   <form id="sign_in" method="POST" />
@@ -146,7 +146,7 @@
         <!--FIN MODAL-->
     <section> 
     <!-- Left Sidebar -->
-    <aside id="leftsidebar" class="sidebar"> 
+    <aside id="leftsidebar" class="sidebar" id="side"> 
         <!-- User Info -->
         <div class="user-info">
             <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
@@ -154,7 +154,7 @@
                 <h3><div class="float-left" id="username"></div></h3>
                 <ul>
                     <li><a data-placement="bottom" title="Go to Inbox" href="./mail-inbox.html"><i class="zmdi zmdi-email"></i></a></li>
-                    <li><a data-placement="bottom" title="Go to Profile" href="./profile.html"><i class="zmdi zmdi-account"></i></a></li>
+                    <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateTo('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
                     <li><a data-placement="bottom" title="Full Screen" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
                     <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
                 </ul>
@@ -165,9 +165,9 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MENU</li>
-                <li class="active open"><a href="#" onClick="navigateToTab('main')"><i class="zmdi zmdi-home"></i><span>Discussion</span> </a> </li>
+                <li class="active open"><a href="#" onClick="navigateTo('chatbox')"><i class="zmdi zmdi-home"></i><span>Discussion</span> </a> </li>
                 <li> <a href="#" onClick="navigateToTab('contacts')"><i class="zmdi zmdi-email"></i><span>Contacts</span> </a></li>
-                <li> <a href="#" onClick="navigateToTab('profil')"><i class="zmdi zmdi-delicious"></i><span>Profil</span> </a> </li>
+                <li> <a href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-delicious"></i><span>Profil</span> </a> </li>
             </ul>
         </div>
         <!-- #Menu --> 
@@ -175,9 +175,9 @@
     <!-- #END# Right Sidebar --> 
 </section>
 
-<section class="content">
+<section class="content" data-tab="chatbox">
     <div class="container-fluid">
-    <div class="row clearfix">
+    <div class="chatbox row clearfix">
         <div class="people-list" id="people-list">
             <div class="search">
                 <div class="form-group">
@@ -220,6 +220,82 @@
             
         </div>
     </div>
+    </div>
+</section>
+<section class="content profile-page hidden" data-tab="profilbox">
+    <div class="container-fluid">
+    <div class="row clearfix">
+            <div class="col-md-12 p-l-0 p-r-0">
+                <section class="boxs-simple">
+                    <div class="profile-header">
+                        <div class="profile_info">
+                            <div class="profile-image"> <img src="./assets/images/random-avatar7.jpg" alt=""> </div>
+                            <h4 class="mb-0" id="username"></h4>
+                            <div class="mt-10">
+                                <button class="btn btn-raised btn-default bg-blush btn-sm" onClick="openFile()">Changer photo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-sub-header">
+                        <div class="box-list">
+                            <ul class="text-center">
+                                <li> <a href="#" onClick="navigateTo('profilbox')" class=""><i class="zmdi zmdi-attachment"></i>
+                                    <p>PROFIL</p>
+                                    </a> </li>
+                                <li> <a href="#" onClick="navigateTo('chatbox')" class=""><i class="zmdi zmdi-email"></i>
+                                    <p>MESSAGES</p>
+                                    </a> </li>
+                                <li> <a href="#"><i class="zmdi zmdi-camera"></i>
+                                    <p>KIKI</p>
+                                    </a> </li>
+                                <li> <a href="#"><i class="zmdi zmdi-format-subject"></i>
+                                    <p>KIKI</p>
+                                    </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+      <div class="row clearfix">
+          <div class="card cardmodified">
+                    <div class="body"> 
+
+                                <h2 class="card-inside-title">Informations personnelles</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Nom" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Prénom" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Adresse mail" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" placeholder="Ancien mot de passe" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" placeholder="Nouveau mot de passe" />
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-raised btn-success btn-sm">Enregistrer</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      </div>
     </div>
 </section>
 <!--
