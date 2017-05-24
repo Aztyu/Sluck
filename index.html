@@ -5,12 +5,10 @@
     <title>Qwirkly</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/template.css">
-    <link rel="stylesheet" type="text/css" href="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css">
-    <link rel="stylesheet" type="text/css" href="css/textcomplete.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
-  <body>
+  <body class="theme-cyan">
     <div data-page="register" class="login-page authentication">
       <div class="container">
         <div class="card-top"></div>
@@ -51,26 +49,6 @@
                   </div>
               </div>
 
-              <div class="input-group">
-                  <span class="input-group-addon">
-                      <i class="zmdi zmdi-email"></i>
-                  </span>
-                  <div class="form-line">
-                      <input type="text" class="form-control" id="email_reg" placeholder="Adresse mail" required="" />
-                  </div>
-              </div>
-              <div class="input-group">
-                  <span class="input-group-addon">
-                      <i class="zmdi zmdi-email"></i>
-                  </span>
-                  <div class="form-line">
-                      <input type="text" class="form-control" id="email_confirm_reg" placeholder="Confirmer votre adresse mail" required="" />
-                  </div>
-              </div>
-
-              <div id="profile_preview">
-                <img id="img_preview"/>
-              </div>
               <button type="button" onClick="openFile()" class="btn btn-raised bg-blue-grey waves-effect" style="margin-left: 15px;padding: 7px 15px;">Ajouter une photo de profil  <i class="zmdi zmdi-camera-add"></i></button>
               <div class="form-group">
                   <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" />
@@ -80,7 +58,7 @@
                   <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
               </div>
               <div class="m-t-10 m-b--5 align-center">
-                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ?</a>
+                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Sluck ? </a>
               </div>
             </form>
           </div>
@@ -159,8 +137,8 @@
     <div data-page="login" class="hidden login-page authentication">
       <div class="container">
           <div class="card-top"></div>
-          <div class="card">
-              <h1 class="title"><span></span>CONNEXION - Qwirkly <div class="msg">Connectez vous pour profiter de nos services</div></h1>
+          <div class="card cardlogin">
+              <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
               <div class="col-md-12">
                   <form id="sign_in" method="POST" />
 
@@ -175,12 +153,16 @@
                           </div>
                       </div>
                       <div>
+                          <div class="">
+                              <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink" />
+                              <label for="rememberme">Se rappeler de moi</label>
+                          </div>
                           <p id="status_log"></p>
                           <div class="text-center">
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"> <a href="#" onClick="navigateTo('reset')">Mot de passe oublié ?</a></div>
+                          <div class="text-center"> <a href="./forgot-password.html">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>
@@ -188,8 +170,203 @@
       </div>
     </div>
 
-    <div data-page="main" class="hidden">
+    <div data-page="main" class="hidden" style="margin-top: 9vh;">
+      <nav class="navbar navbar-brand clearHeader">
+        <div class="container-fluid">
+            <div class="navbar-header"><p>QWIRKLY - Easy / Fast / Sublime</p></div>
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Notifications -->
+                <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span class="label-count">7</span> </a></li>
+                <!-- #END# Tasks -->
+                <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+            </ul>
+        </div>
+      </nav>
+      <!--MODAL FORM POUR LANCER CONVERSATION-->
+        <div class="modal fade modalkiki" id="defaultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="defaultModalLabel">Nouvelle conversation</h2>
+                        <hr/> 
+                    </div>
+                    <fieldset>
+                      <input type="text" tabindex="3" id="conversation_name" placeholder="Nom de votre conversation..." class="input-newconvers" required="required" pattern="[A-Za-z0-9]{1,20}">
+                      <div id="sa-input-error"></div>
+                    </fieldset>
+                    <div class="checkbox-wrapper" style="text-align: right;display: inline-flex;">
+                        <p style="margin-right: 7px;font-size: 16px;">Public ?</p><input type="checkbox" id="conversation_shared"><label for="conversation_shared" class="toggle"></label>
+                    </div>
+                    
+                    <div class="sa-button-container" style="display: flex">
+                    <button class="cancel" data-dismiss="modal" tabindex="2" style="display: inline-block; box-shadow: none;background-color: #C1C1C1;margin-left: auto;margin-right: 7px;">Annuler</button>
+                    <div class="sa-confirm-button-container">
+                      <button class="confirm" onClick="createConversation()" tabindex="1" style="display: inline-block;background-color: #2b817d;">OK</button><div class="la-ball-fall">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN MODAL-->
+    <section> 
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar" id="side"> 
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
+            <div class="admin-action-info">
+                <h3><div class="float-left" id="username"></div></h3>
+                <ul>
+                    <li><a data-placement="bottom" title="Go to Inbox" href="./mail-inbox.html"><i class="zmdi zmdi-email"></i></a></li>
+                    <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateTo('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
+                    <li><a data-placement="bottom" title="Full Screen" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
+                    <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+                </ul>
+            </div>
+            
+        </div>
+        <!-- Menu -->
+        <div class="menu">
+            <ul class="list">
+                <li class="header">MENU</li>
+                <li class="active open"><a href="#" onClick="navigateTo('chatbox')"><i class="zmdi zmdi-home"></i><span>Discussion</span> </a> </li>
+                <li> <a href="#" onClick="navigateToTab('contacts')"><i class="zmdi zmdi-email"></i><span>Contacts</span> </a></li>
+                <li> <a href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-delicious"></i><span>Profil</span> </a> </li>
+            </ul>
+        </div>
+        <!-- #Menu --> 
+    </aside>
+    <!-- #END# Right Sidebar --> 
+</section>
 
+<section class="content" data-tab="chatbox">
+    <div class="container-fluid">
+    <div class="chatbox row clearfix">
+        <div class="people-list" id="people-list">
+            <div class="search">
+                <div class="form-group">
+                    <div class="form-line"><!--
+                        <p style="color: #b9babb;font-weight: 100;font-size: 22px;margin: 15px 0 20px;">Vos conversations <a href="#" data-toggle="modal" data-target="#defaultModal" style="float: right;color: #1b768d"><i class="zmdi zmdi-plus-circle" style="font-size: 32px;line-height: inherit;"></i></a></p>-->
+                        <div class="logo-container title-chat">CONVERSATIONS</div>
+                        <a class="compose-button" data-toggle="modal" data-target="#defaultModal">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-default pull-right visible-xs ml-5" data-toggle="collapse" data-target="#open-chats" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-chevron-down"></i></button>                    
+            </div>            
+            <ul class="list collapse-xs" id="open-chats">
+              <div id="conversations"></div>
+            </ul>
+        </div>
+        
+        <div class="chat" data-tab="main">
+            <div class="chat-header clearfix"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+                <div class="chat-about">
+                    <div class="chat-with" id="conversation_title"></div>
+                    <!--<div class="chat-num-messages">already 1 902 messages</div>-->
+                </div>
+                <i class="fa fa-star"></i> </div>
+            <!-- end chat-header -->
+            
+            <div class="chat-history" id="messages"></div>
+            <!-- end chat-history -->
+            
+            <div class="chat-message clearfix" id="chat_div">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box"/>
+                    </div>
+                </div>                
+                <button class="btn btn-sm btn-raised btn-default pull-right"  onClick="sendNewMessage()">Envoyer</button>
+                <a href="#" class="btn btn-sm btn-raised btn-warning"><i class="zmdi zmdi-camera"></i></a>
+                <a href="#" class="btn btn-sm btn-raised btn-info"><i class="zmdi zmdi-file-text"></i></a>
+            </div>
+            <!-- end chat-message --> 
+            
+        </div>
+    </div>
+    </div>
+</section>
+<section class="content profile-page hidden" data-tab="profilbox">
+    <div class="container-fluid">
+    <div class="row clearfix">
+            <div class="col-md-12 p-l-0 p-r-0">
+                <section class="boxs-simple">
+                    <div class="profile-header">
+                        <div class="profile_info">
+                            <div class="profile-image"> <img src="./assets/images/random-avatar7.jpg" alt=""> </div>
+                            <h4 class="mb-0" id="username"></h4>
+                            <div class="mt-10">
+                                <button class="btn btn-raised btn-default bg-blush btn-sm" onClick="openFile()">Changer photo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-sub-header">
+                        <div class="box-list">
+                            <ul class="text-center">
+                                <li> <a href="#" onClick="navigateTo('profilbox')" class=""><i class="zmdi zmdi-attachment"></i>
+                                    <p>PROFIL</p>
+                                    </a> </li>
+                                <li> <a href="#" onClick="navigateTo('chatbox')" class=""><i class="zmdi zmdi-email"></i>
+                                    <p>MESSAGES</p>
+                                    </a> </li>
+                                <li> <a href="#"><i class="zmdi zmdi-camera"></i>
+                                    <p>KIKI</p>
+                                    </a> </li>
+                                <li> <a href="#"><i class="zmdi zmdi-format-subject"></i>
+                                    <p>KIKI</p>
+                                    </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+      <div class="row clearfix">
+          <div class="card cardmodified">
+                    <div class="body"> 
+
+                                <h2 class="card-inside-title">Informations personnelles</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Nom" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Prénom" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Adresse mail" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" placeholder="Ancien mot de passe" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" placeholder="Nouveau mot de passe" />
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-raised btn-success btn-sm">Enregistrer</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      </div>
+    </div>
+</section>
+<!--
       <div id="side">
         <h2>Liste des conversations</h2>
         <div id="conversations">
@@ -202,17 +379,7 @@
 
 
       <div id="main">
-        <div class="tabs">
-          <p onClick="navigateToTab('main')">Discussion</p>
-          <p onClick="navigateToTab('contacts')">Contacts</p>
-          <p onClick="navigateToTab('profil')">Profil</p>
 
-          <div class="float-right" id="profile">
-            <div class="float-left" id="username"></div>
-            <img class="float-right profile" id="profile_picture" />
-            <button onClick="logout()">Déconnexion</button>
-          </div>
-        </div>
 
         <div data-tab="main">
           <h1 id="conversation_title"></h1>
@@ -229,7 +396,7 @@
         </div>
 
         <div data-tab="contacts" class="hidden">
-            <!-- Affichage des contacts -->
+            <!-- Affichage des contacts
             <h2>Contacts</h2>
             <div id="contacts"></div>
 
@@ -243,11 +410,12 @@
         </div>
 
         <div data-tab="profil" class="hidden">
-            <!-- Affichage du profil -->
+            <!-- Affichage du profil
             <h2>Profil</h2>
 
 
         </div>
+        -->
       </div>
     </div>
   </body>
@@ -256,8 +424,6 @@
   <script>
     require('./renderer.js')
   </script>
-
-  <!-- <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script> -->
   <script>window.jQuery = window.$ = require('jquery');</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
@@ -267,10 +433,11 @@
   <script type="text/javascript" src="js/notify.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
 
+
   <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
   <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
   <script type="text/javascript" src="./bower_components/emojione/lib/js/emojione.min.js"></script>
   <script type="text/javascript" src="./node_modules/markdown/lib/markdown.js"></script>
   <script type="text/javascript" src="js/textcomplete.js"></script>
-  <!-- <script type="text/javascript" src="./bower_components/jQuery/dist/jquery.min.js"></script> -->
+  <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>

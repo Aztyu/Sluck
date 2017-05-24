@@ -117,10 +117,18 @@ function resetAccountPassword(){
 
 //La fonction appelée quand on veut créer une nouvelle conversation
 function createConversation(){
+
   var conversation = document.getElementById('conversation_name').value;  //On récupére les valeurs dans le HTML
   var shared = document.getElementById('conversation_shared').checked;    //On récupére l'état de la checkbox
-
-  newConversation(conversation, shared);
+  if(conversation.length > 0){
+    $('#defaultModal').modal('hide')
+    newConversation(conversation, shared);
+  }
+  else{
+    document.getElementById('sa-input-error').style.backgroundColor = "red";
+    document.getElementById('sa-input-error').innerHTML += '<p><i class="material-icons">warning</i> Vous devez écrire quelque chose !<p>';
+  }
+  
 }
 
 //La fonction démarre la mise à jour automatique des messages
