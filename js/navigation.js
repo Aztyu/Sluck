@@ -1,4 +1,5 @@
 var shell = require('electron').shell;
+var fs = require('fs');
 
 //La fonction permet d' afficher une page voulue en cachant les autres
 //param page_dest Une String qui contient l'élément à afficher
