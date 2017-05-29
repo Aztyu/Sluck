@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    var textarea = document.getElementById('chat_box');
-
+    var textarea = document.querySelector('body');
     console.log(textarea);
 
     textarea.ondrop = dropEvent;
