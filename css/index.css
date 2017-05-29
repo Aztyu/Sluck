@@ -31,11 +31,15 @@ div.conversation div.status, div.conversation p.name{
   color: white;
 }
 
+div.conversation p.name {
+  margin: 0!important;
+}
+
 div.status.new{
   background-color: #23dbf2;
   width: 10px;
   height: 10px;
-  margin-right: 10px;
+  margin: 0 10px 0 0 !important;
   border-radius: 10px;
 }
 
@@ -102,4 +106,9 @@ input[type="checkbox"].no-template{
   display: inline;
   vertical-align: super;
   margin-left: 5px;
+}
+
+.zmdi-close-circle-o{
+  float: right;
+  line-height: 1.25em!important;
 }
