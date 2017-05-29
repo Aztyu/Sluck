@@ -23013,6 +23013,7 @@ to {
     border-bottom-right-radius: 5px;
     color: #434651;
     padding: 10px;
+    height: 88vh;
 }
 
 #chat_files{
@@ -23060,7 +23061,7 @@ color: #298890;
     padding: 30px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
-    height: 575px;
+    max-height: 575px;
 }
 .chat .chat-history ul {
     padding: 0;
