@@ -48,6 +48,7 @@ function setFile(file){
 
   var file_pic = document.createElement('i');
   file_pic.classList.add('zmdi');
+   file_pic.classList.add('zmdipic');
   if(file.type.indexOf('image') != -1){
     file_pic.classList.add('zmdi-image-o');
   }else{
@@ -59,6 +60,7 @@ function setFile(file){
 
   var file_delete = document.createElement('i');
   file_delete.classList.add('zmdi');
+  file_delete.classList.add('zdmiclose');
   file_delete.classList.add('zmdi-close');
   file_delete.onclick = removeFile;
 
