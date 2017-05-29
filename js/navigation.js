@@ -57,8 +57,9 @@ function updateConversations(conversations){
       conv_name.classList.add('name');
       conv_name.innerHTML = conversation.name;    //Affichage du nom de la conversation
 
-      var conv_close = document.createElement('img');
-      conv_close.src = 'img/close.png';
+      var conv_close = document.createElement('i');
+      conv_close.className = 'zmdi zmdi-close-circle-o  zmdi-hc-lg';
+
       conv_close.addEventListener("click", quitConversationEvt);
 
       conv_div.appendChild(conv_status);

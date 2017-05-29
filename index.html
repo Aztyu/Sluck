@@ -5,6 +5,7 @@
     <title>Qwirkly</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/template.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css"></link>
 
   </head>
 
@@ -58,7 +59,7 @@
                   <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
               </div>
               <div class="m-t-10 m-b--5 align-center">
-                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Sluck ? </a>
+                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ? </a>
               </div>
             </form>
           </div>
@@ -138,7 +139,7 @@
       <div class="container">
           <div class="card-top"></div>
           <div class="card cardlogin">
-              <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
+              <h1 class="title"><span></span>CONNEXION - Qwirkly <div class="msg">Connectez vous pour profiter de nos services</div></h1>
               <div class="col-md-12">
                   <form id="sign_in" method="POST" />
 
@@ -162,7 +163,7 @@
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"> <a href="./forgot-password.html">Mot de passe oublié ?</a></div>
+                          <div class="text-center"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>
@@ -363,12 +364,14 @@
 
   <section class="content profile-page hidden" data-tab="profilbox">
       <div class="container-fluid">
-      <div class="row clearfix">
+        <div class="row clearfix">
               <div class="col-md-12 p-l-0 p-r-0">
                   <section class="boxs-simple">
                       <div class="profile-header">
                           <div class="profile_info">
-                              <div class="profile-image"></div>
+                              <div class="profile-image">
+                                <img src="" alt="">
+                              </div>
                               <h4 class="mb-0" id="username"></h4>
                               <div class="mt-10">
                               <img class="float-right profile" id="profile_picture"/>
@@ -529,6 +532,7 @@
   <script>
     require('./renderer.js')
   </script>
+
   <script>window.jQuery = window.$ = require('jquery');</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>

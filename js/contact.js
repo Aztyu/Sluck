@@ -17,30 +17,40 @@ function getContactList(){
     if(data && data !== ''){
       var contacts = JSON.parse(data);
 
+      var contacts_label = document.querySelectorAll('.labels li:not(.title)'); //On vide les contacts
+      var contact_list = document.querySelector('.labels');
+
+      contacts_label.forEach(function(item){
+        item.parentNode.removeChild(item);
+      });
+      /*foreach(var contact in contacts){
+        contact.parentNode.removeChild(contact);
+      }*/
+
       for(var i = 0; i<contacts.length; i++){
-        if(!document.querySelector(".contact[data-id='" + contacts[i].id + "']")){
-          var contact_div = document.createElement('div');
-          contact_div.classList.add('contact');
-          contact_div.setAttribute('data-id', contacts[i].id);
+        //if(!document.querySelector(".contact[data-id='" + contacts[i].id + "']")){
+          var contact_li = document.createElement('li');
+          contact_li.classList.add('contact');
+          contact_li.setAttribute('data-id', contacts[i].id);
 
-          var contact_p = document.createElement('p');
-          contact_p.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
-
-          var contact_settings = document.createElement('i');
+          var contact_a = document.createElement('a');
+          contact_a.href = '#';
+          contact_a.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
+          contact_a.innerHTML += ' <span class="ball pink"></span>';
+          /*var contact_settings = document.createElement('i');
           contact_settings.classList.add('material-icons');
           contact_settings.classList.add('context-contact');
           contact_settings.innerHTML = 'face';
 
-          var contact_list = document.getElementById('contacts');
+          var contact_list = document.getElementById('contacts');*/
 
-          contact_div.appendChild(contact_p);
-          contact_div.appendChild(contact_settings);
+          contact_li.appendChild(contact_a);
+          //contact_div.appendChild(contact_settings);
 
-          contact_list.appendChild(contact_div);
-
-          initContextMenu();
-        }
+          contact_list.appendChild(contact_li);
+        //}
       }
+      initContextMenu();
     }
   }, function (err) {
     console.log(err);
@@ -51,12 +61,15 @@ function getContactInviteList(){
   contactInviteList().then(function (data) {    //Si on se connecte
     if(data && data !== ''){
       var invitations = JSON.parse(data);
+      var invite_list = document.getElementById('invitations');
+
+      invite_list.innerHTML = '';
 
       for(var i = 0; i<invitations.length; i++){
         var requester_id = invitations[i].requester_id;
         var invitation_id = invitations[i].invitation_id;
 
-        if(!document.querySelector(".invite[data-id='" + invitation_id + "']")){
+        //if(!document.querySelector(".invite[data-id='" + invitation_id + "']")){
           var invite_div = document.createElement('div');
           invite_div.classList.add('invite');
           invite_div.setAttribute('data-id', invitation_id);
@@ -85,15 +98,13 @@ function getContactInviteList(){
           refuse_button.setAttribute('data-id', invitation_id)
           refuse_button.onclick = refuseInvitation;
 
-          var invite_list = document.getElementById('invitations');
-
           invite_div.appendChild(invite_p);
           invite_div.appendChild(accept_button);
           invite_div.appendChild(refuse_button);
 
           invite_list.appendChild(invite_div);
           doNotify();
-        }
+      //  }
       }
     }
 
@@ -128,8 +139,11 @@ function searchForContact(){
       var contact = JSON.parse(data);
       console.log(contact);
 
+      var contact_search = document.getElementById('searches');
+      contact_search.innerHTML = '';
+
       for(var i = 0; i<contact.length; i++){
-        if(!document.querySelector(".search[data-id='" + contact[i].id + "']")){
+        //if(!document.querySelector(".search[data-id='" + contact[i].id + "']")){
           var contact_div = document.createElement('div');
           contact_div.classList.add('search');
           contact_div.setAttribute('data-id', contact[i].id);
@@ -137,7 +151,7 @@ function searchForContact(){
           var contact_p = document.createElement('p');
           contact_p.innerHTML = contact[i].name;
 
-          var contact_search = document.getElementById('searches');
+
           contact_div.appendChild(contact_p);
 
           if(contact[i].accepted){    //Ça veut dire qu'on est déjà contact
@@ -156,7 +170,7 @@ function searchForContact(){
           }
 
           contact_search.appendChild(contact_div);
-        }
+        //}
       }
     }
   }, function (err){
@@ -171,7 +185,7 @@ function createContactInvite(event){
 
 function initContextMenu(){
   $.contextMenu({
-      selector: '.context-contact',
+      selector: '.contact',
       trigger: 'left',
       callback: function(key, options) {
           var m = "clicked: " + key;
