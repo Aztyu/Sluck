@@ -5,6 +5,7 @@
     <title>Qwirkly</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/template.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css"></link>
 
   </head>
 
@@ -294,12 +295,14 @@
 
   <section class="content profile-page hidden" data-tab="profilbox">
       <div class="container-fluid">
-      <div class="row clearfix">
+        <div class="row clearfix">
               <div class="col-md-12 p-l-0 p-r-0">
                   <section class="boxs-simple">
                       <div class="profile-header">
                           <div class="profile_info">
-                              <div class="profile-image"> <img src="./assets/images/random-avatar7.jpg" alt=""> </div>
+                              <div class="profile-image">
+                                <img src="" alt="">
+                              </div>
                               <h4 class="mb-0" id="username"></h4>
                               <div class="mt-10">
                                   <button class="btn btn-raised btn-default bg-blush btn-sm" onClick="openFile()">Changer photo</button>
@@ -393,6 +396,7 @@
   <script>
     require('./renderer.js')
   </script>
+
   <script>window.jQuery = window.$ = require('jquery');</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
