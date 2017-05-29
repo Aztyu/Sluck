@@ -225,11 +225,16 @@ function getMessageDiv(message){
 
     var content = urlify(message.content);
     var output = emojione.shortnameToImage(content);
-    content = markdown.toHTML(output);
-    content_elem.innerHTML = output;
 
-      message_elem.appendChild(content_elem);
-  }else if(message.file_id){
+    var showdown  = require('showdown');
+    var converter = new showdown.Converter();
+    var text      = output;
+    var html      = converter.makeHtml(text);
+
+    content_elem.innerHTML = html;
+
+    message_elem.appendChild(content_elem);
+  } else if(message.file_id){
     var content_div = document.createElement('div');
 
     console.log(message);

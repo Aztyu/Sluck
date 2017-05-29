@@ -284,7 +284,7 @@
                   </div>
               </div>
               <button class="btn btn-sm btn-raised btn-default pull-right"  onClick="sendNewMessage()">Envoyer</button>
-              <a href="#" class="btn btn-sm btn-raised btn-info">
+              <a href="#" class="btn btn-sm btn-raised btn-info" onClick="openFile()">
                 <i class="zmdi zmdi-file-text"></i>
               </a>
             </div>
@@ -372,6 +372,72 @@
       </div>
   </section>
 
+<!-------------------- CONTACT ---------------------
+<section class="content hidden" data-tab="contactsbox">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-md-12 col-xs-12 p-0">
+               
+                <main id="inbox">
+                    <div class="overlay"></div>
+                    <header class="header">
+                        <div class="search-box">
+                            <input placeholder="Rechercher..." />
+                            <span class="icon zmdi zmdi-search"></span> </div>
+                        <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>Contact</h1>
+                    </header>
+                    <div id="main-nano-wrapper" class="nano">
+                        <div class="nano-content">
+                            <ul class="message-list">
+                                <li class="unread">
+                                    <div class="col col-1"> <span class="dot"></span>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="chk1" />
+                                            <label for="chk1" class="toggle"></label>
+                                            <i class="zmdi zmdi-star-outline"></i> </div>
+                                        <p class="title">Lucas Kriebel (via Twitter)</p>
+                                    </div>
+                                    <div class="col col-2">
+                                        <div class="subject">Lucas Kriebel (@LucasKriebel) has sent you a direct message on Twitter! &nbsp;&ndash;&nbsp; <span class="teaser">@LucasKriebel - Very cool :) Nicklas, You have a new direct message.</span></div>
+                                        <div class="date"><a class="btn btn-raised btn-sm"><i class="zmdi zmdi-forward"></i></a></div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                    </div>
+                </main>
+                <div id="message">
+                    <div class="header">
+                        <h1 class="page-title">Informations contact</h1>
+                    </div>
+                    <div id="message-nano-wrapper" class="nano">
+                        <div class="nano-content">
+                            <ul class="message-container">
+                                <li class="sent">
+                                    <div class="details">
+                                        <div class="left">You
+                                            <div class="arrow"></div>
+                                            Scott </div>
+                                        <div class="right">March 6, 2014, 20:08 pm</div>
+                                    </div>
+                                    <div class="message">
+                                        <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
+                                        <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
+                                        <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
+                                    </div>
+                                    <div class="tool-box"> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-forward"></i></a> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-delete"></i></a> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-flag"></i></a> </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-------------------- FIN CONTACT ---------------- -->
+
   <section class="content profile-page hidden" data-tab="contacts">
     <div class="container-fluid">
       <div class="row clearfix">
@@ -405,12 +471,14 @@
   <script type="text/javascript" src="js/contact.js"></script>
   <script type="text/javascript" src="js/notify.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
+  <script type="text/javascript" src="js/inbox.js"></script>
+
 
 
   <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
   <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
   <script type="text/javascript" src="./bower_components/emojione/lib/js/emojione.min.js"></script>
-  <script type="text/javascript" src="./node_modules/markdown/lib/markdown.js"></script>
+  <script type="text/javascript" src="./node_modules/showdown/dist/showdown.js"></script>
   <script type="text/javascript" src="js/textcomplete.js"></script>
   <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
