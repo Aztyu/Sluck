@@ -171,9 +171,67 @@
     </div>
 
     <div data-page="main" class="hidden" style="margin-top: 9vh;">
+    <!-- Morphing Search  -->
+<div id="morphsearch" class="morphsearch">
+    <form class="morphsearch-form" />
+        <div class="form-group m-0">
+            <input value="" type="search" onclick="expandSearch()" placeholder="Rechercher..." class="form-control morphsearch-input" />
+            <button class="morphsearch-submit" type="submit" >Search</button>
+        </div>
+    </form>
+    <div class="morphsearch-content">
+        <div class="dummy-column">
+            <h2>People</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Popular</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Recent</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+    </div>
+    <!-- /morphsearch-content --> 
+    <span class="morphsearch-close" onclick="unexpandSearch()"></span> </div>
+<!-- Top Bar -->
       <nav class="navbar navbar-brand clearHeader">
         <div class="container-fluid">
-            <div class="navbar-header"><img src="img/logo.png" style="float: left;margin-right: 10px;" /><p class="htitle" style="margin-top:15px;">QWIRKLY - Easy / Fast / Sublime</p></div>
+            <div class="navbar-header"><img src="img/logo.png" style="float: left;margin-right: 10px;" /><p class="htitle" style="margin-top:15px;">QWIRKLY </p></div>
               <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
@@ -480,8 +538,11 @@
   <script type="text/javascript" src="js/notify.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
   <script type="text/javascript" src="js/inbox.js"></script>
+  
 
-
+<script src="js/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<script src="js/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<script src="js/bundles/mainscripts.bundle.js"></script><!-- Custom Js --> 
 
   <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
   <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
