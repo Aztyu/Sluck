@@ -17,30 +17,37 @@ function getContactList(){
     if(data && data !== ''){
       var contacts = JSON.parse(data);
 
-      document.getElementById('contacts').innerHTML = ''; //On vide les contacts
+      var contacts_label = document.querySelectorAll('.labels li:not(.title)'); //On vide les contacts
+      var contact_list = document.querySelector('.labels');
+
+      contacts_label.forEach(function(item){
+        item.parentNode.removeChild(item);
+      });
+      /*foreach(var contact in contacts){
+        contact.parentNode.removeChild(contact);
+      }*/
 
       for(var i = 0; i<contacts.length; i++){
         //if(!document.querySelector(".contact[data-id='" + contacts[i].id + "']")){
-          var contact_div = document.createElement('div');
-          contact_div.classList.add('contact');
-          contact_div.setAttribute('data-id', contacts[i].id);
+          var contact_li = document.createElement('li');
+          contact_li.classList.add('contact');
+          contact_li.setAttribute('data-id', contacts[i].id);
 
-          var contact_p = document.createElement('p');
-          contact_p.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
-
-          var contact_settings = document.createElement('i');
+          var contact_a = document.createElement('a');
+          contact_a.href = '#';
+          contact_a.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
+          contact_a.innerHTML += ' <span class="ball pink"></span>';
+          /*var contact_settings = document.createElement('i');
           contact_settings.classList.add('material-icons');
           contact_settings.classList.add('context-contact');
           contact_settings.innerHTML = 'face';
 
-          var contact_list = document.getElementById('contacts');
+          var contact_list = document.getElementById('contacts');*/
 
-          contact_div.appendChild(contact_p);
-          contact_div.appendChild(contact_settings);
+          contact_li.appendChild(contact_a);
+          //contact_div.appendChild(contact_settings);
 
-          contact_list.appendChild(contact_div);
-
-
+          contact_list.appendChild(contact_li);
         //}
       }
       initContextMenu();
@@ -178,7 +185,7 @@ function createContactInvite(event){
 
 function initContextMenu(){
   $.contextMenu({
-      selector: '.context-contact',
+      selector: '.contact',
       trigger: 'left',
       callback: function(key, options) {
           var m = "clicked: " + key;
