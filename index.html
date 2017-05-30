@@ -232,7 +232,7 @@
 <!-- Top Bar -->
       <nav class="navbar navbar-brand clearHeader">
         <div class="container-fluid">
-            <div class="navbar-header"><img src="img/logo.png" /><p class="htitle">WIRKLY </p></div>
+            <div class="navbar-header"><a href="#" onclick="navigateToTab('chatbox')" style="text-decoration: none;"><img src="img/logo.png" /><p class="htitle">WIRKLY </p></a></div>
               <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
@@ -270,7 +270,7 @@
                   <li><a data-placement="bottom" title="Go to Inbox" href="#" onClick="navigateToTab('chatbox')"><i class="zmdi zmdi-email"></i></a></li>
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
-                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="navigateToTab('profiluserbox')"><i class="zmdi zmdi-settings"></i></a></li>
                   <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
                       <ul class="dropdown-menu" id="status_co">
                         <li class="header">STATUS</li>
@@ -467,6 +467,85 @@
                   </div>
         </div>
       </div>
+  </section>
+  <!--- Profile another user ----- -->
+  <section class="content profile-page hidden" data-tab="profiluserbox">
+    <div class="container-fluid">
+      <div class="row clearfix">
+          <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="profile2user">
+                          <div class="profile_info">
+                              <div class="profile-image">
+                                <img src="" alt="">
+                              </div>
+                              <h4 class="mb-0" id="username">kiki</h4>
+                              <div class="mt-10">
+                              <img class="float-right profile" id="profile_picture">
+                              </div>
+                          </div>
+                      </div>
+                <div class="card carduser">
+                    <div class="header">
+                        <h2> Informations personnel</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">more_vert</i> </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Bloqué ? </a></li>
+                                    <li><a href="javascript:void(0);">Bloqué ??</a></li>
+                                    <li><a href="javascript:void(0);">Bloqué ???</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <h2 class="card-inside-title"></h2>
+                        <div class="row clearfix">
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Nom" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Prénom" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">send</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Email" />
+                                    </div>
+                                     </div>
+                            </div>
+                            <div class="col-md-4">
+                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone_iphone</i> </span>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control mobile-phone-number" placeholder="Mobile" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone</i> </span>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control mobile-phone-number" placeholder="Téléphone fix" />
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Input Group --> 
+      </div>
+    </div>
   </section>
 
 <!-------------------- CONTACT ---------------------
