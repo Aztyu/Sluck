@@ -100,6 +100,8 @@ function switchConversation(conversation_div){
     clearMessages();    //On vide les messages
 
     document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
+    $('.chat').removeClass('hidden');
+    $('.chat-message').removeClass('hidden');
 
     var current_messages = conversation.messages;
     if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
@@ -143,6 +145,7 @@ function quitConversationEvt(event){
 function removeConversation(conversation_id){
   var conversation = document.querySelector('.conversation[data-id="' + conversation_id + '"]');
   conversation.remove();
+  clearChat();
 
   for(var i = 0; i < conversations.length; i++){
     if(conversations[i].id == conversation_id){
@@ -167,6 +170,10 @@ function addNewMessage(message){
 function clearMessages(){
   var message_div = document.getElementById('messages');
   message_div.innerHTML = '';
+}
+
+function clearChat(){
+    $('.chat').addClass('hidden');
 }
 
 //La fonction permet de récupérer des infos un utilisateur déjà chargé selon son id
