@@ -175,9 +175,67 @@
     </div>
 
     <div data-page="main" class="hidden" style="margin-top: 9vh;">
+    <!-- Morphing Search  -->
+<div id="morphsearch" class="morphsearch">
+    <form class="morphsearch-form" />
+        <div class="form-group m-0">
+            <input value="" type="search" onclick="expandSearch()" placeholder="Rechercher..." class="form-control morphsearch-input" />
+            <button class="morphsearch-submit" type="submit" >Search</button>
+        </div>
+    </form>
+    <div class="morphsearch-content">
+        <div class="dummy-column">
+            <h2>People</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Popular</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Recent</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+    </div>
+    <!-- /morphsearch-content --> 
+    <span class="morphsearch-close" onclick="unexpandSearch()"></span> </div>
+<!-- Top Bar -->
       <nav class="navbar navbar-brand clearHeader">
         <div class="container-fluid">
-            <div class="navbar-header"><img src="img/logo.png" style="float: left;margin-right: 10px;" /><p class="htitle" style="margin-top:15px;">QWIRKLY - Easy / Fast / Sublime</p></div>
+            <div class="navbar-header"><img src="img/logo.png" /><p class="htitle">WIRKLY </p></div>
               <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
@@ -216,6 +274,33 @@
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
                   <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
+                      <ul class="dropdown-menu" id="status_co">
+                        <li class="header">STATUS</li>
+                        <li class="body notificationCase">
+                          <ul class="menu">
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                  <span class="icon-circle bg-light-green xsmall"></span>
+                                  <div class="menu-info">
+                                      <p>En ligne</p>
+                                  </div>
+                                  </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-orange xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Occupé</p>
+                              </div>
+                              </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-grey xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Hors ligne</p>
+                              </div>
+                              </a> </li>
+                          </ul>
+                        </li>
+                      </ul>
+                  </li>
                   <!-- #END# Tasks -->
               </ul>
           </div>
@@ -291,7 +376,7 @@
 
               <div class="chat-history" id="messages"></div>
               <!-- end chat-history -->
-              <div class="chat-message clearfix" id="chat_div">
+              <div class="chat-message clearfix hidden" id="chat_div">
                   <div class="form-group">
                       <div class="form-line">
                           <div id="chat_files" class="hidden"></div>
@@ -487,8 +572,11 @@
   <script type="text/javascript" src="js/notify.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
   <script type="text/javascript" src="js/inbox.js"></script>
+  
 
-
+<!--<script src="js/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<!--script src="js/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<script src="js/bundles/mainscripts.bundle.js"></script><!-- Custom Js --> 
 
   <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
   <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>

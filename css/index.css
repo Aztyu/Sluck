@@ -112,3 +112,8 @@ input[type="checkbox"].no-template{
   float: right;
   line-height: 1.25em!important;
 }
+
+.navbar-header img {
+  width: 50px;
+  float: left;
+}
