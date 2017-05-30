@@ -50,6 +50,9 @@
                   </div>
               </div>
 
+              <div id="profile_preview">
+                <img id="img_preview"/>
+              </div>
               <button type="button" onClick="openFile()" class="btn btn-raised bg-blue-grey waves-effect" style="margin-left: 15px;padding: 7px 15px;">Ajouter une photo de profil  <i class="zmdi zmdi-camera-add"></i></button>
               <div class="form-group">
                   <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" />
@@ -178,7 +181,7 @@
               <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
-                  <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span 
+                  <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span
                   class="label-count">7</span> </a>
                   <ul class="dropdown-menu">
                     <li class="header">NOTIFICATIONS</li>
@@ -246,7 +249,7 @@
                 </div>
             </div>
         </div>
-        
+
   <section class="content" data-tab="chatbox">
       <div class="container-fluid">
       <div class="chatbox row clearfix">
@@ -295,7 +298,7 @@
                           <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
                       </div>
                   </div>
-                <a href="#" class="btn btn-sm btn-raised btn-info" onclick="openFile()">
+                <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
                   <i class="zmdi zmdi-file-text"></i>
                 </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
             </div>
@@ -389,7 +392,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-md-12 col-xs-12 p-0">
-               
+
                 <main id="inbox">
                     <div class="overlay"></div>
                     <header class="header">
@@ -414,7 +417,7 @@
                                         <div class="date"><a class="btn btn-raised btn-sm"><i class="zmdi zmdi-forward"></i></a></div>
                                     </div>
                                 </li>
-                                
+
                             </ul>
                     </div>
                 </main>
@@ -439,7 +442,7 @@
                                     </div>
                                     <div class="tool-box"> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-forward"></i></a> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-delete"></i></a> <a class="btn btn-raised btn-sm"><i class="zmdi zmdi-flag"></i></a> </div>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
