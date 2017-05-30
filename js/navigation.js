@@ -28,7 +28,13 @@ function navigateToTab(page_dest){
     }
   }
 }
+function expandSearch(){
+  document.getElementById('morphsearch').classList.add('open');
+}
 
+function unexpandSearch(){
+  document.getElementById('morphsearch').classList.remove('open');
+}
 //La fonction permet de mettre à jour la liste des conversations
 //param conversations La liste de toutes les conversations
 function updateConversations(conversations){

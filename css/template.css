@@ -20,6 +20,23 @@
     height: 50px;
     position: absolute;
 }
+::-webkit-scrollbar {
+   width: 7px;
+       border-radius: 10px;
+    background-color: #f1f1f1;
+}
+ 
+::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+ 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #2e9092;
+}
 .color-bg {
     position: fixed;
     top: 0;
@@ -7048,8 +7065,8 @@ h2.title {
     min-height: 30px;
     position: fixed;
     z-index: 13;
-    top: 12px;
-    left: 255px;
+        top: 10%;
+    right: 1%;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
     -webkit-transition-property: min-height,  width,  top,  right;
@@ -7062,6 +7079,9 @@ h2.title {
 .m-top {
     z-index: 7;
 }
+.theme-cyan .color-bg, .theme-cyan .morphsearch.open, .theme-cyan .wizard .steps .current a, .theme-cyan .dropdown-menu li a:hover, .theme-cyan .profile-page .profile-sub-header .box-list ul li a:hover, .theme-cyan .fc .fc-toolbar, .theme-cyan .blog-page .single-blog-post .img-holder .date-box{
+    background: linear-gradient(60deg, #136a8a, #379c94);
+}
 .morphsearch .form-group {
     margin: 0;
     padding: 0;
@@ -7070,7 +7090,7 @@ h2.title {
     margin: 0;
     padding: 7px 0;
     color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 .morphsearch.open {
     width: 100%;
@@ -7146,7 +7166,7 @@ input[type="search"] {
     overflow: hidden;
     right: 0;
     top: 50%;
-    background: transparent url(../images/magnifier.svg) no-repeat center center;
+    background: transparent url(../img/magnifier.svg) no-repeat center center;
     background-size: 100%;
     border: none;
     pointer-events: none;
@@ -7272,7 +7292,7 @@ input[type="search"] {
 .dummy-media-object {
     padding: 0.75em;
     display: block;
-    margin: 0.3em 0;
+    margin: 10px 0;
     cursor: pointer;
     border-radius: 5px;
     background: rgba(118, 117, 128, 0.05);
@@ -7289,12 +7309,13 @@ input[type="search"] {
 }
 .dummy-media-object h3 {
     vertical-align: middle;
-    font-size: 16px;
+    font-size: 18px;
     display: inline-block;
     font-weight: 400;
     margin: 0 0 0 0;
     width: calc(100% - 70px);
     color: #555;
+    line-height: 47px!important;
 }
 .overlay {
     position: fixed;
@@ -23195,7 +23216,7 @@ color: #298890;
     padding-top: 51px;
     position: relative;
     text-align: center;
-    border-radius: 50px;
+
 }
 .profile-page .profile-header .profile_info .profile-image img {
     border-radius: 50%}
@@ -23847,7 +23868,9 @@ html.ie11 .bs-searchbox .form-control {
   padding: 0;
   position: absolute;
     bottom: 0px;
-    width: 280px;
+width: 280px;
+overflow-y: scroll;
+height: 238px;
 }
 #sidebar .menu-segment ul,
 #sidebar .menu-segment li {
