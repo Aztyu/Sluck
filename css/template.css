@@ -23832,6 +23832,11 @@ html.ie11 .bs-searchbox .form-control {
   line-height: 23px;
   font-size: 11px;
 }
+.xsmall{
+  height: 10px!important;
+  width: 10px!important;
+  margin-top: 8px;
+}
 .circle-icon:hover {
   color: #57636C;
   border-color: #57636C;
@@ -24538,6 +24543,9 @@ height: 238px;
     margin: 0;
     font-size: 11px;
     color: #aaa;
+}
+#status_co p{
+    font-size: 18px!important;
 }
 .dropdown-menu ul.menu .menu-info p .material-icons {
     font-size: 13px;

@@ -271,6 +271,33 @@
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
                   <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
+                      <ul class="dropdown-menu" id="status_co">
+                        <li class="header">STATUS</li>
+                        <li class="body notificationCase">
+                          <ul class="menu">
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                  <span class="icon-circle bg-light-green xsmall"></span>
+                                  <div class="menu-info">
+                                      <p>En ligne</p>
+                                  </div>
+                                  </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-orange xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Occupé</p>
+                              </div>
+                              </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-grey xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Hors ligne</p>
+                              </div>
+                              </a> </li>
+                          </ul>
+                        </li>
+                      </ul>
+                  </li>
                   <!-- #END# Tasks -->
               </ul>
           </div>
@@ -544,8 +571,8 @@
   <script type="text/javascript" src="js/inbox.js"></script>
   
 
-<script src="js/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
-<script src="js/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<!--<script src="js/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<!--script src="js/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
 <script src="js/bundles/mainscripts.bundle.js"></script><!-- Custom Js --> 
 
   <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
