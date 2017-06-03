@@ -470,3 +470,17 @@ function inviteContact(id){
     });
   })
 }
+
+//La fonction permet de mettre à jour son status
+//param status Le status de l'utilisateur
+function updateUserStatus(status){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/user/status/' + status,
+    method: 'GET'
+  }, function (err, res, body) {
+    if(err){
+      console.log(status);
+    };
+  });
+}
