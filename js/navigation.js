@@ -309,6 +309,7 @@ function sendNewMessage(){
       current_conversation.messages.push(message_obj);    //On ajoute le message
       addNewMessage(message_obj);     //On affiche le message
       message_box.value = ''; // on vide la textarea
+      removeFile();           //On supprime les fichiers si ils y en a
 
   }, function (err) {
       console.log(err);
