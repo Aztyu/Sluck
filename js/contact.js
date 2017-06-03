@@ -28,33 +28,45 @@ function getContactList(){
       }*/
 
       for(var i = 0; i<contacts.length; i++){
-        //if(!document.querySelector(".contact[data-id='" + contacts[i].id + "']")){
           var contact_li = document.createElement('li');
           contact_li.classList.add('contact');
-          contact_li.setAttribute('data-id', contacts[i].id);
+          contact_li.setAttribute('data-id', contacts[i].contact.id);
 
           var contact_a = document.createElement('a');
-          contact_a.href = '#';
-          contact_a.innerHTML = contacts[i].name;   //On utilise le nom du contact qui peut être modifié
-          contact_a.innerHTML += ' <span class="ball pink"></span>';
-          /*var contact_settings = document.createElement('i');
-          contact_settings.classList.add('material-icons');
-          contact_settings.classList.add('context-contact');
-          contact_settings.innerHTML = 'face';
+          contact_a.innerHTML = contacts[i].contact.name;   //On utilise le nom du contact qui peut être modifié
 
-          var contact_list = document.getElementById('contacts');*/
+          var status_color;
+
+          switch (contacts[i].status) {
+            case 1:
+              status_color = 'green';
+              break;
+            case 2:
+              status_color = 'yellow';
+              break;
+            case 3:
+              status_color = 'red';
+              break;
+            default:
+              status_color = 'white';
+          }
+          contact_a.innerHTML += ' <span class="ball ' + status_color + '"></span>';
 
           contact_li.appendChild(contact_a);
-          //contact_div.appendChild(contact_settings);
+          contact_li.onclick = openContactPage;
 
           contact_list.appendChild(contact_li);
-        //}
       }
       initContextMenu();
     }
   }, function (err) {
     console.log(err);
   });
+}
+
+function openContactPage(event){
+  var elem = event.target.parentNode;
+  console.log("Open contact page " + elem.getAttribute('data-id'));
 }
 
 function getContactInviteList(){
@@ -183,8 +195,8 @@ function createContactInvite(event){
   inviteContact(id);
 }
 
-function initContextMenu(){
-  $.contextMenu({
+function initContextMenu(){   //TODO bouger sur les photos de profil dans les conversations
+  /*$.contextMenu({
       selector: '.contact',
       trigger: 'left',
       callback: function(key, options) {
@@ -209,5 +221,5 @@ function initContextMenu(){
               isHtmlName: true
           }
       }
-  });
+  });*/
 }
