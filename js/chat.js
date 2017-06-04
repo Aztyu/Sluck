@@ -210,7 +210,10 @@ function updateConversation(conversation){
 
         if(debug.length > 0){   //Si il y a des messages renvoyés
           var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
-          conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
+
+          if(debug[debug.length-1].time > connected_user.last_logout){   //Si le dernier message est plus récent que la dernière connexion
+            conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
+          }
 
           if(conversation.id == current_conversation.id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
             for(var i = 0; i<debug.length; i++){

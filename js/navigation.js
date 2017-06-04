@@ -221,12 +221,12 @@ function getMessageDiv(message){
   var time_elem = document.createElement('p');
   time_elem.classList.add('msg-time');
 
-  var test = moment(message.time).calendar();
-  if(test.length == 10){
-    test = moment(message.time).format('MMMM Do hh:mm');
+  var time_str = moment(message.time).calendar();
+  if(time_str.length == 10){
+    time_str = moment(message.time).format('MMMM Do hh:mm');
   }
 
-  time_elem.innerHTML = test;
+  time_elem.innerHTML = time_str;
 
   var username = getUserDiv(message.user_id);
 
