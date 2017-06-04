@@ -1,5 +1,5 @@
 {
-  "name": "Sluck",
+  "name": "sluck",
   "description": "Projet de M1",
   "main": "main.js",
   "authors": [
@@ -23,6 +23,12 @@
     "tests"
   ],
   "dependencies": {
-    "jQuery": "^3.1.1"
+    "jQuery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
+    "jQuery-contextMenu": "^2.4.4",
+    "jquery-textcomplete": "^1.8.0",
+    "emojione": "^3.0.2",
+    "bootstrap": "^3.3.7",
+    "moment": "momentjs#^2.18.1"
   }
 }

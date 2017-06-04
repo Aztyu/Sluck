@@ -1,3 +1,6 @@
+var shell = require('electron').shell;
+var fs = require('fs');
+
 //La fonction permet d' afficher une page voulue en cachant les autres
 //param page_dest Une String qui contient l'élément à afficher
 function navigateTo(page_dest){
@@ -25,7 +28,13 @@ function navigateToTab(page_dest){
     }
   }
 }
+function expandSearch(){
+  document.getElementById('morphsearch').classList.add('open');
+}
 
+function unexpandSearch(){
+  document.getElementById('morphsearch').classList.remove('open');
+}
 //La fonction permet de mettre à jour la liste des conversations
 //param conversations La liste de toutes les conversations
 function updateConversations(conversations){
@@ -48,8 +57,9 @@ function updateConversations(conversations){
       conv_name.classList.add('name');
       conv_name.innerHTML = conversation.name;    //Affichage du nom de la conversation
 
-      var conv_close = document.createElement('img');
-      conv_close.src = 'img/close.png';
+      var conv_close = document.createElement('i');
+      conv_close.className = 'zmdi zmdi-close-circle-o  zmdi-hc-lg';
+
       conv_close.addEventListener("click", quitConversationEvt);
 
       conv_div.appendChild(conv_status);
@@ -82,26 +92,32 @@ function switchConversation(conversation_div){
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
 
-  var conversation;
-  for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
-    if(conversations[i].id == conversation_id){
-      conversation = conversations[i];
-      break;
+  navigateToTab('chatbox'); //On navigue vers la discussion
+
+  if(conversation_id != current_conversation.id){
+    var conversation;
+    for(var i=0; i<conversations.length; i++){    //On cherche la conversation dans la liste en JS pour définir la conversation actuelle
+      if(conversations[i].id == conversation_id){
+        conversation = conversations[i];
+        break;
+      }
     }
-  }
 
-  clearMessages();    //On vide les messages
+    clearMessages();    //On vide les messages
 
-  document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
+    document.getElementById('conversation_title').innerHTML = conversation.name;    //On rempli le nom de la conversation
+    $('.chat').removeClass('hidden');
+    $('.chat-message').removeClass('hidden');
 
-  var current_messages = conversation.messages;
-  if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
-    for(var j=0; j<current_messages.length; j++){
-      addNewMessage(current_messages[j]);
+    var current_messages = conversation.messages;
+    if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
+      for(var j=0; j<current_messages.length; j++){
+        addNewMessage(current_messages[j]);
+      }
     }
-  }
 
-  current_conversation = conversation;
+    current_conversation = conversation;
+  }
 }
 
 //La fonction permet de quitter une conversation
@@ -135,6 +151,7 @@ function quitConversationEvt(event){
 function removeConversation(conversation_id){
   var conversation = document.querySelector('.conversation[data-id="' + conversation_id + '"]');
   conversation.remove();
+  clearChat();
 
   for(var i = 0; i < conversations.length; i++){
     if(conversations[i].id == conversation_id){
@@ -147,7 +164,10 @@ function removeConversation(conversation_id){
 //param message Un objet message
 function addNewMessage(message){
   var message_div = document.getElementById('messages');
-  message_div.appendChild(getMessageDiv(message));
+
+  if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
+    message_div.appendChild(getMessageDiv(message));
+  }
 
   scrollMessages();
 }
@@ -156,6 +176,10 @@ function addNewMessage(message){
 function clearMessages(){
   var message_div = document.getElementById('messages');
   message_div.innerHTML = '';
+}
+
+function clearChat(){
+    $('.chat').addClass('hidden');
 }
 
 //La fonction permet de récupérer des infos un utilisateur déjà chargé selon son id
@@ -185,7 +209,7 @@ function getMessageDiv(message){
 
   var profil_img = document.createElement('img');
   profil_img.classList.add('profile');
-  profil_img.src = SERVER_URL + '/user/profile/' + message.user_id;   //On initialise l'url de la photo de profil
+  profil_img.src = 'http://cdn.qwirkly.fr/profile/' + message.user_id;   //On initialise l'url de la photo de profil
 
   var message_elem = document.createElement('div');
   message_elem.classList.add('chat');
@@ -193,6 +217,16 @@ function getMessageDiv(message){
   var username_elem = document.createElement('p');
   username_elem.setAttribute('data-id', message.user_id);
   username_elem.classList.add('name');
+
+  var time_elem = document.createElement('p');
+  time_elem.classList.add('msg-time');
+
+  var time_str = moment(message.time).calendar();
+  if(time_str.length == 10){
+    time_str = moment(message.time).format('MMMM Do hh:mm');
+  }
+
+  time_elem.innerHTML = time_str;
 
   var username = getUserDiv(message.user_id);
 
@@ -205,13 +239,56 @@ function getMessageDiv(message){
     }
   }
 
-  var content_elem = document.createElement('p');     //Remplissage du contenu du message
-  content_elem.setAttribute('data-id', message.id);
-  content_elem.classList.add('content');
-  content_elem.innerHTML = message.content;
-
   message_elem.appendChild(username_elem);
-  message_elem.appendChild(content_elem);
+  message_elem.appendChild(time_elem);
+
+  if(message.content){
+    var content_elem = document.createElement('p');     //Remplissage du contenu du message
+
+    content_elem.setAttribute('data-id', message.id);
+    content_elem.classList.add('content');
+
+    var content = urlify(message.content);
+    var output = emojione.shortnameToImage(content);
+
+    var showdown  = require('showdown');
+    var converter = new showdown.Converter();
+    var text      = output;
+    var html      = converter.makeHtml(text);
+
+    content_elem.innerHTML = html;
+
+    message_elem.appendChild(content_elem);
+  } else if(message.file_id){
+    var content_div = document.createElement('div');
+
+    console.log(message);
+
+    content_div.setAttribute('data-id', message.id);
+    content_div.classList.add('file');
+
+    if(message.file_obj.contentType.indexOf('image') != -1){
+      var content_img = document.createElement('img');
+      content_img.classList.add('img_preview');
+      content_img.src = SERVER_URL + "/file/" + message.file_id;
+
+      var content_a = document.createElement('a');
+      content_a.href = SERVER_URL + "/file/" + message.file_id;
+      content_a.innerHTML = message.file_obj.name;
+
+      content_div.appendChild(content_img);
+      content_div.appendChild(content_a);
+    }else{
+      content_div.innerHTML = 'Télécharger :';
+
+      var content_a = document.createElement('a');
+      content_a.href = SERVER_URL + "/file/" + message.file_id;
+      content_a.innerHTML = message.file_obj.name;
+
+      content_div.appendChild(content_a);
+    }
+    message_elem.appendChild(content_div);
+  }
 
   message_div.appendChild(profil_img);
   message_div.appendChild(message_elem);
@@ -219,11 +296,36 @@ function getMessageDiv(message){
   return message_div;
 }
 
+function urlify(text) {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    })
+}
+
+//open links externally by default
+$(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});
+
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
-  var message = document.getElementById('chat_box').value;    //On récupére le contenu du message
+  var message_box = document.getElementById('chat_box');    //On récupére le contenu du message
+  var message_file = document.getElementById('chat_files');
+
+  var message = {};
+
+  if(message_box.classList.contains('hidden')){
+    message.file = message_file.getAttribute('data-src');
+  }else{
+    message.content = message_box.value;
+  }
+
+  message.time = Date.now();
 
   createMessage(message, current_conversation.id).then(function (data) {    //Envoie du message à l'API
+      console.log(data);
       var message_obj = JSON.parse(data)    //On récupére une liste d'objet Message JSON
 
       if(!current_conversation.messages){   //Si la conversation n'a pas de message alors on l'initialise
@@ -232,6 +334,9 @@ function sendNewMessage(){
 
       current_conversation.messages.push(message_obj);    //On ajoute le message
       addNewMessage(message_obj);     //On affiche le message
+      message_box.value = ''; // on vide la textarea
+      removeFile();           //On supprime les fichiers si ils y en a
+
   }, function (err) {
       console.log(err);
   });

@@ -17,7 +17,8 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({icon: __dirname+'/img/logo.png'});
+  mainWindow.maximize();
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -63,7 +64,7 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipc.on('open-file-dialog', function (event) {
+ipc.on('open-image-dialog', function (event) {
   dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [
@@ -71,5 +72,16 @@ ipc.on('open-file-dialog', function (event) {
     ]
   }, function (files) {
     if (files) event.sender.send('selected-directory', files)
+  })
+})
+
+ipc.on('open-file-dialog', function (event) {
+  dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      {}
+    ]
+  }, function (files) {
+    if (files) event.sender.send('selected-attachment', files)
   })
 })

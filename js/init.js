@@ -1,16 +1,6 @@
-let fs = require('fs');
-
-var SERVER_URL;
-var UPDATE_TIME;
-var PEERJS_KEY;
-
-//Lecture du fichier de configuration
-fs.readFile('properties/configuration.json', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err);
-  }
-  var conf = JSON.parse(data);
-  SERVER_URL = conf.server_url;
-  UPDATE_TIME = conf.update_time;
-  PEERJS_KEY = conf.peerjs_key;
-});
+SERVER_URL = "http://localhost:8080/server";
+UPDATE_MESSAGE_TIME = 2000;
+PSEUDO_TIME = 50;
+UPDATE_INVITE = 5000;
+UPDATE_CONTACT = 5000;
+PEERJS_KEY = "avn2a91tuo9a4i";

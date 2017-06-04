@@ -8,7 +8,7 @@ const ipc = require('electron').ipcRenderer
 
 //Demarre la pop-up pour récupérer la photo de profil
 function openFile(){
-  ipc.send('open-file-dialog');
+  ipc.send('open-image-dialog');
 }
 
 //Une fois sélectionné le chemin du fichier est renvoyé
@@ -29,8 +29,7 @@ function loginAccount(){
     user_map[connected_user.id] = connected_user;   //On ajoute l'utilisateur à la map des utilisateurs
     navigateTo('main');                             //alors on passe sur l'affichage principal
     listConversation();
-    startMessageUpdates();                          //on démarre la récupération des messages
-    startLazyLoadUpdate();
+    startBackgroundUpdates();
     initProfile(connected_user);                          //et des pseudos
     startPeerConnection();      //On démarre le composant webrtc
   }, function (err) {
@@ -42,11 +41,21 @@ function loginAccount(){
   });
 }
 
+//la fonction permet de lancer toutes les requêtes en fond
+function startBackgroundUpdates(){
+  startMessageUpdates();                          //on démarre la récupération des messages
+  startLazyLoadUpdate();
+  startContactUpdate();
+  startInviteUpdate();
+}
+
 //La fonction appelée quand on veut créer un utilisateur
 function registerAccount(){
   var name = document.getElementById('name_reg').value;             //On récupére les valeurs dans le HTML
   var password = document.getElementById('password_reg').value;
   var password_confirm = document.getElementById('password_confirm_reg').value;
+  var email = document.getElementById('email_reg').value;
+  var email_confirm = document.getElementById('email_confirm_reg').value;
   var profile_img = document.getElementById('img_preview');
 
   if(profile_img){      //Pour la photo de profil on récupére la source
@@ -56,27 +65,77 @@ function registerAccount(){
   }
 
   if(profile_img_src){    //Si profile img n'est pas undefined alors on enlève le 'file:///' pour utiliser avec FS
-    profile_img_src.substring(8);
+    profile_img_src = profile_img_src.substring(8);
   }
 
-  if(password == password_confirm){           //Si les password coïncident
-      register(name, password, profile_img_src);
+  if(password == password_confirm && email == email_confirm){           //Si les password coïncident
+      register(name, password, email, profile_img_src);
+  }
+}
+
+function resetAccount(){
+  var email = document.getElementById('email_reset').value;
+  document.getElementById('status_log_reset').value = '';               //On vide le message d'erreur
+
+  if(email && email !== ''){
+    askForReset(email).then(function (data) {
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = 'Le code a été envoyé par mail';
+    }, function (err) {
+      document.getElementById('email_reset').value = '';             //En cas d'erreur on remets les champs à zéro
+
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = err;
+    });
+  }else{
+    document.getElementById('status_log_reset').value = 'Merci de renseigner un mail';
+  }
+}
+
+function resetAccountPassword(){
+  var code = document.getElementById('code_reset').value;
+  var password = document.getElementById('password_reset').value;
+  var password_verif = document.getElementById('password_confirm_reset').value;
+
+  document.getElementById('status_log_change').value = '';               //On vide le message d'erreur
+
+  if(password && password_verif && password_verif === password){
+    resetPassword(code, password).then(function (data) {
+      var reset_status = document.getElementById('status_log_reset');   //On affiche l'erreur
+      reset_status.innerHTML = 'Le mot de passe a bien été changé';
+    }, function (err) {
+      document.getElementById('code_reset').value = '';             //En cas d'erreur on remets les champs à zéro
+      document.getElementById('password_reset').value = '';
+      document.getElementById('password_confirm_reset').value = '';
+
+      var reset_status = document.getElementById('status_log_change');   //On affiche l'erreur
+      reset_status.innerHTML = err;
+    });
+  }else{
+    document.getElementById('status_log_change').value = 'Les mots de passe doivent être identique';
   }
 }
 
 //La fonction appelée quand on veut créer une nouvelle conversation
 function createConversation(){
+
   var conversation = document.getElementById('conversation_name').value;  //On récupére les valeurs dans le HTML
   var shared = document.getElementById('conversation_shared').checked;    //On récupére l'état de la checkbox
+  if(conversation.length > 0){
+    $('#defaultModal').modal('hide')
+    newConversation(conversation, shared);
+  }
+  else{
+    document.getElementById('sa-input-error').style.backgroundColor = "red";
+    document.getElementById('sa-input-error').innerHTML += '<p><i class="material-icons">warning</i> Vous devez écrire quelque chose !<p>';
+  }
 
-  newConversation(conversation, shared);
 }
-
 
 //La fonction démarre la mise à jour automatique des messages
 function startMessageUpdates(){
   updateMessageThread();    //On le démarre une première fois
-  let timeout = UPDATE_TIME;
+  let timeout = UPDATE_MESSAGE_TIME;
   var action = updateMessageThread; //On récupère la liste
   setInterval(action, timeout);
   action();                         //On démarre la boucle
@@ -94,7 +153,7 @@ function updateMessageThread(){
 //La fonction démarre la mise à jour automatique des pseudos
 function startLazyLoadUpdate(){
   lazyLoadUpdateThread();//On le démarre une première fois
-  let timeout = 50;
+  let timeout = PSEUDO_TIME;
   var action = lazyLoadUpdateThread; //On récupère la liste
   setInterval(action, timeout);
   action();                         //On démarre la boucle
@@ -146,19 +205,24 @@ function updateConversation(conversation){
   }
 
   getMessageForConversation(conversation.id, last_message).then(function (data) {
-      var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
-      conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
+      if(data && data !== ''){
+        var debug = JSON.parse(data)    //On récupére une liste d'objet Message JSON
+        conversation.messages = conversation.messages.concat(debug);           //On les rajoutent au message de la conversation
 
-      if(debug.length > 0){   //Si il y a des messages renvoyés
-        var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
-        conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
+        if(debug.length > 0){   //Si il y a des messages renvoyés
+          var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
 
-        if(conversation.id == current_conversation.id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
-          for(var i = 0; i<debug.length; i++){
-            addNewMessage(debug[i]);      //On envoie l'objet message pour qu'il s'affiche dans la page
+          if(debug[debug.length-1].time > connected_user.last_logout){   //Si le dernier message est plus récent que la dernière connexion
+            conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
           }
-        }
 
+          if(conversation.id == current_conversation.id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
+            for(var i = 0; i<debug.length; i++){
+              addNewMessage(debug[i]);      //On envoie l'objet message pour qu'il s'affiche dans la page
+            }
+          }
+
+        }
       }
   }, function (err) {
       console.log(err);
@@ -167,5 +231,5 @@ function updateConversation(conversation){
 
 function initProfile(connected_user) {
   username.innerHTML = connected_user.name;
-  $("#profile_picture").attr('src', SERVER_URL + '/user/profile/' + connected_user.id);
+  $("#profile_picture").attr('src', 'http://cdn.qwirkly.fr/profile/' + connected_user.id);
 }

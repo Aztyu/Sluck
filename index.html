@@ -2,17 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Sluck</title>
+    <title>Qwirkly</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/template.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="bower_components/Waves/dist/waves.min.css"></link>
   </head>
 
-  <body>
+  <body class="theme-cyan">
     <div data-page="register" class="login-page authentication">
       <div class="container">
         <div class="card-top"></div>
           <div class="card">
-            <h1 class="title"><span></span>S'inscrire sur Sluck <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
+            <h1 class="title"><span></span>S'inscrire sur Qwirkly <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
             <div class="col-md-12">
               <form id="sign_up" class="col-xs-12" method="POST" />
                 <div class="input-group">
@@ -23,14 +25,6 @@
                       <input type="text" class="form-control" id="name_reg" placeholder="Pseudo" required="" autofocus="" />
                   </div>
               </div>
-              <!--<div class="input-group">
-                  <span class="input-group-addon">
-                      <i class="zmdi zmdi-email"></i>
-                  </span>
-                  <div class="form-line">
-                      <input type="email" class="form-control" name="email" placeholder="Email" required="" />
-                  </div>
-              </div>-->
               <div class="input-group">
                   <span class="input-group-addon">
                       <i class="zmdi zmdi-lock"></i>
@@ -47,7 +41,26 @@
                       <input type="password" class="form-control" id="password_confirm_reg" placeholder="Confirmer votre mot de passe" required="" />
                   </div>
               </div>
+              <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="zmdi zmdi-email"></i>
+                  </span>
+                  <div class="form-line">
+                      <input type="text" class="form-control" id="email_reg" placeholder="Adresse mail" required="" />
+                  </div>
+              </div>
+              <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="zmdi zmdi-email"></i>
+                  </span>
+                  <div class="form-line">
+                      <input type="text" class="form-control" id="email_confirm_reg" placeholder="Confirmer votre adresse mail" required="" />
+                  </div>
+              </div>
 
+              <div id="profile_preview">
+                <img id="img_preview"/>
+              </div>
               <button type="button" onClick="openFile()" class="btn btn-raised bg-blue-grey waves-effect" style="margin-left: 15px;padding: 7px 15px;">Ajouter une photo de profil  <i class="zmdi zmdi-camera-add"></i></button>
               <div class="form-group">
                   <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" />
@@ -57,7 +70,7 @@
                   <a href="#" onClick="registerAccount()" class="btn btn-raised g-bg-cyan waves-effect" type="submit">S'enregistrer</a>
               </div>
               <div class="m-t-10 m-b--5 align-center">
-                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Sluck ? </a>
+                  <a href="#" onClick="navigateTo('login')">Vous avez déjà un compte Qwirkly ? </a>
               </div>
             </form>
           </div>
@@ -65,11 +78,79 @@
       </div>
     </div>
 
-    <div data-page="login" class="hidden login-page authentication">
+    <div data-page="reset" class="hidden login-page authentication">
       <div class="container">
           <div class="card-top"></div>
           <div class="card">
-              <h1 class="title"><span></span>CONNEXION - SLUCK <div class="msg">Connectez vous pour profiter de nos services</div></h1>
+              <h1 class="title">
+                <div class="msg">Rentrez votre adresse mail pour réinitialiser votre mot de passe</div>
+              </h1>
+
+              <div class="col-md-12">
+                  <form id="sign_in" method="POST" />
+                      <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-email"></i> </span>
+                          <div class="form-line">
+                              <input type="text" class="form-control" id="email_reset" placeholder="Email" required="" autofocus="" />
+                          </div>
+                      </div>
+                      <div>
+                          <p id="status_log_reset"></p>
+                          <div class="text-center">
+                              <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="resetAccount()">Envoyer le code de réinitialisation</a>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="card">
+              <h1 class="title">
+                <div class="msg">Rentrez votre code de réinitialisation</div>
+              </h1>
+              <div class="col-md-12">
+                  <form id="sign_in" method="POST" />
+                      <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-shield-security"></i> </span>
+                          <div class="form-line">
+                              <input type="text" class="form-control" id="code_reset" placeholder="Code" required="" autofocus="" />
+                          </div>
+                      </div>
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <div class="form-line">
+                              <input type="password" class="form-control" id="password_reset" placeholder="Mot de passe" required="" />
+                          </div>
+                      </div>
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <div class="form-line">
+                              <input type="password" class="form-control" id="password_confirm_reset" placeholder="Confirmer votre mot de passe" required="" />
+                          </div>
+                      </div>
+                      <div>
+                          <p id="status_log_change"></p>
+                          <div class="text-center">
+                              <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="resetAccountPassword()">Réinitialiser le mot de passe</a>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+              <div class="text-center">
+                  <p>OU</p>
+                  <a href="#" onClick="navigateTo('register')" class="btn btn-raised waves-effect">S'enregistrer</a>
+                  <a href="#" onClick="navigateTo('login')" class="btn btn-raised waves-effect">Se connecter</a>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div data-page="login" class="hidden login-page authentication">
+      <div class="container">
+          <div class="card-top"></div>
+          <div class="card cardlogin">
+              <h1 class="title"><span></span>CONNEXION - Qwirkly <div class="msg">Connectez vous pour profiter de nos services</div></h1>
               <div class="col-md-12">
                   <form id="sign_in" method="POST" />
 
@@ -93,7 +174,7 @@
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"> <a href="./forgot-password.html">Mot de passe oublié ?</a></div>
+                          <div class="text-center"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>
@@ -101,73 +182,376 @@
       </div>
     </div>
 
-    <div data-page="main" class="hidden">
-
-      <div id="side">
-        <h2>Liste des conversations</h2>
-        <div id="conversations">
+    <div data-page="main" class="hidden" style="margin-top: 7%;">
+    <!-- Morphing Search  -->
+<div id="morphsearch" class="morphsearch">
+    <form class="morphsearch-form" />
+        <div class="form-group m-0">
+            <input value="" type="search" onclick="expandSearch()" placeholder="Rechercher..." class="form-control morphsearch-input" />
+            <button class="morphsearch-submit" type="submit" >Search</button>
         </div>
-        <h2>Créer une conversation</h2>
-        <p>Nom: <input id="conversation_name"/></p>
-        <p>Publique ?: <input id="conversation_shared" class="no-template" type="checkbox"/>
-        <button onClick="createConversation()">Créer conversation</button>
+    </form>
+    <div class="morphsearch-content">
+        <div class="dummy-column">
+            <h2>People</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Popular</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+        <div class="dummy-column">
+            <h2>Recent</h2>
+            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
+            <h3>Sara Soueidan</h3>
+            </a> <a class="dummy-media-object" href="http://twitter.com/rachsmithtweets"> <img class="round" src="./assets/images/random-avatar4.jpg" alt="" />
+            <h3>Rachel Smith</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/peterfinlan"> <img class="round" src="./assets/images/random-avatar3.jpg" alt="" />
+            <h3>Peter Finlan</h3>
+            </a> <a class="dummy-media-object" href="http://www.twitter.com/pcridesagain"> <img class="round" src="./assets/images/random-avatar6.jpg" alt="" />
+            <h3>Patrick Cox</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/twholman"> <img class="round" src="./assets/images/random-avatar5.jpg" alt="" />
+            <h3>Tim Holman</h3>
+            </a> <a class="dummy-media-object" href="https://twitter.com/shaund0na"> <img class="round" src="./assets/images/random-avatar2.jpg" alt="" />
+            <h3>Shaun Dona</h3>
+            </a> </div>
+    </div>
+    <!-- /morphsearch-content -->
+    <span class="morphsearch-close" onclick="unexpandSearch()"></span> </div>
+<!-- Top Bar -->
+      <nav class="navbar navbar-brand clearHeader">
+        <div class="container-fluid">
+            <div class="navbar-header"><a href="#" onclick="navigateToTab('chatbox')" style="text-decoration: none;"><img src="img/logo.png" /><p class="htitle">WIRKLY </p></a></div>
+              <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
+              <ul class="nav navbar-nav navbar-right">
+                  <!-- Notifications -->
+                  <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span
+                  class="label-count">7</span> </a>
+                  <ul class="dropdown-menu">
+                    <li class="header">NOTIFICATIONS</li>
+                    <li class="body notificationCase">
+                        <ul class="menu">
+                            <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                <div class="icon-circle bg-blue-grey"><i class="zmdi zmdi-comment-alt-text"></i></div>
+                                <div class="menu-info">
+                                    <h4><b>John</b> commented your post</h4>
+                                    <p> <i class="material-icons">access_time</i> 4 hours ago </p>
+                                </div>
+                                </a> </li>
+                            <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                            <div class="icon-circle bg-blue-grey"><i class="zmdi zmdi-account-add"></i></div>
+                            <div class="menu-info">
+                                <h4><b>John</b> commented your post</h4>
+                                <p> <i class="material-icons">access_time</i> 4 hours ago </p>
+                            </div>
+                            </a> </li>
+                            <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                            <div class="icon-circle bg-light-green"><i class="zmdi zmdi-comment-alt-text"></i></div>
+                            <div class="menu-info">
+                                <h4><b>John</b> commented your post</h4>
+                                <p> <i class="material-icons">access_time</i> 4 hours ago </p>
+                            </div>
+                            </a> </li>
+                        </ul>
+                    </li>
+                    <li class="footer"> <a href="javascript:void(0);">Voir toutes les notifications</a> </li>
+                </ul></li>
+                  <li><a data-placement="bottom" title="Go to Inbox" href="#" onClick="navigateToTab('chatbox')"><i class="zmdi zmdi-email"></i></a></li>
+                  <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
+                  <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
+                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="navigateToTab('profiluserbox')"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
+                      <ul class="dropdown-menu" id="status_co">
+                        <li class="header">STATUS</li>
+                        <li class="body notificationCase">
+                          <ul class="menu">
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                  <span class="icon-circle bg-light-green xsmall"></span>
+                                  <div class="menu-info">
+                                      <p>En ligne</p>
+                                  </div>
+                                  </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-orange xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Occupé</p>
+                              </div>
+                              </a> </li>
+                              <li> <a href="javascript:void(0);" class=" waves-effect waves-block">
+                              <span class="icon-circle bg-grey xsmall"></span>
+                              <div class="menu-info">
+                                  <p>Hors ligne</p>
+                              </div>
+                              </a> </li>
+                          </ul>
+                        </li>
+                      </ul>
+                  </li>
+                  <!-- #END# Tasks -->
+              </ul>
+          </div>
+      </nav>
+      <!--MODAL FORM POUR LANCER CONVERSATION-->
+        <div class="modal fade modalkiki" id="defaultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="defaultModalLabel">Nouvelle conversation</h2>
+                        <hr/>
+                    </div>
+                    <fieldset>
+                      <input type="text" tabindex="3" id="conversation_name" placeholder="Nom de votre conversation..." class="input-newconvers" required="required" pattern="[A-Za-z0-9]{1,20}">
+                      <div id="sa-input-error"></div>
+                    </fieldset>
+                    <div class="checkbox-wrapper" style="text-align: right;display: inline-flex;">
+                        <p style="margin-right: 7px;font-size: 16px;">Public ?</p><input type="checkbox" id="conversation_shared"><label for="conversation_shared" class="toggle"></label>
+                    </div>
+
+                    <div class="sa-button-container" style="display: flex">
+                    <button class="cancel" data-dismiss="modal" tabindex="2" style="display: inline-block; box-shadow: none;background-color: #C1C1C1;margin-left: auto;margin-right: 7px;">Annuler</button>
+                    <div class="sa-confirm-button-container">
+                      <button class="confirm" onClick="createConversation()" tabindex="1" style="display: inline-block;background-color: #2b817d;">OK</button><div class="la-ball-fall">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+  <section class="content" data-tab="chatbox">
+    <div class="container-fluid">
+      <div class="chatbox row clearfix">
+        <aside id="sidebar" class="nano">
+          <div class="people-list" id="people-list">
+              <div class="search">
+                  <div class="form-group">
+                      <div class="form-line"><!--
+                          <p style="color: #b9babb;font-weight: 100;font-size: 22px;margin: 15px 0 20px;">Vos conversations <a href="#" data-toggle="modal" data-target="#defaultModal" style="float: right;color: #1b768d"><i class="zmdi zmdi-plus-circle" style="font-size: 32px;line-height: inherit;"></i></a></p>-->
+                          <div class="logo-container title-chat">CONVERSATIONS</div>
+                          <a class="compose-button" data-toggle="modal" data-target="#defaultModal">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
+                      </div>
+                  </div>
+                  <button class="btn btn-sm btn-default pull-right visible-xs ml-5" data-toggle="collapse" data-target="#open-chats" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-chevron-down"></i></button>
+              </div>
+              <ul class="list collapse-xs" id="open-chats">
+                <div id="conversations"></div>
+              </ul>
+            <div class="menu-segment">
+              <div class="separator"></div>
+                <ul class="labels">
+                    <li class="title">Contact(s)<span class="icon"></span></li>
+                    <li><a href="#">Aucun contact</a></li>
+                </ul>
+            </div>
+          </div>
+        </aside>
+
       </div>
+    </div>
+  </section>
 
+  <section class="content hidden" data-tab="contact-page">
+    <h2>Chat RTC</h2>
 
-      <div id="main">
-        <div class="tabs">
-          <p onClick="navigateToTab('main')">Discussion</p>
-          <p onClick="navigateToTab('contacts')">Contacts</p>
-          <p onClick="navigateToTab('profil')">Profil</p>
-          <p onClick="navigateToTab('webrtc')">WebRTC</p>
+    <p>Controls</p>
+    <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
+    <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
 
-          <div class="float-right" id="profile">
-            <div class="float-left" id="username"></div>
-            <img class="float-right profile" id="profile_picture" />
-            <button onClick="logout()">Déconnexion</button>
+    <p>Call</p>
+    <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
+    <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
+    <span id="call_status"></span>
+    <p>Remote</p>
+    <video id="webrtcvideo"></video>
+
+    <p>Local</p>
+    <video id="localvideo"></video>
+  </section>
+
+  <section class="content profile-page hidden" data-tab="profilbox">
+      <div class="container-fluid">
+        <div class="row clearfix">
+              <div class="col-md-12 p-l-0 p-r-0">
+                  <section class="boxs-simple">
+                      <div class="profile-header">
+                          <div class="profile_info">
+                              <div class="profile-image">
+                                <img src="" alt="">
+                              </div>
+                              <h4 class="mb-0" id="username"></h4>
+                              <div class="mt-10">
+                              <img class="float-right profile" id="profile_picture"/>
+                                  <button class="btn btn-raised btn-default bg-blush btn-sm" onClick="openFile()">Changer photo</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="profile-sub-header">
+                          <div class="box-list">
+                              <ul class="text-center">
+                                  <li> <a href="#" onClick="navigateTo('profilbox')" class=""><i class="zmdi zmdi-attachment"></i>
+                                      <p>PROFIL</p>
+                                      </a> </li>
+                                  <li> <a href="#" onClick="navigateTo('chatbox')" class=""><i class="zmdi zmdi-email"></i>
+                                      <p>MESSAGES</p>
+                                      </a> </li>
+                                  <li> <a href="#"><i class="zmdi zmdi-camera"></i>
+                                      <p>KIKI</p>
+                                      </a> </li>
+                                  <li> <a href="#"><i class="zmdi zmdi-format-subject"></i>
+                                      <p>KIKI</p>
+                                      </a> </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </section>
+              </div>
           </div>
+        <div class="row clearfix">
+            <div class="card cardmodified">
+                      <div class="body">
+
+                                  <h2 class="card-inside-title">Informations personnelles</h2>
+                                  <div class="row clearfix">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="text" class="form-control" placeholder="Nom" />
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="text" class="form-control" placeholder="Prénom" />
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="text" class="form-control" placeholder="Adresse mail" />
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="password" class="form-control" placeholder="Ancien mot de passe" />
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="password" class="form-control" placeholder="Nouveau mot de passe" />
+                                              </div>
+                                          </div>
+                                          <button class="btn btn-raised btn-success btn-sm">Enregistrer</button>
+                                      </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
         </div>
+      </div>
+  </section>
+  <!--- Profile another user ----- -->
+  <section class="content profile-page hidden" data-tab="profiluserbox">
+    <div class="container-fluid">
+      <div class="row clearfix">
+          <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="profile2user">
+                          <div class="profile_info">
+                              <div class="profile-image">
+                                <img src="" alt="">
+                              </div>
+                              <h4 class="mb-0" id="username">kiki</h4>
+                              <div class="mt-10">
+                              <img class="float-right profile" id="profile_picture">
+                              </div>
+                          </div>
+                      </div>
+                <div class="card carduser">
+                    <div class="header">
+                        <h2> Informations personnel</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">more_vert</i> </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Bloqué ? </a></li>
+                                    <li><a href="javascript:void(0);">Bloqué ??</a></li>
+                                    <li><a href="javascript:void(0);">Bloqué ???</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <h2 class="card-inside-title"></h2>
+                        <div class="row clearfix">
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Nom" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Prénom" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">send</i> </span>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control date" placeholder="Email" />
+                                    </div>
+                                     </div>
+                            </div>
+                            <div class="col-md-4">
+                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone_iphone</i> </span>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control mobile-phone-number" placeholder="Mobile" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone</i> </span>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control mobile-phone-number" placeholder="Téléphone fix" />
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
 
-        <div data-tab="main">
-          <h1 id="conversation_title"></h1>
-          <div id="messages"></div>
-          <div id="chat_div">
-            <input id="chat_box"/><button onClick="sendNewMessage()">Envoyer</button>
-          </div>
-
-          <h2>Debug</h2>
-
-          <button onClick="searchConversation()">MAJ conversation</button>
-          <div id="conversations_join"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- #END# Input Group -->
+      </div>
+    </div>
+  </section>
 
-        <div data-tab="contacts" class="hidden">
-            <!-- Affichage des contacts -->
-            <h2>Contacts</h2>
-        </div>
-
-        <div data-tab="profil" class="hidden">
-            <!-- Affichage du profil -->
-            <h2>Profil</h2>
-        </div>
-
-        <div data-tab="webrtc" class="hidden">
-          <h2>Chat RTC</h2>
-
-          <p>Controls</p>
-          <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
-          <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
-
-          <p>Call</p>
-          <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
-          <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
-          <span id="call_status"></span>
-          <p>Remote</p>
-          <video id="webrtcvideo"></video>
-
-          <p>Local</p>
-          <video id="localvideo"></video>
-        </div>
       </div>
     </div>
   </body>
@@ -176,7 +560,8 @@
   <script>
     require('./renderer.js')
   </script>
-  <script>window.$ = window.jQuery = require("./bower_components/jQuery/dist/jquery.min.js")</script>
+
+  <script>window.jQuery = window.$ = require('jquery');</script>
   <script type="text/javascript" src="js/chat.js"></script>
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/navigation.js"></script>
@@ -184,5 +569,18 @@
   <script type="text/javascript" src="js/videochat.js"></script>
   <script type="text/javascript" src="js/peer.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> -->
+  <script type="text/javascript" src="js/contact.js"></script>
+  <script type="text/javascript" src="js/notify.js"></script>
+  <script type="text/javascript" src="js/file.js"></script>
+  <script type="text/javascript" src="js/inbox.js"></script>
+
+  <script type="text/javascript" src="./bower_components/moment/min/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="./bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
+  <script type="text/javascript" src="./bower_components/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
+  <script type="text/javascript" src="./bower_components/emojione/lib/js/emojione.min.js"></script>
+  <script type="text/javascript" src="./node_modules/showdown/dist/showdown.js"></script>
+  <script type="text/javascript" src="js/textcomplete.js"></script>
+  <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
