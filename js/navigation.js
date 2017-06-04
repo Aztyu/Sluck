@@ -218,6 +218,16 @@ function getMessageDiv(message){
   username_elem.setAttribute('data-id', message.user_id);
   username_elem.classList.add('name');
 
+  var time_elem = document.createElement('p');
+  time_elem.classList.add('msg-time');
+
+  var test = moment(message.time).calendar();
+  if(test.length == 10){
+    test = moment(message.time).format('MMMM Do hh:mm');
+  }
+
+  time_elem.innerHTML = test;
+
   var username = getUserDiv(message.user_id);
 
   if(username){     //On vérifie si le username est connu
@@ -230,6 +240,7 @@ function getMessageDiv(message){
   }
 
   message_elem.appendChild(username_elem);
+  message_elem.appendChild(time_elem);
 
   if(message.content){
     var content_elem = document.createElement('p');     //Remplissage du contenu du message
@@ -310,6 +321,8 @@ function sendNewMessage(){
   }else{
     message.content = message_box.value;
   }
+
+  message.time = Date.now();
 
   createMessage(message, current_conversation.id).then(function (data) {    //Envoie du message à l'API
       console.log(data);

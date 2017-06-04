@@ -52,6 +52,7 @@ div.status.new{
 
 .message .name{
   font-weight: bold;
+  display: inline-block;
 }
 
 .message .content{
@@ -121,4 +122,10 @@ input[type="checkbox"].no-template{
 .img_preview{
   max-height: 64px;
   width: auto;
+}
+
+.msg-time{
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 11px;
 }

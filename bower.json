@@ -28,6 +28,7 @@
     "jQuery-contextMenu": "^2.4.4",
     "jquery-textcomplete": "^1.8.0",
     "emojione": "^3.0.2",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "moment": "momentjs#^2.18.1"
   }
 }
