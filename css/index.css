@@ -117,3 +117,8 @@ input[type="checkbox"].no-template{
   width: 50px;
   float: left;
 }
+
+.img_preview{
+  max-height: 64px;
+  width: auto;
+}

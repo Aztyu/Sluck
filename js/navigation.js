@@ -256,13 +256,26 @@ function getMessageDiv(message){
     content_div.setAttribute('data-id', message.id);
     content_div.classList.add('file');
 
-    content_div.innerHTML = 'Télécharger :';
+    if(message.file_obj.contentType.indexOf('image') != -1){
+      var content_img = document.createElement('img');
+      content_img.classList.add('img_preview');
+      content_img.src = SERVER_URL + "/file/" + message.file_id;
 
-    var content_a = document.createElement('a');
-    content_a.href = SERVER_URL + "/file/" + message.file_id;
-    content_a.innerHTML = message.file_obj.name;
+      var content_a = document.createElement('a');
+      content_a.href = SERVER_URL + "/file/" + message.file_id;
+      content_a.innerHTML = message.file_obj.name;
 
-    content_div.appendChild(content_a);
+      content_div.appendChild(content_img);
+      content_div.appendChild(content_a);
+    }else{
+      content_div.innerHTML = 'Télécharger :';
+
+      var content_a = document.createElement('a');
+      content_a.href = SERVER_URL + "/file/" + message.file_id;
+      content_a.innerHTML = message.file_obj.name;
+
+      content_div.appendChild(content_a);
+    }
     message_elem.appendChild(content_div);
   }
 
