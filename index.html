@@ -13,7 +13,7 @@
     <div data-page="register" class="login-page authentication">
       <div class="container">
         <div class="card-top"></div>
-          <div class="card">
+          <div class="inscriptioncard card ">
             <h1 class="title"><span></span>S'inscrire sur Qwirkly <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
             <div class="col-md-12">
               <form id="sign_up" class="col-xs-12" method="POST" />
@@ -81,7 +81,7 @@
     <div data-page="reset" class="hidden login-page authentication">
       <div class="container">
           <div class="card-top"></div>
-          <div class="card">
+          <div class="connexioncard card">
               <h1 class="title">
                 <div class="msg">Rentrez votre adresse mail pour réinitialiser votre mot de passe</div>
               </h1>
@@ -169,12 +169,12 @@
                               <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink" />
                               <label for="rememberme">Se rappeler de moi</label>
                           </div>
-                          <p id="status_log"></p>
+                          <p id="status_log" style="margin-bottom: 5px;"></p>
                           <div class="text-center">
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
+                          <div class="text-center" style="margin-bottom: 15px;"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>

@@ -23591,6 +23591,13 @@ html.ie11 .bs-searchbox .form-control {
     max-width: 460px;
     width: 100%;
     margin: 0 auto 100px;
+} 
+.inscriptioncard{
+    height: 658px!important;
+}
+.connexioncard{
+    min-height: none!important;
+    max-height: none!important;
 }
 .container.active .card:first-child {
     background: #f2f2f2;
@@ -23632,7 +23639,7 @@ html.ie11 .bs-searchbox .form-control {
 /* Card */
 .card {
     position: relative;
-    min-height: 52vh;
+    /*min-height: 52vh;
     max-height: 59vh;
     /* margin-bottom: 0px; */
     /* overflow-y: scroll; */
