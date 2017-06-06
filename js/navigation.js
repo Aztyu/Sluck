@@ -4,6 +4,7 @@ var fs = require('fs');
 //La fonction permet d' afficher une page voulue en cachant les autres
 //param page_dest Une String qui contient l'élément à afficher
 function navigateTo(page_dest){
+
   var pages = document.querySelectorAll('[data-page]');   //Récupération de tous les événements
   for(var i=0; i<pages.length; i++){
     var page = pages[i];
@@ -13,6 +14,7 @@ function navigateTo(page_dest){
       page.classList.add('hidden');       //Sinon on cache l'éléemnt
     }
   }
+  showSearchBar();
 }
 
 //La fonction permet d' afficher une page voulue en cachant les autres via une logique d'onglet
@@ -27,6 +29,7 @@ function navigateToTab(page_dest){
       page.classList.add('hidden');       //Sinon on cache l'éléemnt
     }
   }
+  showSearchBar();
 }
 function expandSearch(){
   document.getElementById('morphsearch').classList.add('open');
@@ -326,7 +329,7 @@ function sendNewMessage(){
 
   createMessage(message, current_conversation.id).then(function (data) {    //Envoie du message à l'API
       console.log(data);
-      var message_obj = JSON.parse(data)    //On récupére une liste d'objet Message JSON
+      var message_obj = JSON.parse(data);    //On récupére une liste d'objet Message JSON
 
       if(!current_conversation.messages){   //Si la conversation n'a pas de message alors on l'initialise
           current_conversation.messages = [];
@@ -346,7 +349,7 @@ function sendNewMessage(){
 //La fonction est appelé quand on cherche une nouvelle conversation
 function searchConversation(){
   searchPublicConversation().then(function (data) {
-      var debug = JSON.parse(data)    //On récupére une liste d'objet Conversation JSON
+      var debug = JSON.parse(data);    //On récupére une liste d'objet Conversation JSON
 
       var conv_div = document.getElementById('conversations_join');   //On crée les éléments qui seront affichés dans la liste
       conv_div.innerHTML = '';
@@ -372,6 +375,56 @@ function searchConversation(){
       }
   }, function (err) {
       console.log(err);
+  });
+}
+
+function searchConversations() {
+  var search = document.getElementById('morphsearch-kiki').value;
+  var column = document.querySelector('.dummy-column');
+
+  var empty_result = document.querySelector('.empty-result');
+
+  if(empty_result) {
+    empty_result.classList.remove('empty-result');
+    empty_result.parentNode.removeChild(empty_result);
+  }
+
+
+  var remove_box = document.getElementsByClassName('dummy-media-object');
+  if (remove_box){
+    for(var i = 0; remove_box.length; i++) {
+      remove_box[i].parentNode.removeChild(remove_box[i]);
+    }
+  }
+
+  searchPublicConversation(search).then(function (data) {
+    var debug = JSON.parse(data); 
+    if (debug.length > 0) {
+      for(var i =0; i < debug.length; i++){
+        console.log(debug[i]);
+        var morphsearch_content = document.getElementById('morphsearch-content');
+        var box = document.createElement('a');
+        box.className += 'dummy-media-object';
+        box.setAttribute('href', '#');
+        box.setAttribute('onclick', 'joinConversation('+ debug[i].id +')');
+        var conversation_text = document.createElement('h3');
+        conversation_text.innerHTML = debug[i].name;
+
+        box.appendChild(conversation_text);
+        column.appendChild(box);
+        morphsearch_content.appendChild(column);
+      }
+    } else {
+        if (remove_box){
+          for(var i = 0; remove_box.length; i++) {
+            remove_box[i].parentNode.removeChild(remove_box[i]);
+          }
+          empty_result = document.createElement('p');
+          empty_result.innerHTML = 'Aucun résultat trouvé';
+          empty_result.className += 'empty-result';
+          column.appendChild(empty_result);
+        }
+    }
   });
 }
 
