@@ -142,7 +142,8 @@ function showAnotherProfil(){
 function showAndLoadProfil(){
   navigateToTab('profilbox');
   hideSearchBar();
-  document.getElementById("pseudo_user").innerHTML = connected_user.name;
+
+  document.getElementById("pseudo_user").value = 'Pseudo ' + connected_user.name;
   document.getElementById("addressmail_user").value = connected_user.email;
 }
 
@@ -163,10 +164,11 @@ function showSearchBar(){
 }
 
 function clearInfoProfil(){
-  document.getElementById("pseudo_user").value = '';
+  
   document.getElementById("addressmail_user").value = '';
   document.getElementById("pwd_user").value = '';
   document.getElementById("confirmpwd_user").value = '';
+  document.getElementById("slogan_user").value = '';
 }
 
 function refuseInvitation(event){

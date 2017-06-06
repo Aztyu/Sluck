@@ -156,7 +156,7 @@
 
                       <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-account"></i> </span>
                           <div class="form-line">
-                              <input type="text" class="form-control" id="name_log" placeholder="Pseudo" required="" autofocus="" />
+                              <input type="text" class="form-control" id="name_log" placeholder="Pseudo" required="" autofocus/>
                           </div>
                       </div>
                       <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-lock"></i> </span>
@@ -318,7 +318,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="defaultModalLabel">Nouvelle conversation</h2>
+                        <h2 class="modal-title" id="defaultModalLabel" >Nouvelle conversation</h2>
                         <hr/>
                     </div>
                     <fieldset>
@@ -353,7 +353,7 @@
                       <div class="form-line"><!--
                           <p style="color: #b9babb;font-weight: 100;font-size: 22px;margin: 15px 0 20px;">Vos conversations <a href="#" data-toggle="modal" data-target="#defaultModal" style="float: right;color: #1b768d"><i class="zmdi zmdi-plus-circle" style="font-size: 32px;line-height: inherit;"></i></a></p>-->
                           <div class="logo-container title-chat">CONVERSATIONS</div>
-                          <a class="compose-button" data-toggle="modal" data-target="#defaultModal">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
+                          <a class="compose-button" data-toggle="modal" data-target="#defaultModal" onclick="setFocusConversation()">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
                       </div>
                   </div>
                   <button class="btn btn-sm btn-default pull-right visible-xs ml-5" data-toggle="collapse" data-target="#open-chats" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-chevron-down"></i></button>
@@ -435,10 +435,16 @@
                                       <div class="col-sm-12">
                                           <div class="form-group">
                                               <div class="form-line">
-                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly="" />
+                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly />
                                               </div>
                                           </div>
                                           <form id="updateProfil" class="col-xs-12" method="POST" />
+                                          <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Slogan / Informations complémentaires (max 140 caractères)" id="slogan_user" />
+                                                </div>
+                                            </div>
+                                          
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" placeholder="Adresse mail" id="addressmail_user" />
@@ -454,7 +460,7 @@
                                                     <input type="password" class="form-control" placeholder="Confirmation mot de passe" id="confirmpwd_user" />
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
+                                            <button type="button" class="btn btn-raised btn-default waves-effect" onclick="clearInfoProfil()">ANNULER</button>
                                             <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>     
                                           </form>                                 
                                       </div>
