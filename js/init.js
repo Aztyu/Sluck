@@ -1,5 +1,6 @@
-  SERVER_URL = "http://localhost:8080/server";
-  UPDATE_MESSAGE_TIME = 2000;
-  PSEUDO_TIME = 50;
-  UPDATE_INVITE = 5000;
-  UPDATE_CONTACT = 5000;
+SERVER_URL = "http://projet.corentinbeal.fr/sluck";
+UPDATE_MESSAGE_TIME = 2000;
+PSEUDO_TIME = 50;
+UPDATE_INVITE = 5000;
+UPDATE_CONTACT = 5000;
+PEERJS_KEY = "avn2a91tuo9a4i";

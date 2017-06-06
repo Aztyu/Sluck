@@ -43,13 +43,15 @@ function getUserDetail(user_id){
 }
 
 //La fonction permet de connecter un utilisateur à l'API pour pouvoir utiliser les autres fonctions
-//param name Le nom de l'utilisateur
-//param password Le mot de passe de l'utilisateur
-function login(name, password){
+//param name      Le nom de l'utilisateur
+//param password  Le mot de passe de l'utilisateur
+//param peer_id   L'id peerJS pour la communication
+function login(name, password, peer_id){
   return new Promise(function (resolve, reject) {
     var form = {
         name: name,
-        password: password
+        password: password,
+        peerjs_id: peer_id
     };
 
     var formData = querystring.stringify(form);
@@ -82,8 +84,8 @@ function logout(){
     method: 'GET'
   }, function (err, res, body) {
     if(res.statusCode == 200){
-      connected_user = null;
-      conversations = null;
+      clearPages();
+
       navigateTo('login');
     }else{
       console.log('Erreur de déconnexion');
@@ -330,11 +332,15 @@ function createMessage(message, current_conversation){
 }
 
 //la fonction permet de chercher toutes les conversations publiques
-function searchPublicConversation(){
+function searchPublicConversation(search){
+  var url = SERVER_URL + '/api/conversation/search';
+  if(search && search !== ''){
+    url += '?search=' + search;
+  }
   return new Promise(function (resolve, reject) {
     request({
       headers: getAuthHeader(),
-      uri: SERVER_URL + '/api/conversation/search',
+      uri: url,
       method: 'GET'
     }, function (err, res, body) {
       if(res.statusCode == 200){
