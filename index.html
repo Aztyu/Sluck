@@ -281,7 +281,7 @@
                   <li><a data-placement="bottom" title="Go to Inbox" href="#" onClick="navigateToTab('chatbox')"><i class="zmdi zmdi-email"></i></a></li>
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="showAndLoadProfil()"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
-                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="navigateToTab('profiluserbox')"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="showAnotherProfil()"><i class="zmdi zmdi-settings"></i></a></li>
                   <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
                       <ul class="dropdown-menu" id="status_co">
                         <li class="header">STATUS</li>
@@ -435,25 +435,28 @@
                                       <div class="col-sm-12">
                                           <div class="form-group">
                                               <div class="form-line">
-                                                  <p>Pseudo : <strong id="pseudo_user"></strong></p>
+                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly="" />
                                               </div>
                                           </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="text" class="form-control" placeholder="Adresse mail" id="addressmail_user" />
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="password" class="form-control" placeholder="Nouveau mot de passe" id="pwd_user"/>
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="password" class="form-control" placeholder="Confirmation mot de passe" id="confirmpwd_user" />
-                                              </div>
-                                          </div>
-                                          <button class="btn btn-raised btn-success btn-sm">Enregistrer</button>
+                                          <form id="updateProfil" class="col-xs-12" method="POST" />
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Adresse mail" id="addressmail_user" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" placeholder="Nouveau mot de passe" id="pwd_user"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" placeholder="Confirmation mot de passe" id="confirmpwd_user" />
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
+                                            <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>     
+                                          </form>                                 
                                       </div>
                               </div>
                           </div>
@@ -478,14 +481,14 @@
                                 </div>
                             </div>
                             <div class="col-md-4" style="margin-bottom:0px!important;">
-                                <div class="input-group"></span>
+                                <div class="input-group" style="top: 14px;"></span>
                                     <div class="form-line">
-                                        <input type="text" class="form-control date" placeholder="Pseudo" />
+                                        <input type="text" class="form-control date" placeholder="Pseudo" readonly />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="margin-bottom:0px!important;">
-                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">mic</i> </button>
+                            <div class="col-md-6" style="margin-bottom:0px!important;">
+                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
                               <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>
                         </div>

@@ -134,10 +134,39 @@ function acceptInvitation(event){
   });
 }
 
+function showAnotherProfil(){
+  navigateToTab('profiluserbox');
+  hideSearchBar();
+}
+
 function showAndLoadProfil(){
   navigateToTab('profilbox');
+  hideSearchBar();
   document.getElementById("pseudo_user").innerHTML = connected_user.name;
   document.getElementById("addressmail_user").value = connected_user.email;
+}
+
+function hideSearchBar(){
+  var divsToHide = document.getElementsByClassName("morphsearch");
+    for(var i = 0; i < divsToHide.length; i++)
+    {
+    divsToHide[i].style.visibility="hidden";
+    }
+}
+
+function showSearchBar(){
+  var divsToHide = document.getElementsByClassName("morphsearch");
+    for(var i = 0; i < divsToHide.length; i++)
+    {
+    divsToHide[i].style.visibility="visible";
+    }
+}
+
+function clearInfoProfil(){
+  document.getElementById("pseudo_user").value = '';
+  document.getElementById("addressmail_user").value = '';
+  document.getElementById("pwd_user").value = '';
+  document.getElementById("confirmpwd_user").value = '';
 }
 
 function refuseInvitation(event){
