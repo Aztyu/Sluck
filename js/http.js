@@ -330,11 +330,15 @@ function createMessage(message, current_conversation){
 }
 
 //la fonction permet de chercher toutes les conversations publiques
-function searchPublicConversation(){
+function searchPublicConversation(search){
+  var url = SERVER_URL + '/api/conversation/search';
+  if(search && search !== ''){
+    url += '?search=' + search;
+  }
   return new Promise(function (resolve, reject) {
     request({
       headers: getAuthHeader(),
-      uri: SERVER_URL + '/api/conversation/search',
+      uri: url,
       method: 'GET'
     }, function (err, res, body) {
       if(res.statusCode == 200){
