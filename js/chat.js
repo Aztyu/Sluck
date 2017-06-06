@@ -230,5 +230,5 @@ function updateConversation(conversation){
 
 function initProfile(connected_user) {
   username.innerHTML = connected_user.name;
-  $("#profile_picture").attr('src', 'http://cdn.qwirkly.fr/profile/' + connected_user.id);
+  $(".profile_picture").attr('src', 'http://cdn.qwirkly.fr/profile/' + connected_user.id);
 }

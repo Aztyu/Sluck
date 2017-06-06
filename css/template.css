@@ -7069,7 +7069,7 @@ h2.title {
     min-height: 30px;
     position: fixed;
     z-index: 10;
-        top: 11%;
+    top: 10%;
     right: 1%;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
@@ -11221,9 +11221,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
     transform: scale(0) translate(0,  0);
     pointer-events: none;
 }
-.carduser{
-    min-height: 150px!important;
-}
+
 .waves-effect.waves-light .waves-ripple {
     background: rgba(255, 255, 255, 0.4);
     background: -webkit-radial-gradient(rgba(255, 255, 255, 0.2) 0,  rgba(255, 255, 255, 0.3) 40%,  rgba(255, 255, 255, 0.4) 50%,  rgba(255, 255, 255, 0.5) 60%,  rgba(255, 255, 255, 0) 70%);
@@ -18043,7 +18041,6 @@ section.content {
 .card .body {
     font-size: 14px;
     color: #444;
-    padding: 15px;
     font-weight: 400;
 }
 .card .body .col-xs-1, .card .body .col-sm-1, .card .body .col-md-1, .card .body .col-lg-1 {
@@ -23595,6 +23592,13 @@ html.ie11 .bs-searchbox .form-control {
     max-width: 460px;
     width: 100%;
     margin: 0 auto 100px;
+} 
+.inscriptioncard{
+    height: 658px!important;
+}
+.connexioncard{
+    min-height: none!important;
+    max-height: none!important;
 }
 .container.active .card:first-child {
     background: #f2f2f2;
@@ -23636,7 +23640,7 @@ html.ie11 .bs-searchbox .form-control {
 /* Card */
 .card {
     position: relative;
-    min-height: 52vh;
+    /*min-height: 52vh;
     max-height: 59vh;
     /* margin-bottom: 0px; */
     /* overflow-y: scroll; */

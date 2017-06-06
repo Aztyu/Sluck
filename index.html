@@ -13,7 +13,7 @@
     <div data-page="register" class="login-page authentication">
       <div class="container">
         <div class="card-top"></div>
-          <div class="card">
+          <div class="inscriptioncard card ">
             <h1 class="title"><span></span>S'inscrire sur Qwirkly <div class="msg">Inscrivez-vous pour profitez de notre plateforme</div></h1>
             <div class="col-md-12">
               <form id="sign_up" class="col-xs-12" method="POST" />
@@ -81,7 +81,7 @@
     <div data-page="reset" class="hidden login-page authentication">
       <div class="container">
           <div class="card-top"></div>
-          <div class="card">
+          <div class="connexioncard card">
               <h1 class="title">
                 <div class="msg">Rentrez votre adresse mail pour réinitialiser votre mot de passe</div>
               </h1>
@@ -169,12 +169,12 @@
                               <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink" />
                               <label for="rememberme">Se rappeler de moi</label>
                           </div>
-                          <p id="status_log"></p>
+                          <p id="status_log" style="margin-bottom: 5px;"></p>
                           <div class="text-center">
                               <a href="#" class="btn btn-raised waves-effect g-bg-cyan" type="submit" onClick="loginAccount()">Se connecter</a>
                               <a href="#" class="btn btn-raised waves-effect" type="submit" onClick="navigateTo('register')">S'enregistrer</a>
                           </div>
-                          <div class="text-center"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
+                          <div class="text-center" style="margin-bottom: 15px;"><a href="#" onclick="navigateTo('reset')">Mot de passe oublié ?</a></div>
                       </div>
                   </form>
               </div>
@@ -204,7 +204,7 @@
       <nav class="navbar navbar-brand clearHeader">
         <div class="container-fluid">
             <div class="navbar-header"><a href="#" onclick="navigateToTab('chatbox')" style="text-decoration: none;"><img src="img/logo.png" /><p class="htitle">WIRKLY </p></a></div>
-              <div class="admin-image"> <img class="float-right profile" id="profile_picture"/> </div>
+              <div class="admin-image"> <img class="float-right profile profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
                   <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span
@@ -239,9 +239,9 @@
                     <li class="footer"> <a href="javascript:void(0);">Voir toutes les notifications</a> </li>
                 </ul></li>
                   <li><a data-placement="bottom" title="Go to Inbox" href="#" onClick="navigateToTab('chatbox')"><i class="zmdi zmdi-email"></i></a></li>
-                  <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="navigateToTab('profilbox')"><i class="zmdi zmdi-account"></i></a></li>
+                  <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="showAndLoadProfil()"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
-                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="navigateToTab('profiluserbox')"><i class="zmdi zmdi-settings"></i></a></li>
+                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="showAnotherProfil()"><i class="zmdi zmdi-settings"></i></a></li>
                   <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
                       <ul class="dropdown-menu" id="status_co">
                         <li class="header">STATUS</li>
@@ -365,12 +365,9 @@
                   <section class="boxs-simple">
                       <div class="profile-header">
                           <div class="profile_info">
-                              <div class="profile-image">
-                                <img src="" alt="">
-                              </div>
+                              <img class="profile profile_picture"/>
                               <h4 class="mb-0" id="username"></h4>
                               <div class="mt-10">
-                              <img class="float-right profile" id="profile_picture"/>
                                   <button class="btn btn-raised btn-default bg-blush btn-sm" onClick="openFile()">Changer photo</button>
                               </div>
                           </div>
@@ -381,14 +378,8 @@
                                   <li> <a href="#" onClick="navigateTo('profilbox')" class=""><i class="zmdi zmdi-attachment"></i>
                                       <p>PROFIL</p>
                                       </a> </li>
-                                  <li> <a href="#" onClick="navigateTo('chatbox')" class=""><i class="zmdi zmdi-email"></i>
+                                  <li> <a href="#" onclick="navigateToTab('chatbox')" class=""><i class="zmdi zmdi-email"></i>
                                       <p>MESSAGES</p>
-                                      </a> </li>
-                                  <li> <a href="#"><i class="zmdi zmdi-camera"></i>
-                                      <p>KIKI</p>
-                                      </a> </li>
-                                  <li> <a href="#"><i class="zmdi zmdi-format-subject"></i>
-                                      <p>KIKI</p>
                                       </a> </li>
                               </ul>
                           </div>
@@ -398,37 +389,34 @@
           </div>
         <div class="row clearfix">
             <div class="card cardmodified">
-                      <div class="body">
-
+                      <div class="body" style="padding: 0px 17px!important;">
                                   <h2 class="card-inside-title">Informations personnelles</h2>
                                   <div class="row clearfix">
                                       <div class="col-sm-12">
                                           <div class="form-group">
                                               <div class="form-line">
-                                                  <input type="text" class="form-control" placeholder="Nom" />
+                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly="" />
                                               </div>
                                           </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="text" class="form-control" placeholder="Prénom" />
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="text" class="form-control" placeholder="Adresse mail" />
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="password" class="form-control" placeholder="Ancien mot de passe" />
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="form-line">
-                                                  <input type="password" class="form-control" placeholder="Nouveau mot de passe" />
-                                              </div>
-                                          </div>
-                                          <button class="btn btn-raised btn-success btn-sm">Enregistrer</button>
+                                          <form id="updateProfil" class="col-xs-12" method="POST" />
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Adresse mail" id="addressmail_user" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" placeholder="Nouveau mot de passe" id="pwd_user"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" placeholder="Confirmation mot de passe" id="confirmpwd_user" />
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
+                                            <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>     
+                                          </form>                                 
                                       </div>
                               </div>
                           </div>
@@ -443,72 +431,43 @@
       <div class="row clearfix">
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="profile2user">
-                          <div class="profile_info">
-                              <div class="profile-image">
-                                <img src="" alt="">
-                              </div>
-                              <h4 class="mb-0" id="username">kiki</h4>
-                              <div class="mt-10">
-                              <img class="float-right profile" id="profile_picture">
-                              </div>
-                          </div>
-                      </div>
-                <div class="card carduser">
-                    <div class="header">
-                        <h2> Informations personnel</h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">more_vert</i> </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Bloqué ? </a></li>
-                                    <li><a href="javascript:void(0);">Bloqué ??</a></li>
-                                    <li><a href="javascript:void(0);">Bloqué ???</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="card carduser" style="background: #f7f7f7!important;margin-top:0px!important;padding:5px 0 0px 0px!important;">
+                   
                     <div class="body">
-                        <h2 class="card-inside-title"></h2>
                         <div class="row clearfix">
-                            <div class="col-md-4">
-                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
+                            <div class="col-md-1">
+                                <div class="admin-image">
+                                  <img class="float-right profile profile_picture"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-bottom:0px!important;">
+                                <div class="input-group" style="top: 14px;"></span>
                                     <div class="form-line">
-                                        <input type="text" class="form-control date" placeholder="Nom" />
+                                        <input type="text" class="form-control date" placeholder="Pseudo" readonly />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">person</i> </span>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control date" placeholder="Prénom" />
-                                    </div>
-                                </div>
+                            <div class="col-md-6" style="margin-bottom:0px!important;">
+                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
+                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>
-                            <div class="col-md-4">
-                                <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">send</i> </span>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control date" placeholder="Email" />
-                                    </div>
-                                     </div>
-                            </div>
-                            <div class="col-md-4">
-                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone_iphone</i> </span>
-                                        <div class="form-line">
-                                            <input type="text" class="form-control mobile-phone-number" placeholder="Mobile" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group"> <span class="input-group-addon"> <i class="material-icons">phone</i> </span>
-                                        <div class="form-line">
-                                            <input type="text" class="form-control mobile-phone-number" placeholder="Téléphone fix" />
-                                        </div>
-                                    </div>
-                                </div>
                         </div>
-
                         </div>
                     </div>
+                    <div class="chat" style="width: 100%!important;">
+                        <div class="chat-history" id="messages"></div>
+                        <!-- end chat-history -->
+                        <div class="chat-message clearfix" id="chat_div">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <div id="chat_files" class="hidden"></div>
+                                    <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
+                                </div>
+                            </div>
+                          <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
+                            <i class="zmdi zmdi-file-text"></i>
+                          </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
+                      </div>
                 </div>
             </div>
         </div>

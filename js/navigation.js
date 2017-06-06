@@ -4,6 +4,7 @@ var fs = require('fs');
 //La fonction permet d' afficher une page voulue en cachant les autres
 //param page_dest Une String qui contient l'élément à afficher
 function navigateTo(page_dest){
+
   var pages = document.querySelectorAll('[data-page]');   //Récupération de tous les événements
   for(var i=0; i<pages.length; i++){
     var page = pages[i];
@@ -13,6 +14,7 @@ function navigateTo(page_dest){
       page.classList.add('hidden');       //Sinon on cache l'éléemnt
     }
   }
+  showSearchBar();
 }
 
 //La fonction permet d' afficher une page voulue en cachant les autres via une logique d'onglet
@@ -27,6 +29,7 @@ function navigateToTab(page_dest){
       page.classList.add('hidden');       //Sinon on cache l'éléemnt
     }
   }
+  showSearchBar();
 }
 function expandSearch(){
   document.getElementById('morphsearch').classList.add('open');
