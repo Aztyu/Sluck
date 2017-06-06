@@ -134,6 +134,12 @@ function acceptInvitation(event){
   });
 }
 
+function showAndLoadProfil(){
+  navigateToTab('profilbox');
+  document.getElementById("pseudo_user").innerHTML = connected_user.name;
+  document.getElementById("addressmail_user").value = connected_user.email;
+}
+
 function refuseInvitation(event){
   var id = event.srcElement.getAttribute('data-id');
   refuseInvite(id).then(function (data){
