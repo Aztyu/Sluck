@@ -4,6 +4,12 @@ var pseudo_string; //On sauvegarde le pseudo
 var last_index = 0; //Dernier message reçu pour savoir lequel envoyer
 var profile_image;
 
+var message_interval;   //On stocke tous les intervaux ici pour les stopper à la déconnection
+var chat_interval;
+var lazyload_interval;
+
+var chats;
+
 const ipc = require('electron').ipcRenderer
 
 //Demarre la pop-up pour récupérer la photo de profil
@@ -21,17 +27,17 @@ ipc.on('selected-directory', function (event, path) {
 function loginAccount(){
   var name = document.getElementById('name_log').value;           //On récupére les valeurs dans le HTML
   var password = document.getElementById('password_log').value;
+  var peer_id = peer.id;
 
   document.getElementById('status_log').value = '';               //On vide le message d'erreur
 
-  login(name, password).then(function (data) {    //Si on se connecte
+  login(name, password, peer_id).then(function (data) {    //Si on se connecte
     connected_user = data;                          //On rempli l'utilisateur connecté
     user_map[connected_user.id] = connected_user;   //On ajoute l'utilisateur à la map des utilisateurs
     navigateTo('main');                             //alors on passe sur l'affichage principal
     listConversation();
     startBackgroundUpdates();
     initProfile(connected_user);                          //et des pseudos
-    startPeerConnection();      //On démarre le composant webrtc
   }, function (err) {
     document.getElementById('name_log').value = '';             //En cas d'erreur on remets les champs à zéro
     document.getElementById('password_log').value = '';
@@ -44,6 +50,7 @@ function loginAccount(){
 //la fonction permet de lancer toutes les requêtes en fond
 function startBackgroundUpdates(){
   startMessageUpdates();                          //on démarre la récupération des messages
+  startChatUpdates()
   startLazyLoadUpdate();
   startContactUpdate();
   startInviteUpdate();
@@ -137,7 +144,16 @@ function startMessageUpdates(){
   updateMessageThread();    //On le démarre une première fois
   let timeout = UPDATE_MESSAGE_TIME;
   var action = updateMessageThread; //On récupère la liste
-  setInterval(action, timeout);
+  message_interval = setInterval(action, timeout);
+  action();                         //On démarre la boucle
+}
+
+//La fonction démarre la mise à jour automatique des messages de chat 1-à-1
+function startChatUpdates(){    //TODO implemetn
+  updateChatThread();    //On le démarre une première fois
+  let timeout = UPDATE_MESSAGE_TIME;
+  var action = updateChatThread; //On récupère la liste
+  chat_interval = setInterval(action, timeout);
   action();                         //On démarre la boucle
 }
 
@@ -150,12 +166,20 @@ function updateMessageThread(){
   }
 }
 
+function updateChatThread(){
+  if(chats){
+    for(var i=0; i<chats.length; i++){
+      updateConversation(chats[i]);     //Pour chacuns des chats on récupére les nouveaux messages
+    }
+  }
+}
+
 //La fonction démarre la mise à jour automatique des pseudos
 function startLazyLoadUpdate(){
   lazyLoadUpdateThread();//On le démarre une première fois
   let timeout = PSEUDO_TIME;
   var action = lazyLoadUpdateThread; //On récupère la liste
-  setInterval(action, timeout);
+  lazyload_interval = setInterval(action, timeout);
   action();                         //On démarre la boucle
 }
 

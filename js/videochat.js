@@ -1,8 +1,13 @@
 var peer;
+var peer_id;
 var connection;
 var mediastream;
 var localstream;
 var current_call;
+
+$(document).ready(function(){
+  startPeerConnection();      //On démarre le composant webrtc
+});
 
 function startPeerConnection(){
   peer = new Peer({
@@ -86,8 +91,6 @@ function actionCall(action){
             current_call.close();
             document.getElementById('call_status').innerHTML = 'Appel refusé';
         }, 1500);
-        //current_call.close();
-
       });
     }
   }, function(err) {
