@@ -380,3 +380,15 @@ function scrollMessages(){
   var messages = document.getElementById('messages');
   messages.scrollTop = messages.scrollHeight
 }
+
+//La fonction nettoie tous lors de la déconnexion
+function clearPages(){
+  clearInterval(message_interval);   //On stocke tous les intervaux ici pour les stopper à la déconnection
+  clearInterval(chat_interval);
+  clearInterval(lazyload_interval);
+  clearInterval(invite_contact_interval);
+  clearInterval(contact_interval);
+
+  connected_user = null;
+  conversations = null;
+}

@@ -1,14 +1,17 @@
+var invite_contact_interval;
+var contact_interval;
+
 function startInviteUpdate(){
   let timeout = UPDATE_INVITE;
   var action = getContactInviteList; //On récupère la liste
-  setInterval(action, timeout);
+  invite_contact_interval = setInterval(action, timeout);
   action();                         //On démarre la boucle
 }
 
 function startContactUpdate(){
   let timeout = UPDATE_CONTACT;
   var action = getContactList; //On récupère la liste
-  setInterval(action, timeout);
+  contact_interval = setInterval(action, timeout);
   action();                         //On démarre la boucle
 }
 
@@ -31,6 +34,7 @@ function getContactList(){
           var contact_li = document.createElement('li');
           contact_li.classList.add('contact');
           contact_li.setAttribute('data-id', contacts[i].contact.id);
+          contact_li.setAttribute('data-peerjs', contacts[i].peerjs_id);
 
           var contact_a = document.createElement('a');
           contact_a.innerHTML = contacts[i].contact.name;   //On utilise le nom du contact qui peut être modifié
@@ -67,6 +71,9 @@ function getContactList(){
 function openContactPage(event){
   var elem = event.target.parentNode;
   console.log("Open contact page " + elem.getAttribute('data-id'));
+
+  navigateToTab("contact-page");
+  current_contact_id = elem.getAttribute('data-id');
 }
 
 function getContactInviteList(){
