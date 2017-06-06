@@ -34,6 +34,7 @@ function getContactList(){
           var contact_li = document.createElement('li');
           contact_li.classList.add('contact');
           contact_li.setAttribute('data-id', contacts[i].contact.id);
+          contact_li.setAttribute('data-name', contacts[i].contact.name);
           contact_li.setAttribute('data-peerjs', contacts[i].peerjs_id);
 
           var contact_a = document.createElement('a');
@@ -70,10 +71,26 @@ function getContactList(){
 
 function openContactPage(event){
   var elem = event.target.parentNode;
-  console.log("Open contact page " + elem.getAttribute('data-id'));
 
-  navigateToTab("contact-page");
+  navigateToTab("profiluserbox");
   current_contact_id = elem.getAttribute('data-id');
+
+  var peerjs = elem.getAttribute('data-peerjs');
+
+  if(peerjs == "null"){
+    document.querySelector('#video_call').disabled = true;
+    document.querySelector('#audio_call').disabled = true;
+  }else{
+    document.querySelector('#video_call').disabled = false;
+    document.querySelector('#audio_call').disabled = false;
+
+    document.querySelector('#video_call').onclick = function() {
+      connectVideo(peerjs);
+    }
+  }
+
+  document.querySelector('#contact_name').value = elem.getAttribute('data-name');
+  document.querySelector('#contact_image').src = "http://cdn.qwirkly.fr/profile/" + current_contact_id;
 }
 
 function getContactInviteList(){

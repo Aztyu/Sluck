@@ -398,33 +398,6 @@
     </div>
   </section>
 
-  <section class="content hidden" data-tab="contact-page">
-    <div id="contact_details">
-      <img class="contact_details_img" src="" />
-      <p class="contact_details_name">
-    </div>
-
-    <div id="webrtc">
-      <h2>Chat RTC</h2>
-
-      <p>Controls</p>
-      <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
-      <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
-
-      <p>Call</p>
-      <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
-      <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
-      <span id="call_status"></span>
-      <p>Remote</p>
-      <video id="webrtcvideo"></video>
-
-      <p>Local</p>
-      <video id="localvideo"></video>
-    </div>
-
-    
-  </section>
-
   <section class="content profile-page hidden" data-tab="profilbox">
       <div class="container-fluid">
         <div class="row clearfix">
@@ -496,28 +469,46 @@
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card carduser" style="background: #f7f7f7!important;margin-top:0px!important;padding:5px 0 0px 0px!important;">
-                   
                     <div class="body">
                         <div class="row clearfix">
                             <div class="col-md-1">
                                 <div class="admin-image">
-                                  <img class="float-right profile profile_picture"/>
+                                  <img id="contact_image" class="float-right profile "/>
                                 </div>
                             </div>
                             <div class="col-md-4" style="margin-bottom:0px!important;">
                                 <div class="input-group"></span>
                                     <div class="form-line">
-                                        <input type="text" class="form-control date" placeholder="Pseudo" />
+                                        <input id="contact_name" type="text" class="form-control date" readonly placeholder="Pseudo" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4" style="margin-bottom:0px!important;">
-                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">mic</i> </button>
-                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
+                              <button id="audio_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">mic</i> </button>
+                              <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>
                         </div>
                         </div>
                     </div>
+
+                    <div id="webrtc">
+                      <h2>Chat RTC</h2>
+
+                      <p>Controls</p>
+                      <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
+                      <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
+
+                      <p>Call</p>
+                      <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
+                      <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
+                      <span id="call_status"></span>
+                      <p>Remote</p>
+                      <video id="webrtcvideo"></video>
+
+                      <p>Local</p>
+                      <video id="localvideo"></video>
+                    </div>
+
                     <div class="chat" style="width: 100%!important;">
                         <div class="chat-history" id="messages"></div>
                         <!-- end chat-history -->
