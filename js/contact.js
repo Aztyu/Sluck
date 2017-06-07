@@ -69,9 +69,7 @@ function getContactList(){
   });
 }
 
-function openContactPage(event){
-  var elem = event.target.parentNode;
-
+function openContactPageLi(elem){
   showAnotherProfil();
   current_contact_id = elem.getAttribute('data-id');
 
@@ -91,6 +89,12 @@ function openContactPage(event){
 
   document.querySelector('#contact_name').value = elem.getAttribute('data-name');
   document.querySelector('#contact_image').src = "http://cdn.qwirkly.fr/profile/" + current_contact_id;
+}
+
+function openContactPage(event){
+  var elem = event.target.parentNode;
+
+  openContactPageLi(elem);
 }
 
 function getContactInviteList(){
@@ -181,7 +185,7 @@ function showSearchBar(){
 }
 
 function clearInfoProfil(){
-  
+
   document.getElementById("addressmail_user").value = '';
   document.getElementById("pwd_user").value = '';
   document.getElementById("confirmpwd_user").value = '';
