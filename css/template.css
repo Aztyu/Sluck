@@ -7770,6 +7770,14 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
     -webkit-animation: zmdi-spin-reverse 1.5s infinite linear;
     animation: zmdi-spin-reverse 1.5s infinite linear;
 }
+.zmdi-contact-search {
+    float: right;
+    color: #61c7b3;
+    line-height: 48px;
+}
+.search-contact-title {
+    display: inline!important;
+}
 @-webkit-keyframes zmdi-spin {
     0% {
     -webkit-transform: rotate(0deg);

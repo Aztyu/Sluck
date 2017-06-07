@@ -448,11 +448,19 @@ function searchContacts(search) {
                 var box = document.createElement('a');
                 box.className += 'dummy-media-object';
                 box.setAttribute('href', '#');
-                //box.setAttribute('onclick', 'joinConversation('+ debug[i].id +')');
+                box.setAttribute('onclick', 'inviteContact('+ debug[i].id +')');
                 var conversation_text = document.createElement('h3');
+                conversation_text.className = 'search-contact-title';
                 conversation_text.innerHTML = debug[i].name;
 
+                var profil_img = document.createElement('img');
+                profil_img.classList.add('profile');
+                profil_img.src = 'http://cdn.qwirkly.fr/profile/' + debug[i].id;
+                var add = document.createElement('i');
+                add.className = 'zmdi zmdi-account-add zmdi-hc-3x zmdi-contact-search';
+                box.appendChild(profil_img);
                 box.appendChild(conversation_text);
+                box.appendChild(add);
                 column.appendChild(box);
                 morphsearch_content.appendChild(column);
         }
