@@ -59,10 +59,7 @@ function actionCall(action){
       document.getElementById('call_status').innerHTML = 'Appel accepté';
 
       localstream = stream;
-      var video_local = document.getElementById('localvideo');    //On ajoute le stream local
-      video_local.src = (URL || webkitURL || mozURL).createObjectURL(stream);
-      video_local.play();
-      video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
+      initLocalStream(localstream);
 
       current_call.on('stream', function(remoteStream) {
         console.log('Appel entrant' + remoteStream);
@@ -94,12 +91,30 @@ function actionCall(action){
             document.getElementById('call_status').innerHTML = 'Appel refusé';
         }, 1500);
       });
+
+      current_call.on('close', function(toto){
+        console.log('Yolo close');
+      });
+
+      current_call.on('disconnected', function(toto){
+        console.log('Yolo disconnect');
+      });
+
+      current_call.on('destroy', function(toto){
+        console.log('Yolo destroy');
+      });
     }
   }, function(err) {
     console.log('Failed to get local stream' ,err);
   });
 }
 
+function initLocalStream(locale_stream){
+  var video_local = document.getElementById('localvideo');    //On ajoute le stream local
+  video_local.src = (URL || webkitURL || mozURL).createObjectURL(locale_stream);
+  video_local.play();
+  video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
+}
 
 function connectTo(id){
   connection = peer.connect(id);
@@ -122,6 +137,7 @@ function sendMessage(message){
 function connectVideo(id){
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     localstream = stream;
+    initLocalStream(localstream);
 
     var call = peer.call(id, stream);
 
@@ -145,6 +161,9 @@ function connectVideo(id){
 function videoStreamDisconnect(event){
     console.log("Inactif");
     console.log(event);
+
+    localstream.close();
+    mediastream.close();
 
     localstream = null;
     mediastream = null;
