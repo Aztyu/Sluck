@@ -388,14 +388,17 @@ function searchConversations(search) {
 
   var remove_box = document.querySelectorAll('#conversations-column .dummy-media-object');
   if (remove_box){
-    for(var i = 0; remove_box.length; i++) {
-      remove_box[i].parentNode.removeChild(remove_box[i]);
+    for(var i = 0;  i < remove_box.length; i++) {
+      if(remove_box[i]){
+        remove_box[i].parentNode.removeChild(remove_box[i]);
+      }
     }
   }
 
   searchPublicConversation(search).then(function (data) {
-    var debug = JSON.parse(data); 
-    if (debug.length > 0) {
+    var debug = JSON.parse(data);
+
+    if(debug.length > 0){
       for(var i =0; i < debug.length; i++){
         var morphsearch_content = document.getElementById('morphsearch-content');
         var box = document.createElement('a');
@@ -409,16 +412,11 @@ function searchConversations(search) {
         column.appendChild(box);
         morphsearch_content.appendChild(column);
       }
-    } else {
-        if (remove_box){
-          for(var i = 0; remove_box.length; i++) {
-            remove_box[i].parentNode.removeChild(remove_box[i]);
-          }
-          empty_result = document.createElement('p');
-          empty_result.innerHTML = 'Aucun résultat trouvé';
-          empty_result.className += 'empty-result';
-          column.appendChild(empty_result);
-        }
+    }else{
+      empty_result = document.createElement('p');
+      empty_result.innerHTML = 'Aucun résultat trouvé';
+      empty_result.className += 'empty-result';
+      column.appendChild(empty_result);
     }
   });
 }
@@ -434,38 +432,35 @@ function searchContacts(search) {
 
   var remove_box = document.querySelectorAll('#contacts-column .dummy-media-object');
   if (remove_box){
-    for(var i = 0; remove_box.length; i++) {
-      remove_box[i].parentNode.removeChild(remove_box[i]);
+    for(var i = 0; i < remove_box.length; i++) {
+      if(remove_box[i]){
+        remove_box[i].parentNode.removeChild(remove_box[i]);
+      }
     }
   }
 
   searchContact(search).then(function (data) {
     if (data && data != '') {
-      var debug = JSON.parse(data); 
+      var debug = JSON.parse(data);
       if (debug.length > 0) {
         for(var i =0; i < debug.length; i++){
-                var morphsearch_content = document.getElementById('morphsearch-content');
-                var box = document.createElement('a');
-                box.className += 'dummy-media-object';
-                box.setAttribute('href', '#');
-                //box.setAttribute('onclick', 'joinConversation('+ debug[i].id +')');
-                var conversation_text = document.createElement('h3');
-                conversation_text.innerHTML = debug[i].name;
+          var morphsearch_content = document.getElementById('morphsearch-content');
+          var box = document.createElement('a');
+          box.className += 'dummy-media-object';
+          box.setAttribute('href', '#');
+          //box.setAttribute('onclick', 'joinConversation('+ debug[i].id +')');
+          var conversation_text = document.createElement('h3');
+          conversation_text.innerHTML = debug[i].name;
 
-                box.appendChild(conversation_text);
-                column.appendChild(box);
-                morphsearch_content.appendChild(column);
+          box.appendChild(conversation_text);
+          column.appendChild(box);
+          morphsearch_content.appendChild(column);
         }
       } else {
-        if (remove_box){
-          for(var i = 0; remove_box.length; i++) {
-            remove_box[i].parentNode.removeChild(remove_box[i]);
-          }
-          empty_result = document.createElement('p');
-          empty_result.innerHTML = 'Aucun résultat trouvé';
-          empty_result.className += 'empty-result';
-          column.appendChild(empty_result);
-        }
+        empty_result = document.createElement('p');
+        empty_result.innerHTML = 'Aucun résultat trouvé';
+        empty_result.className += 'empty-result';
+        column.appendChild(empty_result);
       }
     }
   });

@@ -310,6 +310,7 @@ function searchPublicConversation(search){
   if(search && search !== ''){
     url += '?search=' + search;
   }
+
   return new Promise(function (resolve, reject) {
     request({
       headers: getAuthHeader(),
