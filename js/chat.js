@@ -8,7 +8,7 @@ var message_interval;   //On stocke tous les intervaux ici pour les stopper à l
 var chat_interval;
 var lazyload_interval;
 
-var chats;
+var chats = {};
 
 const ipc = require('electron').ipcRenderer
 
@@ -168,9 +168,11 @@ function updateMessageThread(){
 
 //La fonction gére la mise à jour des messages par chat
 function updateChatThread(){
-  if(chats){
-    for(var i=0; i<chats.length; i++){
-      updateChat(chats[i]);     //Pour chacuns des chats on récupére les nouveaux messages
+  var contacts = document.querySelectorAll('.labels li:not(.title)');
+
+  if(contacts){
+    for(var i=0; i<contacts.length; i++){
+      updateChat(contacts[i].getAttribute('data-id'));     //Pour chacuns des chats on récupére les nouveaux messages
     }
   }
 }
@@ -256,22 +258,26 @@ function updateConversation(conversation){
 
 //La fonction permet de mettre à jour les messages pour un chat
 //param conversation Une Conversation qui posséde un id et un tableau de messages
-function updateChat(conversation){
-  var messages = chats.messages;
+function updateChat(contact_id){
+  var messages;
+  if(!chats[contact_id]){
+    chats[contact_id] = [];
+  }
+  messages = chats[contact_id].messages;
   var last_message = 0;
   if(messages && messages.length > 0){    //Si il y a déjà des messages on envoie l'ID du dernier
       last_message = messages[messages.length-1].id;
   }else{
-      chats.messages = [];         //Sinon on initialise le tableau de messages
+      chats[contact_id].messages = [];         //Sinon on initialise le tableau de messages
   }
 
-  getMessageForChat(conversation.id, last_message).then(function (data) {
+  getMessageForChat(contact_id, last_message).then(function (data) {
       if(data && data !== ''){
         var debug = JSON.parse(data);    //On récupére une liste d'objet Message JSON
-        chats.messages = chats.messages.concat(debug);           //On les rajoutent au message de la conversation
+        chats[contact_id].messages = chats[contact_id].messages.concat(debug);           //On les rajoutent au message de la conversation
 
         if(debug.length > 0){   //Si il y a des messages renvoyés
-          var contact_li = document.querySelector('.contact[data-conversation-id="' + conversation + '"]');
+          var contact_li = document.querySelector('.contact[data-id="' + contact_id + '"]');
 
           //var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
 
@@ -279,9 +285,9 @@ function updateChat(conversation){
             conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
           }
 
-          if(conversation.id == current_conversation.id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
+          if(contact_id == current_contact_id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
             for(var i = 0; i<debug.length; i++){
-              addNewMessage(debug[i]);      //On envoie l'objet message pour qu'il s'affiche dans la page
+              addNewChat(debug[i]);      //On envoie l'objet message pour qu'il s'affiche dans la page
             }
           }
         }

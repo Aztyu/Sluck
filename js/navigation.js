@@ -172,6 +172,18 @@ function addNewMessage(message){
   scrollMessages();
 }
 
+//La fonction permet d'afficher un nouveau message dans le chat
+//param message Un objet message
+function addNewChat(message){
+  var message_div = document.getElementById('chat_messages');
+
+  if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
+    message_div.appendChild(getMessageDiv(message));
+  }
+
+  scrollChatMessages();
+}
+
 //La fonction va vider les messages dans l'affichage principal
 function clearMessages(){
   var message_div = document.getElementById('messages');
@@ -476,6 +488,12 @@ function searchContactsAndConversations() {
 //La fonction permet de faire scroller vers les messages tout en bas
 function scrollMessages(){
   var messages = document.getElementById('messages');
+  messages.scrollTop = messages.scrollHeight
+}
+
+//La fonction permet de faire scroller vers les messages du chat tout en bas
+function scrollChatMessages(){
+  var messages = document.getElementById('chat_messages');
   messages.scrollTop = messages.scrollHeight
 }
 
