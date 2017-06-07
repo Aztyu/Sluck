@@ -50,7 +50,7 @@ function loginAccount(){
 //la fonction permet de lancer toutes les requêtes en fond
 function startBackgroundUpdates(){
   startMessageUpdates();                          //on démarre la récupération des messages
-  startChatUpdates()
+  startChatUpdates();
   startLazyLoadUpdate();
   startContactUpdate();
   startInviteUpdate();
@@ -136,7 +136,7 @@ function createConversation(){
     document.getElementById('sa-input-error').style.backgroundColor = "red";
     document.getElementById('sa-input-error').innerHTML += '<p><i class="material-icons">warning</i> Vous devez écrire quelque chose !<p>';
   }
-
+  document.getElementById('conversation_name').value = '';
 }
 
 //La fonction démarre la mise à jour automatique des messages
@@ -172,7 +172,9 @@ function updateChatThread(){
 
   if(contacts){
     for(var i=0; i<contacts.length; i++){
-      updateChat(contacts[i].getAttribute('data-id'));     //Pour chacuns des chats on récupére les nouveaux messages
+      if(contacts[i].getAttribute('data-id')){
+        updateChat(contacts[i].getAttribute('data-id'));     //Pour chacuns des chats on récupére les nouveaux messages
+      }
     }
   }
 }

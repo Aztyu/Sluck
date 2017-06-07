@@ -28,6 +28,11 @@ function navigateToTab(page_dest){
     }
   }
 }
+
+function setFocusConversation(){
+  document.getElementById('conversation_name').focus();
+}
+
 function expandSearch(){
   document.getElementById('morphsearch').classList.add('open');
 }
@@ -397,7 +402,6 @@ function searchConversations(search) {
     empty_result.parentNode.removeChild(empty_result);
   }
 
-
   var remove_box = document.querySelectorAll('#conversations-column .dummy-media-object');
   if (remove_box){
     for(var i = 0;  i < remove_box.length; i++) {
@@ -456,17 +460,25 @@ function searchContacts(search) {
       var debug = JSON.parse(data);
       if (debug.length > 0) {
         for(var i =0; i < debug.length; i++){
-          var morphsearch_content = document.getElementById('morphsearch-content');
-          var box = document.createElement('a');
-          box.className += 'dummy-media-object';
-          box.setAttribute('href', '#');
-          //box.setAttribute('onclick', 'joinConversation('+ debug[i].id +')');
-          var conversation_text = document.createElement('h3');
-          conversation_text.innerHTML = debug[i].name;
+                var morphsearch_content = document.getElementById('morphsearch-content');
+                var box = document.createElement('a');
+                box.className += 'dummy-media-object';
+                box.setAttribute('href', '#');
+                box.setAttribute('onclick', 'inviteContact('+ debug[i].id +')');
+                var conversation_text = document.createElement('h3');
+                conversation_text.className = 'search-contact-title';
+                conversation_text.innerHTML = debug[i].name;
 
-          box.appendChild(conversation_text);
-          column.appendChild(box);
-          morphsearch_content.appendChild(column);
+                var profil_img = document.createElement('img');
+                profil_img.classList.add('profile');
+                profil_img.src = 'http://cdn.qwirkly.fr/profile/' + debug[i].id;
+                var add = document.createElement('i');
+                add.className = 'zmdi zmdi-account-add zmdi-hc-3x zmdi-contact-search';
+                box.appendChild(profil_img);
+                box.appendChild(conversation_text);
+                box.appendChild(add);
+                column.appendChild(box);
+                morphsearch_content.appendChild(column);
         }
       } else {
         empty_result = document.createElement('p');
