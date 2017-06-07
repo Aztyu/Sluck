@@ -136,7 +136,7 @@ function createConversation(){
     document.getElementById('sa-input-error').style.backgroundColor = "red";
     document.getElementById('sa-input-error').innerHTML += '<p><i class="material-icons">warning</i> Vous devez écrire quelque chose !<p>';
   }
-
+  document.getElementById('conversation_name').value = '';
 }
 
 //La fonction démarre la mise à jour automatique des messages

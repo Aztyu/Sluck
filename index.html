@@ -156,7 +156,7 @@
 
                       <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-account"></i> </span>
                           <div class="form-line">
-                              <input type="text" class="form-control" id="name_log" placeholder="Pseudo" required="" autofocus="" />
+                              <input type="text" class="form-control" id="name_log" placeholder="Pseudo" required="" autofocus/>
                           </div>
                       </div>
                       <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-lock"></i> </span>
@@ -281,7 +281,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="defaultModalLabel">Nouvelle conversation</h2>
+                        <h2 class="modal-title" id="defaultModalLabel" >Nouvelle conversation</h2>
                         <hr/>
                     </div>
                     <fieldset>
@@ -316,7 +316,7 @@
                       <div class="form-line"><!--
                           <p style="color: #b9babb;font-weight: 100;font-size: 22px;margin: 15px 0 20px;">Vos conversations <a href="#" data-toggle="modal" data-target="#defaultModal" style="float: right;color: #1b768d"><i class="zmdi zmdi-plus-circle" style="font-size: 32px;line-height: inherit;"></i></a></p>-->
                           <div class="logo-container title-chat">CONVERSATIONS</div>
-                          <a class="compose-button" data-toggle="modal" data-target="#defaultModal">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
+                          <a class="compose-button" data-toggle="modal" data-target="#defaultModal" onclick="setFocusConversation()">Nouvelle conversation  <i class="zmdi zmdi-accounts-add"></i></a>
                       </div>
                   </div>
                   <button class="btn btn-sm btn-default pull-right visible-xs ml-5" data-toggle="collapse" data-target="#open-chats" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-chevron-down"></i></button>
@@ -385,7 +385,8 @@
                                       </a> </li>
                                   <li> <a href="#" onclick="navigateToTab('chatbox')" class=""><i class="zmdi zmdi-email"></i>
                                       <p>MESSAGES</p>
-                                      </a> </li>
+                                      </a>
+                                  </li>
                               </ul>
                           </div>
                       </div>
@@ -394,16 +395,27 @@
           </div>
         <div class="row clearfix">
             <div class="card cardmodified">
-                      <div class="body" style="padding: 0px 17px!important;">
-                                  <h2 class="card-inside-title">Informations personnelles</h2>
-                                  <div class="row clearfix">
+                      <div class="body" style="padding: 0px 40px!important;">
+                                  <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="true">INFOS</a></li>
+                            <li role="presentation" class=""><a href="#settings" data-toggle="tab" aria-expanded="false">RÉGLAGES</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="home">
+                                 <div class="row clearfix">
                                       <div class="col-sm-12">
                                           <div class="form-group">
                                               <div class="form-line">
-                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly="" />
+                                                 <input type="text" class="form-control" placeholder="Pseudo" id="pseudo_user" readonly />
                                               </div>
                                           </div>
                                           <form id="updateProfil" class="col-xs-12" method="POST" />
+                                          <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Slogan / Informations complémentaires (max 140 caractères)" id="slogan_user" />
+                                                </div>
+                                            </div>
+                                          
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" placeholder="Adresse mail" id="addressmail_user" />
@@ -419,17 +431,35 @@
                                                     <input type="password" class="form-control" placeholder="Confirmation mot de passe" id="confirmpwd_user" />
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
+                                            <button type="button" class="btn btn-raised btn-default waves-effect" onclick="clearInfoProfil()">ANNULER</button>
                                             <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>
                                           </form>
                                       </div>
-                              </div>
-                          </div>
+                                  </div>
+                            </div>
+                            
+                            <div role="tabpanel" class="tab-pane fade" id="settings">
+                              <p> Petit test pour te dire que tu peux faire tous les réglages du monde ici de toute façon ça marche pas ! Et ouais c'est kiki qui la décide et il t'emmerde petite pédale !</p>
+                              <p> Attention à bien choisir le bon port petit salaud ! </p>
+                              <form>
+                                <div class="demo-radio-button">
+                                  <input name="group1" type="radio" id="radio_1" checked="">
+                                  <label for="radio_1">Port 80</label>
+                                  <input name="group1" type="radio" id="radio_2">
+                                  <label for="radio_2">Port 110</label>
+                                  <input name="group1" type="radio" id="radio_3">
+                                  <label for="radio_3">Port 210</labels>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
                       </div>
+                    </div>
                   </div>
         </div>
       </div>
   </section>
+
   <!--- Profile another user ----- -->
   <section class="content profile-page hidden" data-tab="profiluserbox">
     <div class="container-fluid">
@@ -454,44 +484,84 @@
                             <div class="col-md-6" style="margin-bottom:0px!important;">
                               <button id="audio_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
                               <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
+                              <span id="call_status"></span>
                             </div>
                         </div>
                         </div>
                     </div>
 
-                    <div id="webrtc">
-                      <h2>Chat RTC</h2>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="col-sm-12">
+                            <div class="card">
+                              <div class="body" style="padding: 0px 20px 5px 20px!important;">
+                                  <div class="row clearfix">
+                                    <div id="webrtc" style="width:100%; padding: 5px; height: 250px; background-color: grey;">
+                                    <p>Remote</p>
+                                        <video id="webrtcvideo"></video>
+                                    </div> 
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
 
-                      <p>Controls</p>
-                      <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
-                      <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
+                          <div class="col-sm-6">
+                            <div class="card">
+                              <div class="body" style="padding: 0px 20px 5px 20px!important;">
+                                  <div class="row clearfix">
+                                    <div id="webrtc" style="width:100%; padding: 5px; height: 150px; background-color: grey;">
+                                        <p>Local</p>
+                                        <video id="localvideo"></video>
+                                    </div> 
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
 
-                      <p>Call</p>
-                      <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
-                      <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
-                      <span id="call_status"></span>
-                      <p>Remote</p>
-                      <video id="webrtcvideo"></video>
-
-                      <p>Local</p>
-                      <video id="localvideo"></video>
-                    </div>
-
-                    <div class="chat" style="width: 100%!important;">
-                        <div class="chat-history" id="messages"></div>
-                        <!-- end chat-history -->
-                        <div class="chat-message clearfix" id="chat_div">
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <div id="chat_files" class="hidden"></div>
-                                    <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
+                          <div class="col-sm-6">
+                            <div class="header">
+                              <h4> RÉGLAGES </h4>
+                            </div>
+                            <div class="card">
+                              <div class="body" style="padding: 0px 20px 5px 20px!important;">
+                                  <div class="col-md-12" style="margin-bottom: 5px!important;">
+                                    <div class="col-md-2">
+                                      <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
+                                    </div>
+                                  <div class="col-md-10">
+                                    <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
+                                  </div>
+                                  <div class="col-md-12" style="margin-bottom: 5px!important;">
+                                    <button type="button" class="btn btn-raised bg-pink waves-effect"> <i class="material-icons"  id="call_reject" onClick="actionCall('reject')">call_end</i> </button>
+                                    <button type="button" class="btn btn-raised bg-green waves-effect" style="margin-left:40px;"> <i class="material-icons" id="call_accept" onClick="actionCall('accept')">call</i> </button>
+                                  </div>
                                 </div>
+                              </div>
                             </div>
-                          <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
-                            <i class="zmdi zmdi-file-text"></i>
-                          </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
+                              
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="chat" style="width: 100%!important;">
+                              <div class="chat-history" id="messages"></div>
+                            <!-- end chat-history -->
+                            <div class="chat-message clearfix" id="chat_div">
+                              <div class="form-group">
+                                  <div class="form-line">
+                                      <div id="chat_files" class="hidden"></div>
+                                      <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
+                                  </div>
+                              </div>
+                              <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
+                                <i class="zmdi zmdi-file-text"></i>
+                              </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
+                            </div>
+                          </div>
                       </div>
-                </div>
+                    </div>
+
+                </div></div>
             </div>
         </div>
         <!-- #END# Input Group -->

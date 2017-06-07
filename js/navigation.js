@@ -28,6 +28,11 @@ function navigateToTab(page_dest){
     }
   }
 }
+
+function setFocusConversation(){
+  document.getElementById('conversation_name').focus();
+}
+
 function expandSearch(){
   document.getElementById('morphsearch').classList.add('open');
 }

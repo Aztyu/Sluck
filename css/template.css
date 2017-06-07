@@ -7069,7 +7069,7 @@ h2.title {
     min-height: 30px;
     position: fixed;
     z-index: 10;
-    top: 10%;
+    top: 11%;
     right: 1%;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
@@ -7079,6 +7079,94 @@ h2.title {
     transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.7,  0,  0.3,  1);
     transition-timing-function: cubic-bezier(0.7,  0,  0.3,  1);
+}
+input[type=range] {
+  height: 23px;
+  -webkit-appearance: none;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 2px #50555C;
+  background: #50555C;
+  border-radius: 12px;
+  border: 0px solid #000000;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 5px #4A3737;
+  border: 0px solid #040F0F;
+  height: 17px;
+  width: 17px;
+  border-radius: 15px;
+  background: #529DE1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #50555C;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 2px #50555C;
+  background: #50555C;
+  border-radius: 12px;
+  border: 0px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 5px #4A3737;
+  border: 0px solid #040F0F;
+  height: 17px;
+  width: 17px;
+  border-radius: 15px;
+  background: #529DE1;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #50555C;
+  border: 0px solid #000000;
+  border-radius: 24px;
+  box-shadow: 0px 0px 2px #50555C;
+}
+input[type=range]::-ms-fill-upper {
+  background: #50555C;
+  border: 0px solid #000000;
+  border-radius: 24px;
+  box-shadow: 0px 0px 2px #50555C;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 5px #4A3737;
+  border: 0px solid #040F0F;
+  height: 17px;
+  width: 17px;
+  border-radius: 15px;
+  background: #529DE1;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #50555C;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #50555C;
 }
 .m-top {
     z-index: 7;
@@ -23229,10 +23317,10 @@ color: #298890;
     border-radius: 50px!important;
 }
 .profile-page .profile-header {
-    background: transparent url("../img/profile-bg.jpg") repeat scroll center center/cover;
+    background: transparent url("../img/bg-profil.png") repeat scroll center center/cover;
     color: #fff;
-    padding-bottom: 57px;
-    padding-top: 51px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     position: relative;
     text-align: center;
 
