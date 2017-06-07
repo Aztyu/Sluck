@@ -254,6 +254,31 @@ function createContactInvite(event){
   inviteContact(id);
 }
 
+function updateUserStatus(status){
+  /*var navbar = document.querySelector('.navbar-right');
+  var p = document.createElement(p);*/
+  updateUserStatus(status).then(function (data) {
+    if(data && data !== ''){
+      var status = JSON.parse(data);
+      switch (status) {
+        case 1:
+          status_color = 'green';
+          break;
+        case 2:
+          status_color = 'yellow';
+          break;
+        case 3:
+          status_color = 'red';
+          break;
+        default:
+          status_color = 'white';
+      }
+     /*p.innerHTML += ' <span class="ball ' + status_color + '"></span>';
+      p.appendChild(navbar);*/
+    }
+  });
+}
+
 function initContextMenu(){   //TODO bouger sur les photos de profil dans les conversations
   /*$.contextMenu({
       selector: '.contact',
