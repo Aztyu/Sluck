@@ -188,15 +188,18 @@
     <form class="morphsearch-form" />
           <div class="form-group m-0">
             <input value="" type="search" onclick="expandSearch()" placeholder="Rechercher..." class="form-control morphsearch-input" id="morphsearch-kiki" />
-            <button class="morphsearch-submit" id="morphsearch-submit" onclick="searchConversations()" type="submit">Search</button>
+            <button class="morphsearch-submit" id="morphsearch-submit" onclick="searchContactsAndConversations()" type="submit">Search</button>
         </div>
     </form>
     <div class="morphsearch-content" id="morphsearch-content">
-        <div class="dummy-column">
+        <div class="dummy-column" id="conversations-column">
             <h2>Conversations</h2>
-            <a class="dummy-media-object" href="#"> <img class="round" src="./assets/images/random-avatar1.jpg" alt="" />
-            <h3>Sara Soueidan</h3>
-            </a> </div>
+            </a> 
+        </div>
+        <div class="dummy-column" id="contacts-column">
+            <h2>Contacts</h2>
+        </div>
+
     </div>
     <!-- /morphsearch-content -->
     <span class="morphsearch-close" onclick="unexpandSearch()"></span> </div>
