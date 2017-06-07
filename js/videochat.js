@@ -91,6 +91,18 @@ function actionCall(action){
             document.getElementById('call_status').innerHTML = 'Appel refusé';
         }, 1500);
       });
+
+      current_call.on('close', function(toto){
+        console.log('Yolo close');
+      });
+
+      current_call.on('disconnected', function(toto){
+        console.log('Yolo disconnect');
+      });
+
+      current_call.on('destroy', function(toto){
+        console.log('Yolo destroy');
+      });
     }
   }, function(err) {
     console.log('Failed to get local stream' ,err);
@@ -125,7 +137,7 @@ function sendMessage(message){
 function connectVideo(id){
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     localstream = stream;
-    initLocalStream(localStream);
+    initLocalStream(localstream);
 
     var call = peer.call(id, stream);
 
@@ -149,6 +161,9 @@ function connectVideo(id){
 function videoStreamDisconnect(event){
     console.log("Inactif");
     console.log(event);
+
+    localstream.close();
+    mediastream.close();
 
     localstream = null;
     mediastream = null;
