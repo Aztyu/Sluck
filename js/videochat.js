@@ -1,8 +1,10 @@
 var peer;
 var peer_id;
 var connection;
+
 var mediastream;
 var localstream;
+
 var current_call;
 
 $(document).ready(function(){
@@ -119,6 +121,8 @@ function sendMessage(message){
 
 function connectVideo(id){
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
+    localstream = stream;
+
     var call = peer.call(id, stream);
 
     call.on('stream', function(remoteStream) {

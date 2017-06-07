@@ -130,6 +130,27 @@ function getMessageForConversation(conversation_id, last_message){
   });
 }
 
+//La fonction permet de récupérer tous les messages d'un chat entre 2 contacts depuis un certain id de message
+//param contact_id L'id du contact
+//param last_message L'id du dernier message ou 0
+function getMessageForChat(contact_id, last_message){
+  return new Promise(function (resolve, reject) {
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/message/chat/' + contact_id + '/' + last_message,
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
+
+
 //La fonction permet de faire passer des infos pour enregistrer un nouvel utilisateur
 //param name Le nom du nouvel utilisateur
 //param password Le mot de passe
@@ -270,19 +291,6 @@ function createMessage(message, current_conversation){
           reject(err);
         }
       });
-
-      /*fs.stat(message.file, function(err, stats) {
-        console.log(stats);
-        restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
-            headers: getAuthHeader(),
-            multipart: true,
-            data: {
-                "file": restler.file(message.file, null, stats.size, null, mime.lookup(message.file))
-            }
-        }).on("complete", function(data) {
-            resolve(data);
-        });
-      });*/
     }else{    //Sinon on envoie juste le message
       var url = SERVER_URL + '/api/message/send/' + current_conversation;
       var req = request.post({url : url, form: {'message': message.content}, headers: getAuthHeader()}, function (err, resp, body) {
@@ -292,42 +300,7 @@ function createMessage(message, current_conversation){
           reject(err);
         }
       });
-
-      /*restler.post(SERVER_URL + '/api/message/send/' + current_conversation, {
-          headers: {
-            'Authorization': getAuth()
-          },
-          data: {
-              "message": message.content,
-          }
-      }).on("complete", function(data) {
-          resolve(data);
-      });*/
     }
-
-    /*var form = {
-       content: message
-    };
-
-    var formData = querystring.stringify(form);
-    var contentLength = formData.length;
-
-    request({
-      headers: {
-        'Content-Length': contentLength,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': getAuth()
-      },
-      uri: SERVER_URL + '/api/message/send/' + current_conversation,
-      body: formData,
-      method: 'POST'
-    }, function (err, res, body) {
-      if(res.statusCode == 200){
-        resolve(body);
-      }else{
-        return reject(err);
-      }
-    });*/
   });
 }
 

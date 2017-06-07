@@ -166,10 +166,11 @@ function updateMessageThread(){
   }
 }
 
+//La fonction gére la mise à jour des messages par chat
 function updateChatThread(){
   if(chats){
     for(var i=0; i<chats.length; i++){
-      updateConversation(chats[i]);     //Pour chacuns des chats on récupére les nouveaux messages
+      updateChat(chats[i]);     //Pour chacuns des chats on récupére les nouveaux messages
     }
   }
 }
@@ -246,6 +247,43 @@ function updateConversation(conversation){
             }
           }
 
+        }
+      }
+  }, function (err) {
+      console.log(err);
+  });
+}
+
+//La fonction permet de mettre à jour les messages pour un chat
+//param conversation Une Conversation qui posséde un id et un tableau de messages
+function updateChat(conversation){
+  var messages = chats.messages;
+  var last_message = 0;
+  if(messages && messages.length > 0){    //Si il y a déjà des messages on envoie l'ID du dernier
+      last_message = messages[messages.length-1].id;
+  }else{
+      chats.messages = [];         //Sinon on initialise le tableau de messages
+  }
+
+  getMessageForChat(conversation.id, last_message).then(function (data) {
+      if(data && data !== ''){
+        var debug = JSON.parse(data);    //On récupére une liste d'objet Message JSON
+        chats.messages = chats.messages.concat(debug);           //On les rajoutent au message de la conversation
+
+        if(debug.length > 0){   //Si il y a des messages renvoyés
+          var contact_li = document.querySelector('.contact[data-conversation-id="' + conversation + '"]');
+
+          //var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
+
+          if(debug[debug.length-1].time > connected_user.last_logout){   //Si le dernier message est plus récent que la dernière connexion
+            conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
+          }
+
+          if(conversation.id == current_conversation.id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
+            for(var i = 0; i<debug.length; i++){
+              addNewMessage(debug[i]);      //On envoie l'objet message pour qu'il s'affiche dans la page
+            }
+          }
         }
       }
   }, function (err) {
