@@ -177,6 +177,18 @@ function addNewMessage(message){
   scrollMessages();
 }
 
+//La fonction permet d'afficher un nouveau message dans le chat
+//param message Un objet message
+function addNewChat(message){
+  var message_div = document.getElementById('chat_messages');
+
+  if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
+    message_div.appendChild(getMessageDiv(message));
+  }
+
+  scrollChatMessages();
+}
+
 //La fonction va vider les messages dans l'affichage principal
 function clearMessages(){
   var message_div = document.getElementById('messages');
@@ -390,17 +402,19 @@ function searchConversations(search) {
     empty_result.parentNode.removeChild(empty_result);
   }
 
-
   var remove_box = document.querySelectorAll('#conversations-column .dummy-media-object');
   if (remove_box){
-    for(var i = 0; remove_box.length; i++) {
-      remove_box[i].parentNode.removeChild(remove_box[i]);
+    for(var i = 0;  i < remove_box.length; i++) {
+      if(remove_box[i]){
+        remove_box[i].parentNode.removeChild(remove_box[i]);
+      }
     }
   }
 
   searchPublicConversation(search).then(function (data) {
-    var debug = JSON.parse(data); 
-    if (debug.length > 0) {
+    var debug = JSON.parse(data);
+
+    if(debug.length > 0){
       for(var i =0; i < debug.length; i++){
         var morphsearch_content = document.getElementById('morphsearch-content');
         var box = document.createElement('a');
@@ -414,16 +428,11 @@ function searchConversations(search) {
         column.appendChild(box);
         morphsearch_content.appendChild(column);
       }
-    } else {
-        if (remove_box){
-          for(var i = 0; remove_box.length; i++) {
-            remove_box[i].parentNode.removeChild(remove_box[i]);
-          }
-          empty_result = document.createElement('p');
-          empty_result.innerHTML = 'Aucun résultat trouvé';
-          empty_result.className += 'empty-result';
-          column.appendChild(empty_result);
-        }
+    }else{
+      empty_result = document.createElement('p');
+      empty_result.innerHTML = 'Aucun résultat trouvé';
+      empty_result.className += 'empty-result';
+      column.appendChild(empty_result);
     }
   });
 }
@@ -439,14 +448,16 @@ function searchContacts(search) {
 
   var remove_box = document.querySelectorAll('#contacts-column .dummy-media-object');
   if (remove_box){
-    for(var i = 0; remove_box.length; i++) {
-      remove_box[i].parentNode.removeChild(remove_box[i]);
+    for(var i = 0; i < remove_box.length; i++) {
+      if(remove_box[i]){
+        remove_box[i].parentNode.removeChild(remove_box[i]);
+      }
     }
   }
 
   searchContact(search).then(function (data) {
     if (data && data != '') {
-      var debug = JSON.parse(data); 
+      var debug = JSON.parse(data);
       if (debug.length > 0) {
         for(var i =0; i < debug.length; i++){
                 var morphsearch_content = document.getElementById('morphsearch-content');
@@ -470,15 +481,10 @@ function searchContacts(search) {
                 morphsearch_content.appendChild(column);
         }
       } else {
-        if (remove_box){
-          for(var i = 0; remove_box.length; i++) {
-            remove_box[i].parentNode.removeChild(remove_box[i]);
-          }
-          empty_result = document.createElement('p');
-          empty_result.innerHTML = 'Aucun résultat trouvé';
-          empty_result.className += 'empty-result';
-          column.appendChild(empty_result);
-        }
+        empty_result = document.createElement('p');
+        empty_result.innerHTML = 'Aucun résultat trouvé';
+        empty_result.className += 'empty-result';
+        column.appendChild(empty_result);
       }
     }
   });
@@ -494,6 +500,12 @@ function searchContactsAndConversations() {
 //La fonction permet de faire scroller vers les messages tout en bas
 function scrollMessages(){
   var messages = document.getElementById('messages');
+  messages.scrollTop = messages.scrollHeight
+}
+
+//La fonction permet de faire scroller vers les messages du chat tout en bas
+function scrollChatMessages(){
+  var messages = document.getElementById('chat_messages');
   messages.scrollTop = messages.scrollHeight
 }
 

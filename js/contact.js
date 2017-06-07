@@ -168,18 +168,16 @@ function showAndLoadProfil(){
 
 function hideSearchBar(){
   var divsToHide = document.getElementsByClassName("morphsearch");
-    for(var i = 0; i < divsToHide.length; i++)
-    {
-    divsToHide[i].style.visibility="hidden";
+    for(var i = 0; i < divsToHide.length; i++){
+      divsToHide[i].style.visibility="hidden";
     }
 }
 
 function showSearchBar(){
   var divsToHide = document.getElementsByClassName("morphsearch");
-    for(var i = 0; i < divsToHide.length; i++)
-    {
+  for(var i = 0; i < divsToHide.length; i++){
     divsToHide[i].style.visibility="visible";
-    }
+  }
 }
 
 function clearInfoProfil(){
