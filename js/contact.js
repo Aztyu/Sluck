@@ -256,6 +256,27 @@ function createContactInvite(event){
   inviteContact(id);
 }
 
+function updateStatus(status){
+  var status_span = document.querySelector('#user-status');
+
+  updateUserStatus(status);
+  switch (status) {
+    case 1:
+      status_color = 'bg-light-green';
+      break;
+    case 2:
+      status_color = 'bg-orange';
+      break;
+    case 3:
+      status_color = 'bg-grey';
+      break;
+    default:
+      status_color = 'bg-grey';
+  }
+  status_span.className = '';
+  status_span.className = status_color + ' icon-circle xsmall';
+}
+
 function initContextMenu(){   //TODO bouger sur les photos de profil dans les conversations
   /*$.contextMenu({
       selector: '.contact',

@@ -22349,6 +22349,18 @@ to {
     display: inline-block;
     vertical-align: top;
 }
+.icon-circle {
+    width: 38px;
+    height: 38px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    }
 .dropdown-menu ul.menu .icon-circle i {
     font-size: 18px;
     line-height: 36px;
