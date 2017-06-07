@@ -245,24 +245,24 @@
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="showAndLoadProfil()"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
                   <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="showAnotherProfil()"><i class="zmdi zmdi-settings"></i></a></li>
-                  <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-lock"></i></a>
+                  <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><span id="user-status" class="icon-circle bg-light-green xsmall"></span></a>
                       <ul class="dropdown-menu" id="status_co">
                         <li class="header">STATUS</li>
                         <li class="body notificationCase">
                           <ul class="menu">
-                              <li> <a href="updateUserStatus(1);" class=" waves-effect waves-block">
+                              <li> <a href="#" onclick="updateStatus(1)" class=" waves-effect waves-block">
                                   <span class="icon-circle bg-light-green xsmall"></span>
                                   <div class="menu-info">
                                       <p>En ligne</p>
                                   </div>
                                   </a> </li>
-                              <li> <a href="updateUserStatus(2)" class=" waves-effect waves-block">
+                              <li> <a href="#" onclick="updateStatus(2)" class=" waves-effect waves-block">
                               <span class="icon-circle bg-orange xsmall"></span>
                               <div class="menu-info">
                                   <p>Occupé</p>
                               </div>
                               </a> </li>
-                              <li> <a href="updateUserStatus(3);" class=" waves-effect waves-block">
+                              <li> <a href="#" onclick="updateStatus(3)" class=" waves-effect waves-block">
                               <span class="icon-circle bg-grey xsmall"></span>
                               <div class="menu-info">
                                   <p>Hors ligne</p>
