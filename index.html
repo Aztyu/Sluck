@@ -307,7 +307,7 @@
         </div>
 
   <section class="content" data-tab="chatbox">
-      <div class="container-fluid">
+    <div class="container-fluid">
       <div class="chatbox row clearfix">
         <aside id="sidebar" class="nano">
           <div class="people-list" id="people-list">
@@ -334,31 +334,31 @@
           </div>
         </aside>
 
-          <div class="chat">
-            <div class="chat-header clearfix">
-                  <div class="chat-about">
-                      <div class="chat-with" id="conversation_title"></div>
-                  </div>
-                  <i class="fa fa-star"></i>
+        <div class="chat">
+          <div class="chat-header clearfix">
+              <div class="chat-about">
+                  <div class="chat-with" id="conversation_title"></div>
               </div>
-              <!-- end chat-header -->
-
-              <div class="chat-history" id="messages"></div>
-              <!-- end chat-history -->
-              <div class="chat-message clearfix hidden" id="chat_div">
-                  <div class="form-group">
-                      <div class="form-line">
-                          <div id="chat_files" class="hidden"></div>
-                          <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
-                      </div>
-                  </div>
-                <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
-                  <i class="zmdi zmdi-file-text"></i>
-                </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
-            </div>
+              <i class="fa fa-star"></i>
           </div>
+
+          <div class="chat-history" id="messages"></div>
+            <!-- end chat-history -->
+          <div class="chat-message clearfix hidden" id="chat_div">
+            <div class="form-group">
+              <div class="form-line">
+                <div id="chat_files" class="hidden"></div>
+                <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
+              </div>
+            </div>
+            <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
+              <i class="zmdi zmdi-file-text"></i>
+            </a>
+            <button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button>
+          </div>
+        </div>
       </div>
-      </div>
+    </div>
   </section>
 
   <section class="content profile-page hidden" data-tab="profilbox">
@@ -418,8 +418,8 @@
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
-                                            <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>     
-                                          </form>                                 
+                                            <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>
+                                          </form>
                                       </div>
                               </div>
                           </div>
@@ -435,12 +435,11 @@
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card carduser" style="background: #f7f7f7!important;margin-top:0px!important;padding:5px 0 0px 0px!important;">
-                   
                     <div class="body">
                         <div class="row clearfix">
                             <div class="col-md-1">
                                 <div class="admin-image">
-                                  <img class="float-right profile profile_picture"/>
+                                  <img id="contact_image" class="float-right profile "/>
                                 </div>
                             </div>
                             <div class="col-md-4" style="margin-bottom:0px!important;">
@@ -451,12 +450,31 @@
                                 </div>
                             </div>
                             <div class="col-md-6" style="margin-bottom:0px!important;">
-                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
-                              <button type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
+                              <button id="audio_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
+                              <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>
                         </div>
                         </div>
                     </div>
+
+                    <div id="webrtc">
+                      <h2>Chat RTC</h2>
+
+                      <p>Controls</p>
+                      <i id="mic_control" onClick="muteMicrophone(this)" data-mic="on" class="material-icons">mic</i>
+                      <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
+
+                      <p>Call</p>
+                      <i id="call_accept" onClick="actionCall('accept')" class="material-icons">call</i>
+                      <i id="call_reject" onClick="actionCall('reject')" class="material-icons">call_end</i>
+                      <span id="call_status"></span>
+                      <p>Remote</p>
+                      <video id="webrtcvideo"></video>
+
+                      <p>Local</p>
+                      <video id="localvideo"></video>
+                    </div>
+
                     <div class="chat" style="width: 100%!important;">
                         <div class="chat-history" id="messages"></div>
                         <!-- end chat-history -->
@@ -478,23 +496,6 @@
       </div>
     </div>
   </section>
-
-  <section class="content profile-page hidden" data-tab="contacts">
-    <div class="container-fluid">
-      <div class="row clearfix">
-          <h2>Contacts</h2>
-          <div id="contacts"></div>
-
-          <h2>Invitations</h2>
-          <div id="invitations"></div>
-
-          <h2>Chercher contact</h2>
-          <input id="contact_search">
-          <button onClick="searchForContact()">Chercher</button>
-          <div id="searches"></div>
-      </div>
-    </div>
-  </section>
       </div>
     </div>
   </body>
@@ -509,6 +510,11 @@
   <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="js/videochat.js"></script>
+  <script type="text/javascript" src="js/peer.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> -->
   <script type="text/javascript" src="js/contact.js"></script>
   <script type="text/javascript" src="js/notify.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
