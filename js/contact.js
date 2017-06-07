@@ -72,7 +72,7 @@ function getContactList(){
 function openContactPage(event){
   var elem = event.target.parentNode;
 
-  navigateToTab("profiluserbox");
+  showAnotherProfil();
   current_contact_id = elem.getAttribute('data-id');
 
   var peerjs = elem.getAttribute('data-peerjs');
