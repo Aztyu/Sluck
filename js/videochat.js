@@ -59,10 +59,7 @@ function actionCall(action){
       document.getElementById('call_status').innerHTML = 'Appel accepté';
 
       localstream = stream;
-      var video_local = document.getElementById('localvideo');    //On ajoute le stream local
-      video_local.src = (URL || webkitURL || mozURL).createObjectURL(stream);
-      video_local.play();
-      video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
+      initLocalStream(localstream);
 
       current_call.on('stream', function(remoteStream) {
         console.log('Appel entrant' + remoteStream);
@@ -100,6 +97,12 @@ function actionCall(action){
   });
 }
 
+function initLocalStream(locale_stream){
+  var video_local = document.getElementById('localvideo');    //On ajoute le stream local
+  video_local.src = (URL || webkitURL || mozURL).createObjectURL(locale_stream);
+  video_local.play();
+  video_local.volume = 0;     //On le mute pour ne pas s'entendre parler
+}
 
 function connectTo(id){
   connection = peer.connect(id);
@@ -122,6 +125,7 @@ function sendMessage(message){
 function connectVideo(id){
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     localstream = stream;
+    initLocalStream(localStream);
 
     var call = peer.call(id, stream);
 
