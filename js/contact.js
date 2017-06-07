@@ -94,64 +94,59 @@ function openContactPage(event){
 }
 
 function getContactInviteList(){
-  contactInviteList().then(function (data) {    //Si on se connecte
-    if(data && data !== ''){
-      var invitations = JSON.parse(data);
-      var invite_list = document.getElementById('invitations');
+  contactInviteList().then(function (data) {
+      if(data && data !== ''){
+        var invitations = JSON.parse(data);
+        var invite_list = document.getElementById('pending-invitations');
+        invite_list.innerHTML = '';
 
-      invite_list.innerHTML = '';
+        for(var i = 0; i<invitations.length; i++){
+          var requester_id = invitations[i].requester_id;
+          var invitation_id = invitations[i].invitation_id;
 
-      for(var i = 0; i<invitations.length; i++){
-        var requester_id = invitations[i].requester_id;
-        var invitation_id = invitations[i].invitation_id;
+          var contact = document.createElement('li');
+          contact.setAttribute('data-id', invitation_id);
 
-        //if(!document.querySelector(".invite[data-id='" + invitation_id + "']")){
-          var invite_div = document.createElement('div');
-          invite_div.classList.add('invite');
-          invite_div.setAttribute('data-id', invitation_id);
-
-          var invite_p = document.createElement('p');
+          var contact_link = document.createElement('a');
+          contact_link.setAttribute('href', '#');
+          contact_link.className += 'contact-link';
 
           var username = getUserDiv(requester_id);
-
           if(username){     //On vérifie si le username est connu
-            invite_p.innerHTML = username;   //On l'affiche
+            contact_link.innerHTML = username;   //On l'affiche
           }else{
-            invite_p.classList.add('lazy-load');   //On ajoute la class lazy-load + un attribut pour le charger plus tard
-            invite_p.setAttribute('data-id', requester_id);
-            if(!user_to_load.includes(requester_id)){    //Si l'id de l'user n'est pas déjà recherché alors on l'ajoute à la liste de recherche
+            contact_link.classList.add('lazy-load');
+            contact_link.setAttribute('data-id', invitation_id);
+            if(!user_to_load.includes(requester_id)){
               user_to_load.push(requester_id);
             }
           }
 
-          var accept_button = document.createElement('button');
-          accept_button.innerHTML = 'Accepter';
-          accept_button.setAttribute('data-id', invitation_id)
+          var accept_button = document.createElement('i');
+          accept_button.className += 'zmdi zmdi-check zmdi-hc-lg choice-button';
+          accept_button.setAttribute('data-id', invitation_id);
           accept_button.onclick = acceptInvitation;
 
-          var refuse_button = document.createElement('button');
-          refuse_button.innerHTML = 'Refuser';
-          refuse_button.setAttribute('data-id', invitation_id)
+          var refuse_button = document.createElement('i');
+          refuse_button.className += 'zmdi zmdi-close-circle-o  zmdi-hc-lg choice-button';
+          refuse_button.setAttribute('data-id', invitation_id);
           refuse_button.onclick = refuseInvitation;
 
-          invite_div.appendChild(invite_p);
-          invite_div.appendChild(accept_button);
-          invite_div.appendChild(refuse_button);
-
-          invite_list.appendChild(invite_div);
-          doNotify();
-      //  }
+          contact.appendChild(refuse_button);
+          contact.appendChild(accept_button);
+          contact.appendChild(contact_link);
+          invite_list.appendChild(contact);
+          doNotify(invitation_id);
+        }
       }
-    }
-
-  }, function (err) {
-    console.log(err);
   });
 }
 
 function acceptInvitation(event){
   var id = event.srcElement.getAttribute('data-id');
+  var li = event.srcElement.parentNode;
   acceptInvite(id).then(function (data){
+    li.parentNode.removeChild(li);
     console.log(data);
   }, function (err){
     console.log(err);
@@ -195,7 +190,10 @@ function clearInfoProfil(){
 
 function refuseInvitation(event){
   var id = event.srcElement.getAttribute('data-id');
+  var li = event.srcElement.parentNode;
   refuseInvite(id).then(function (data){
+
+    li.parentNode.removeChild(li);
     console.log(data);
   }, function (err){
     console.log(err);

@@ -7775,6 +7775,14 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
     color: #61c7b3;
     line-height: 48px;
 }
+.contact-link {
+    display: inline!important;
+}
+.choice-button {
+    margin-right: 10px;
+    float:right;
+    line-height: 1em!important;
+}
 .search-contact-title {
     display: inline!important;
 }
