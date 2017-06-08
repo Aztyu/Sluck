@@ -93,6 +93,8 @@ function switchConversationEvt(event){
 //La fonction permet de changer la conversation actuelle
 //param conversation_id La conversation à passer au 1er plan
 function switchConversation(conversation_div){
+  var add_contact_conv = document.querySelector('#add-contact-conv');
+  add_contact_conv.classList.remove('hidden');
   var conversation_id = conversation_div.getAttribute('data-id');
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
@@ -495,6 +497,45 @@ function searchContactsAndConversations() {
 
   searchContacts(search);
   searchConversations(search);
+}
+
+//La fonction permet d'ajouter des contacts à une conversation privée
+function inviteConvContact() {
+  var contact_list = document.querySelector('#contact-list');
+    contactList().then(function (data) {
+    if (data && data != '') {
+      var contacts = JSON.parse(data);
+      if (contacts.length > 0) {
+        for(var i = 0; i < contacts.length; i++){
+            var contact_li = document.createElement('li');
+            var contact_a = document.createElement('a');
+            contact_a.setAttribute('data-id', contacts[i].contact.id);
+            contact_a.setAttribute('data-conv-id', current_conversation.id); 
+
+            var contact_icon = document.createElement('i');
+            contact_icon.className = 'zmdi zmdi-plus-circle-o contact-icon-invite';
+            contact_a.setAttribute('href', '#');
+            contact_a.onclick = function(event){
+              addContactToConv(event);              
+            }
+            contact_li.className = 'contact-list-li';
+            contact_li.innerHTML = contacts[i].contact.name;
+            contact_li.appendChild(contact_icon);
+            contact_a.appendChild(contact_li);
+            contact_list.appendChild(contact_a);
+        }
+      }
+    }
+  });
+
+  //inviteConversationContact(conversation_id);
+}
+
+function addContactToConv(event) {
+  var contact_id = event.target.parentNode.getAttribute('data-id');
+  var conv_id = event.target.parentNode.getAttribute('data-conv-id');
+  console.log(contact_id, conv_id);
+  inviteConversationContact(conv_id, contact_id);
 }
 
 //La fonction permet de faire scroller vers les messages tout en bas

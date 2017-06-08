@@ -70,6 +70,46 @@
 .empty-result {
     font-size: 20px;
 }
+
+#add-contact-conv {
+    display: inline-block;
+    position: relative;
+    left: 10px;
+    top: 2px;
+    line-height: 40px;
+    color: #61C7B3;
+}
+
+#conversation_title {
+    display: inline-block;
+}
+
+#contact-list {
+    list-style-type: none!important;
+    padding: 0!important;
+}
+
+.contact-list-li {
+    float: left!important;
+    margin-right: 10px!important;
+    border: 1px solid #61c7b3;
+    border-radius: 3px;
+    padding: 5px;
+    color: #19728c;
+}
+
+.contact-icon-invite {
+    margin-top: 5px;
+    text-align: center;
+    top: 0px;
+    display: block!important;
+}
+
+.contact-list-li:hover {
+    border-radius:5px;
+    color: #61C7B3;
+}
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter,  Inc.
