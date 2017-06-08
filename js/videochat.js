@@ -181,6 +181,8 @@ function connectVideo(id){
 
     call.on('close', function(){
       console.log("Appel refusé");
+
+      videoStreamDisconnect(null);
     });
 
   }, function(err) {
@@ -192,12 +194,16 @@ function videoStreamDisconnect(event){
     console.log("Inactif");
     console.log(event);
 
-    for (let track of localstream.getTracks()) {
-        track.stop();
+    if(localstream){
+      for (let track of localstream.getTracks()) {
+          track.stop();
+      }
     }
 
-    for (let track of mediastream.getTracks()) {
-        track.stop();
+    if(mediastream){
+      for (let track of mediastream.getTracks()) {
+          track.stop();
+      }
     }
 
     localstream = null;
