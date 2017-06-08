@@ -484,14 +484,21 @@
                                   <img id="contact_image" class="float-right profile "/>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="margin-bottom:0px!important;">
+                            <div class="col-md-2" style="margin-bottom:0px!important;">
                                 <div class="input-group" style="top: 14px;"></span>
                                     <div class="form-line">
-                                        <input type="text" id="contact_name" class="form-control date" placeholder="Pseudo" readonly />
+                                        <input type="text" id="contact_name" class="form-control date" placeholder="Pseudo" readonly="readonly" onfocusout="confirmChange()" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" style="margin-bottom:0px!important;">
+                            <div class="col-md-6">
+                              <div class="switch panel-switch-btn"> <span class="m-r-10 font-12">Modifier le nom</span>
+                                <label><input type="checkbox" id="realtimecheck" onchange="toggleCheckbox(this)">
+                                 <span class="lever switch-col-cyan"></span>
+                                </label>
+                            </div>
+                            </div>
+                            <div class="col-md-2" style="margin-bottom:0px!important;">
                               <button id="audio_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
                               <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>

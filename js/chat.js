@@ -56,6 +56,38 @@ function startBackgroundUpdates(){
   startInviteUpdate();
 }
 
+function toggleCheckbox(element){
+ if(document.getElementById('realtimecheck').checked) {
+
+    document.getElementById('contact_name').readOnly = false;
+     document.getElementById("contact_name").style.cursor = "auto";
+    document.getElementById("realtimecheck").focus();
+  } else {
+    document.getElementById('contact_name').readOnly = true;
+  }  
+}
+
+function confirmChange(){
+  var msg = document.getElementById('realtimecheck').value;
+  if(document.getElementById('contact_name').readOnly == false){
+      var r = confirm("Confirmez vous le changement de nom ?");
+     //si la personne confirme + le input est éditable
+  if (r == true) {
+      //DOFUNCTION
+      document.getElementById("realtimecheck").checked = false;
+      document.getElementById('contact_name').readOnly = true;
+      document.getElementById("contact_name").style.cursor = "not-allowed";
+  } else {
+    //remettre le name de l'user
+      msg = connected_user.name;
+      document.getElementById("realtimecheck").checked = false;
+      document.getElementById('contact_name').readOnly = true;
+      document.getElementById("contact_name").style.cursor = "not-allowed";
+  }
+  }
+ 
+}
+
 //La fonction appelée quand on veut créer un utilisateur
 function registerAccount(){
   var name = document.getElementById('name_reg').value;             //On récupére les valeurs dans le HTML
