@@ -488,14 +488,21 @@
                                   <img id="contact_image" class="float-right profile "/>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="margin-bottom:0px!important;">
+                            <div class="col-md-2" style="margin-bottom:0px!important;">
                                 <div class="input-group" style="top: 14px;"></span>
                                     <div class="form-line">
-                                        <input type="text" id="contact_name" class="form-control date" placeholder="Pseudo" readonly />
+                                        <input type="text" id="contact_name" class="form-control date" placeholder="Pseudo" readonly="readonly" onfocusout="confirmChange()" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" style="margin-bottom:0px!important;">
+                            <div class="col-md-6">
+                              <div class="switch panel-switch-btn"> <span class="m-r-10 font-12">Modifier le nom</span>
+                                <label><input type="checkbox" id="realtimecheck" onchange="toggleCheckbox(this)">
+                                 <span class="lever switch-col-cyan"></span>
+                                </label>
+                            </div>
+                            </div>
+                            <div class="col-md-2" style="margin-bottom:0px!important;">
                               <button id="audio_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;margin-left: 12px"> <i class="material-icons">phone</i> </button>
                               <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" style="float: right;"> <i class="material-icons">videocam</i> </button>
                             </div>
@@ -508,11 +515,11 @@
                         <div class="col-sm-6">
                           <div class="col-sm-12">
                             <div class="card">
-                              <div class="body" style="padding: 0px 20px 5px 20px!important;">
+                              <div class="body" style="padding:0px!important;">
                                   <div class="row clearfix">
-                                    <div id="webrtc" style="width:100%; padding: 5px; height: 250px; background-color: grey;">
-                                    <p>Remote</p>
-                                        <video id="webrtcvideo"></video>
+                                    <div id="webrtc" style="width:100%; padding: 5px; ">
+                                    
+                                        <video id="webrtcvideo" style="margin-left: 28px; margin-bottom: 12px;"></video>
                                     </div>
                                   </div>
                               </div>
@@ -521,11 +528,10 @@
 
                           <div class="col-sm-6">
                             <div class="card">
-                              <div class="body" style="padding: 0px 20px 5px 20px!important;">
+                              <div class="body" style="padding:0px!important;">
                                   <div class="row clearfix">
-                                    <div id="webrtc" style="width:100%; padding: 5px; height: 150px; background-color: grey;">
-                                        <p>Local</p>
-                                        <video id="localvideo"></video>
+                                    <div id="webrtc" style="width:100%; padding: 5px;">
+                                        <video id="localvideo" style="width: 320px;margin-left:22px;"></video>
                                     </div>
                                   </div>
                               </div>
@@ -564,7 +570,7 @@
                               </div>
                               <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
                                 <i class="zmdi zmdi-file-text"></i>
-                              </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button></div>
+                              </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewChatMessage()">Envoyer</button></div>
                             </div>
                           </div>
                       </div>

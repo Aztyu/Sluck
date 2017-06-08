@@ -277,6 +277,19 @@ function inviteConversationContact(conversation_id, user_id){
   });
 }
 
+//La fonction permet d'inviter un contact à une conversation privée
+function renameContact(contact_id, name){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/contact/rename/' + contact_id + "?name=" + name,
+    method: 'POST'
+  }, function (err, res, body) {
+    if(err){
+      console.log(err);
+    }
+  });
+}
+
 //La fonction permet de créer une nouvelle conversation
 //param conversation Le nom de la nouvelle conversation
 //param shared Si la conversation est publique ou privée
