@@ -94,7 +94,19 @@ function switchConversationEvt(event){
 //param conversation_id La conversation à passer au 1er plan
 function switchConversation(conversation_div){
   var add_contact_conv = document.querySelector('#add-contact-conv');
-  add_contact_conv.classList.remove('hidden');
+  
+  if(current_conversation.shared) {
+    add_contact_conv.classList.remove('hidden');
+  }
+
+  var remove_li = document.querySelectorAll('.contact-list-li');
+  if (remove_li){
+    for(var i = 0; i < remove_li.length; i++) {
+      if(remove_li[i]){
+        remove_li[i].parentNode.removeChild(remove_li[i]);
+      }
+    }
+  }
   var conversation_id = conversation_div.getAttribute('data-id');
   var status = conversation_div.querySelector('.status');
   status.classList.remove('new');   //On reset le status
@@ -502,6 +514,16 @@ function searchContactsAndConversations() {
 //La fonction permet d'ajouter des contacts à une conversation privée
 function inviteConvContact() {
   var contact_list = document.querySelector('#contact-list');
+  var remove_li = document.querySelectorAll('.contact-list-li');
+
+  if (remove_li){
+    for(var i = 0; i < remove_li.length; i++) {
+      if(remove_li[i]){
+        remove_li[i].parentNode.removeChild(remove_li[i]);
+      }
+    }
+  }
+
     contactList().then(function (data) {
     if (data && data != '') {
       var contacts = JSON.parse(data);
