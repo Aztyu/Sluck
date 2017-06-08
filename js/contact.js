@@ -69,9 +69,7 @@ function getContactList(){
   });
 }
 
-function openContactPage(event){
-  var elem = event.target.parentNode;
-
+function openContactPageLi(elem){
   showAnotherProfil();
   current_contact_id = elem.getAttribute('data-id');
 
@@ -91,6 +89,12 @@ function openContactPage(event){
 
   document.querySelector('#contact_name').value = elem.getAttribute('data-name');
   document.querySelector('#contact_image').src = "http://cdn.qwirkly.fr/profile/" + current_contact_id;
+}
+
+function openContactPage(event){
+  var elem = event.target.parentNode;
+
+  openContactPageLi(elem);
 }
 
 function getContactInviteList(){
@@ -181,7 +185,7 @@ function showSearchBar(){
 }
 
 function clearInfoProfil(){
-  
+
   document.getElementById("addressmail_user").value = '';
   document.getElementById("pwd_user").value = '';
   document.getElementById("confirmpwd_user").value = '';
@@ -250,6 +254,27 @@ function searchForContact(){
 function createContactInvite(event){
   var id = event.srcElement.getAttribute('data-id');
   inviteContact(id);
+}
+
+function updateStatus(status){
+  var status_span = document.querySelector('#user-status');
+
+  updateUserStatus(status);
+  switch (status) {
+    case 1:
+      status_color = 'bg-light-green';
+      break;
+    case 2:
+      status_color = 'bg-orange';
+      break;
+    case 3:
+      status_color = 'bg-grey';
+      break;
+    default:
+      status_color = 'bg-grey';
+  }
+  status_span.className = '';
+  status_span.className = status_color + ' icon-circle xsmall';
 }
 
 function initContextMenu(){   //TODO bouger sur les photos de profil dans les conversations

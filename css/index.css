@@ -129,3 +129,8 @@ input[type="checkbox"].no-template{
   margin-left: 10px;
   font-size: 11px;
 }
+
+#webrtc_call_div{
+  color: white;
+  background-color: black;
+}

@@ -6,6 +6,7 @@ var mediastream;
 var localstream;
 
 var current_call;
+var caller_id;
 
 $(document).ready(function(){
   startPeerConnection();      //On démarre le composant webrtc
@@ -47,14 +48,40 @@ function startPeerConnection(){
 
   peer.on('call', function(call) {
     current_call = call;
+
     console.log(call);
-    document.getElementById('call_status').innerHTML = 'Appel en cours...';
+
+    showCall(call.peer);
   });
+}
+
+function showCall(peer_id){
+  document.getElementById('webrtc_call_div').classList.remove('hidden');
+
+  var contacts = document.querySelectorAll('li.contact');
+
+  var caller_name = '...';
+
+  for(var i=0; i<contacts.length; i++){
+    if(contacts[i].getAttribute('data-peerjs') == peer_id){
+      caller_name = contacts[i].getAttribute('data-name');
+      caller_id = contacts[i].getAttribute('data-id');
+      break;
+    }
+  }
+
+  document.getElementById('call_status').innerHTML = 'Appel en cours de ' + caller_name;
 }
 
 function actionCall(action){
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     if(action === 'accept'){
+      document.getElementById('webrtc_call_div').classList.add('hidden');
+
+      if(caller_id){
+        openContactPageLi(document.querySelector('li.contact[data-id="' + caller_id + '"]'));
+      }
+
       current_call.answer(stream); // Answer the call with an A/V stream.
       document.getElementById('call_status').innerHTML = 'Appel accepté';
 
@@ -82,6 +109,8 @@ function actionCall(action){
         video.play();
       });
     }else{
+      document.getElementById('webrtc_call_div').classList.add('hidden');
+
       current_call.answer(); // Answer the call with an A/V stream.
 
       current_call.on('stream', function(toto){
@@ -140,6 +169,7 @@ function connectVideo(id){
     initLocalStream(localstream);
 
     var call = peer.call(id, stream);
+    current_call = call;
 
     call.on('stream', function(remoteStream) {
       console.log('Appel sortant' + remoteStream);
@@ -162,8 +192,13 @@ function videoStreamDisconnect(event){
     console.log("Inactif");
     console.log(event);
 
-    localstream.close();
-    mediastream.close();
+    for (let track of localstream.getTracks()) {
+        track.stop();
+    }
+
+    for (let track of mediastream.getTracks()) {
+        track.stop();
+    }
 
     localstream = null;
     mediastream = null;
