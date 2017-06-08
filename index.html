@@ -186,11 +186,11 @@
       <div id="webrtc_call_div" class="hidden">
         <span id="call_status"></span>
 
-        <button type="button" class="btn btn-raised bg-pink waves-effect">
-          <i class="material-icons"  id="call_reject" onClick="actionCall('reject')">call_end</i>
+        <button type="button" class="btn btn-raised bg-pink waves-effect" onClick="actionCall('reject')">
+          <i class="material-icons"  id="call_reject" >call_end</i>
         </button>
-        <button type="button" class="btn btn-raised bg-green waves-effect" style="margin-left:40px;">
-          <i class="material-icons" id="call_accept" onClick="actionCall('accept')">call</i>
+        <button type="button" class="btn btn-raised bg-green waves-effect" style="margin-left:40px;" onClick="actionCall('accept')">
+          <i class="material-icons" id="call_accept" >call</i>
         </button>
       </div>
     <!-- Morphing Search  -->
@@ -514,7 +514,7 @@
                               <div class="body" style="padding:0px!important;">
                                   <div class="row clearfix">
                                     <div id="webrtc" style="width:100%; padding: 5px; ">
-                                    
+
                                         <video id="webrtcvideo" style="margin-left: 28px; margin-bottom: 12px;"></video>
                                     </div>
                                   </div>
@@ -547,6 +547,10 @@
                                   <div class="col-md-10">
                                     <input type="range" onchange="setVolume()" id='volume-stream' min=0 max=1 step=0.05 value='1'>
                                   </div>
+
+                                  <button id="video_call" type="button" class="btn btn-raised btn-default waves-effect" onclick="videoStreamDisconnect()" style="float: right;">
+                                    <i class="zmdi zmdi-phone-end"></i>
+                                  </button>
                                 </div>
                               </div>
                             </div>
