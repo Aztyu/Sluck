@@ -247,6 +247,36 @@ function listConversation(){
   });
 }
 
+//La fonction permet de récupérer une liste des invitations à rejoindre une conversation
+function listConversationInvite(){
+  return new Promise(function (resolve, reject) {
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/conversation/invite/list',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
+}
+
+//La fonction permet d'inviter un contact à une conversation privée
+function inviteConversationContact(conversation_id, user_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/conversation/invite/' + conversation_id + "/" + user_id,
+    method: 'POST'
+  }, function (err, res, body) {
+    if(err){
+      console.log(err);
+    }
+  });
+}
+
 //La fonction permet de créer une nouvelle conversation
 //param conversation Le nom de la nouvelle conversation
 //param shared Si la conversation est publique ou privée
@@ -430,7 +460,45 @@ function updateInvite(id, accept){
         return reject(err);
       }
     });
-  })
+  });
+}
+
+//La fonction permet d'accepter une invitations de conv
+//param id L'id de l'invitation
+function acceptConvInvite(id){
+  return updateConvInvite(id, true);
+}
+
+//La focntion permet de refuser une invitations de conv
+//param id L'id de l'invitation
+function refuseConvInvite(id){
+  return updateConvInvite(id, false);
+}
+
+//La fonction permet de mettre à jour le status d'une invitation de conversation
+//param id L'id de l'invitation
+//param accept Boolean true si on accepte false si on refuse
+function updateConvInvite(id, accept){
+  var method;
+  if(accept){
+    method = 'POST';
+  }else{
+    method = 'DELETE';
+  }
+
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/conversation/invitation/' + id,
+      method: method
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  });
 }
 
 //La fonction permet de faire une demande de contact
