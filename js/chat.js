@@ -68,18 +68,18 @@ function toggleCheckbox(element){
 }
 
 function confirmChange(){
-  var msg = document.getElementById('realtimecheck').value;
+  var msg = document.getElementById('contact_name').value;
   if(document.getElementById('contact_name').readOnly == false){
       var r = confirm("Confirmez vous le changement de nom ?");
      //si la personne confirme + le input est éditable
   if (r == true) {
-      //DOFUNCTION
+      renameContact(current_contact_id, document.getElementById('contact_name').value);
       document.getElementById("realtimecheck").checked = false;
       document.getElementById('contact_name').readOnly = true;
       document.getElementById("contact_name").style.cursor = "not-allowed";
   } else {
     //remettre le name de l'user
-      msg = connected_user.name;
+      document.getElementById('contact_name').value = msg;
       document.getElementById("realtimecheck").checked = false;
       document.getElementById('contact_name').readOnly = true;
       document.getElementById("contact_name").style.cursor = "not-allowed";
