@@ -408,7 +408,7 @@
                       <div class="body" style="padding: 0px 40px!important;">
                                   <ul class="nav nav-tabs tab-nav-right" role="tablist">
                             <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="true">INFOS</a></li>
-                            <li role="presentation" class=""><a href="#settings" data-toggle="tab" aria-expanded="false">RÉGLAGES</a></li>
+                            <li role="presentation" class=""><a href="#settings" data-toggle="tab" aria-expanded="false" onclick="deviceInfo()">RÉGLAGES</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="home">
@@ -449,19 +449,31 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="settings">
-                              <p> Petit test pour te dire que tu peux faire tous les réglages du monde ici de toute façon ça marche pas ! Et ouais c'est kiki qui la décide et il t'emmerde petite pédale !</p>
-                              <p> Attention à bien choisir le bon port petit salaud ! </p>
+                              <p><b>Changement du port :</b></p>
                               <form>
                                 <div class="demo-radio-button">
                                   <input name="group1" type="radio" id="radio_1" checked="">
                                   <label for="radio_1">Port 80</label>
                                   <input name="group1" type="radio" id="radio_2">
-                                  <label for="radio_2">Port 110</label>
-                                  <input name="group1" type="radio" id="radio_3">
-                                  <label for="radio_3">Port 210</labels>
+                                  <label for="radio_2">Port 3389</label>
                                 </div>
                               </form>
+                            
+                            <hr/>
+                              
+                                <p> <b>Audio :</b> </p>
+                                  <select id="selectAudio" selected="1" class="selectstyle">
+                                  </select>
+
+                            
+                            <hr/>
+                              <p><b>Vidéo :</b></p>
+                              <select id="selectCam" selected="1" class="selectstyle">
+                                  </select>
                             </div>
+                            <div style="margin-top:20px;margin-bottom: 20px;">
+                            <button type="button" class="btn btn-raised btn-default waves-effect">ANNULER</button>
+                            <button type="button" class="btn btn-raised btn-primary waves-effect">ENREGISTRER</button>
                         </div>
                       </div>
                     </div>

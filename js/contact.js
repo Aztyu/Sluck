@@ -15,6 +15,51 @@ function startContactUpdate(){
   action();                         //On démarre la boucle
 }
 
+function deviceInfo(){
+  deviceAudioInfo();
+  deviceCamInfo();
+}
+
+function deviceAudioInfo(){
+  navigator.mediaDevices.enumerateDevices().then(function(devices) {
+  var x = document.getElementById("selectAudio");
+  
+  devices.forEach(function(device) 
+  {
+    var optiondevice = device.kind;
+    var option = document.createElement("option");
+
+    if(optiondevice == "audioinput"){
+      option.innerHTML = device.label;
+      x.add(option);
+    }
+  });
+})
+.catch(function(err) {
+  console.log(err.name + ": " + err.message);
+});
+}
+
+function deviceCamInfo(){
+  navigator.mediaDevices.enumerateDevices().then(function(devices) {
+  var x = document.getElementById("selectCam");
+  
+  devices.forEach(function(device) 
+  {
+    var optiondevice = device.kind;
+    var option = document.createElement("option");
+
+    if(optiondevice == "videoinput"){
+      option.innerHTML = device.label;
+      x.add(option);
+    }
+  });
+})
+.catch(function(err) {
+  console.log(err.name + ": " + err.message);
+});
+}
+
 function getContactList(){
   contactList().then(function (data) {    //Si on se connecte
     if(data && data !== ''){
