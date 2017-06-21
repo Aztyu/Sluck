@@ -350,15 +350,16 @@
           <div class="chat-header clearfix">
               <div class="chat-about">
                   <div class="chat-with" id="conversation_title"></div>
+                  <a href="#" onclick="inviteConvContact()">
+                      <i class="zmdi zmdi-account-add hidden" id="add-contact-conv"></i>
+                  </a>
+                  <ul id="contact-list"></ul>
               </div>
               <i class="fa fa-star"></i>
           </div>
 
           <div class="chat-history" id="messages"></div>
             <!-- end chat-history -->
-          <div class="chat-message clearfix hidden" id="chat_div">
-            <div class="form-group">
-              <div class="form-line">
                 <div id="chat_files" class="hidden"></div>
                 <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
               </div>
@@ -366,7 +367,10 @@
             <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
               <i class="zmdi zmdi-file-text"></i>
             </a>
-            <button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button>
+            <button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button><div class="chat-message clearfix hidden" id="chat_div">
+            <div class="form-group">
+              <div class="form-line">
+          
           </div>
         </div>
       </div>
