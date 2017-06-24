@@ -94,7 +94,7 @@ function switchConversationEvt(event){
 //param conversation_id La conversation à passer au 1er plan
 function switchConversation(conversation_div){
   var add_contact_conv = document.querySelector('#add-contact-conv');
-  
+
   if(current_conversation.shared) {
     add_contact_conv.classList.remove('hidden');
   }
@@ -251,6 +251,8 @@ function getMessageDiv(message){
 
   var time_elem = document.createElement('p');
   time_elem.classList.add('msg-time');
+
+  moment.locale('fr');
 
   var time_str = moment(message.time).calendar();
   if(time_str.length == 10){
@@ -532,13 +534,13 @@ function inviteConvContact() {
             var contact_li = document.createElement('li');
             var contact_a = document.createElement('a');
             contact_a.setAttribute('data-id', contacts[i].contact.id);
-            contact_a.setAttribute('data-conv-id', current_conversation.id); 
+            contact_a.setAttribute('data-conv-id', current_conversation.id);
 
             var contact_icon = document.createElement('i');
             contact_icon.className = 'zmdi zmdi-plus-circle-o contact-icon-invite';
             contact_a.setAttribute('href', '#');
             contact_a.onclick = function(event){
-              addContactToConv(event);              
+              addContactToConv(event);
             }
             contact_li.className = 'contact-list-li';
             contact_li.innerHTML = contacts[i].contact.name;

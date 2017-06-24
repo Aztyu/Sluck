@@ -64,7 +64,7 @@ function toggleCheckbox(element){
     document.getElementById("realtimecheck").focus();
   } else {
     document.getElementById('contact_name').readOnly = true;
-  }  
+  }
 }
 
 function confirmChange(){
@@ -85,7 +85,7 @@ function confirmChange(){
       document.getElementById("contact_name").style.cursor = "not-allowed";
   }
   }
- 
+
 }
 
 //La fonction appelée quand on veut créer un utilisateur
@@ -294,9 +294,11 @@ function updateConversation(conversation){
 //param conversation Une Conversation qui posséde un id et un tableau de messages
 function updateChat(contact_id){
   var messages;
+
   if(!chats[contact_id]){
     chats[contact_id] = [];
   }
+
   messages = chats[contact_id].messages;
   var last_message = 0;
   if(messages && messages.length > 0){    //Si il y a déjà des messages on envoie l'ID du dernier
