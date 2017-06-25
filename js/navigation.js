@@ -53,6 +53,7 @@ function updateConversations(conversations){
       var conv_div = document.createElement('div');
       conv_div.classList.add('conversation');
       conv_div.setAttribute('data-id', conversation.id);    //On stocke l'id de la conversation
+      conv_div.setAttribute('data-shared', conversation.shared);
       conv_div.addEventListener("click", switchConversationEvt); //On défini le onClick
 
       var conv_status = document.createElement('div');
@@ -97,6 +98,8 @@ function switchConversation(conversation_div){
 
   if(current_conversation.shared) {
     add_contact_conv.classList.remove('hidden');
+  }else{
+    add_contact_conv.classList.add('hidden');
   }
 
   var remove_li = document.querySelectorAll('.contact-list-li');
