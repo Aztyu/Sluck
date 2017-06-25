@@ -428,25 +428,27 @@ function searchConversation(){
 
       var conv_div = document.getElementById('conversations_join');   //On crée les éléments qui seront affichés dans la liste
       conv_div.innerHTML = '';
-      for(var i =0; i<debug.length; i++){
-        var new_conv = document.createElement('div');
+      if(debug){
+        for(var i =0; i<debug.length; i++){
+          var new_conv = document.createElement('div');
 
-        var conv_text = document.createElement('p');
-        conv_text.innerHTML = debug[i].name;
+          var conv_text = document.createElement('p');
+          conv_text.innerHTML = debug[i].name;
 
-        var conv_button = document.createElement('button');
-        conv_button.setAttribute('data-id', debug[i].id);   //On donne l'id de la conversation
-        conv_button.addEventListener("click", function(elem){   //On ajoute la possiblité de rejoindre en cliquant sur un bouton
-            var button = elem.target;
-            var conversation_id = button.getAttribute('data-id');
-            joinConversation(conversation_id);    //On appelle la fonction pour rejoindre
-        });
-        conv_button.innerHTML = "Join";
+          var conv_button = document.createElement('button');
+          conv_button.setAttribute('data-id', debug[i].id);   //On donne l'id de la conversation
+          conv_button.addEventListener("click", function(elem){   //On ajoute la possiblité de rejoindre en cliquant sur un bouton
+              var button = elem.target;
+              var conversation_id = button.getAttribute('data-id');
+              joinConversation(conversation_id);    //On appelle la fonction pour rejoindre
+          });
+          conv_button.innerHTML = "Join";
 
-        new_conv.appendChild(conv_text);
-        new_conv.appendChild(conv_button);
+          new_conv.appendChild(conv_text);
+          new_conv.appendChild(conv_button);
 
-        conv_div.appendChild(new_conv);
+          conv_div.appendChild(new_conv);
+        }
       }
   }, function (err) {
       console.log(err);
@@ -551,11 +553,11 @@ function searchContacts(search) {
   });
 }
 
-function searchContactsAndConversations() {
+function searchContactsAndConversations(){
   var search = document.getElementById('morphsearch-kiki').value;
-
-  searchContacts(search);
   searchConversations(search);
+
+  setTimeout(function(){ searchContacts(search); }, 2000);
 }
 
 //La fonction permet d'ajouter des contacts à une conversation privée

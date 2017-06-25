@@ -640,3 +640,17 @@ function listBot(){
     });
   })
 }
+
+function addBotToConversation(conversation_id, bot_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/add/bot/' + conversation_id + '/' + bot_id,
+    method: 'GET'
+  }, function (err, res, body) {
+    if(res.statusCode == 200){
+      resolve(body);
+    }else{
+      return reject(err);
+    }
+  });
+}
