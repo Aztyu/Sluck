@@ -347,6 +347,37 @@ function createMessage(message, current_conversation){
   });
 }
 
+//la fonction permet d'envoyer un message
+//param message Le contenu du message
+//param current_conversation L'id de la conversation sur laquelle envoyer le message
+function createChatMessage(message, contact_id){
+  return new Promise(function (resolve, reject) {
+    if(message.file){    //Si on passe un fichier
+      var formData = {
+        'file': fs.createReadStream(message.file)
+      }
+
+      var url = SERVER_URL + '/api/chat/send/' + contact_id;
+      var req = request.post({url : url, formData: formData, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+    }else{    //Sinon on envoie juste le message
+      var url = SERVER_URL + '/api/chat/send/' + contact_id;
+      var req = request.post({url : url, form: {'message': message.content}, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+    }
+  });
+}
+
 //la fonction permet de chercher toutes les conversations publiques
 function searchPublicConversation(search){
   var url = SERVER_URL + '/api/conversation/search';
@@ -543,5 +574,83 @@ function updateUserStatus(status){
     if(err){
       console.log(status);
     };
+  });
+}
+
+function deleteMessage(message_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/message/delete/' + message_id,
+    method: 'GET'
+  }, function (err, res, body) {
+    if(err){
+      console.log(status);
+    };
+  });
+};
+
+function kickUser(conversation_id, user_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/conversation/kick/' + conversation_id + '/' + user_id,
+    method: 'POST'
+  }, function (err, res, body) {
+    if(err){
+      console.log(status);
+    };
+  });
+}
+
+function banUser(conversation_id, user_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/conversation/ban/' + conversation_id + '/' + user_id,
+    method: 'POST'
+  }, function (err, res, body) {
+    if(err){
+      console.log(status);
+    };
+  });
+}
+
+function modUser(conversation_id, user_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/conversation/mod/' + conversation_id + '/' + user_id,
+    method: 'POST'
+  }, function (err, res, body) {
+    if(err){
+      console.log(status);
+    };
+  });
+}
+
+function listBot(){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/bot/list',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
+
+function addBotToConversation(conversation_id, bot_id){
+  request({
+    headers: getAuthHeader(),
+    uri: SERVER_URL + '/api/add/bot/' + conversation_id + '/' + bot_id,
+    method: 'GET'
+  }, function (err, res, body) {
+    if(res.statusCode == 200){
+      resolve(body);
+    }else{
+      return reject(err);
+    }
   });
 }

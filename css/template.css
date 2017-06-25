@@ -80,6 +80,15 @@
     color: #61C7B3;
 }
 
+#add-bot-conv {
+    display: inline-block;
+    position: relative;
+    left: 30px;
+    top: 2px;
+    line-height: 40px;
+    color: #61C7B3;
+}
+
 #conversation_title {
     display: inline-block;
 }

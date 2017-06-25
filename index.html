@@ -220,7 +220,7 @@
               <div class="admin-image"> <img class="float-right profile profile_picture"/> </div>
               <ul class="nav navbar-nav navbar-right">
                   <!-- Notifications -->
-                  <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span
+                  <li class="dropdown hidden"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span
                   class="label-count">7</span> </a>
                   <ul class="dropdown-menu">
                     <li class="header">NOTIFICATIONS</li>
@@ -249,12 +249,12 @@
                             </a> </li>
                         </ul>
                     </li>
-                    <li class="footer"> <a href="javascript:void(0);">Voir toutes les notifications</a> </li>
+                    <li class="footer hidden"> <a href="javascript:void(0);">Voir toutes les notifications</a> </li>
                 </ul></li>
                   <li><a data-placement="bottom" title="Go to Inbox" href="#" onClick="navigateToTab('chatbox')"><i class="zmdi zmdi-email"></i></a></li>
                   <li><a data-placement="bottom" title="Go to Profile" href="#" onClick="showAndLoadProfil()"><i class="zmdi zmdi-account"></i></a></li>
                   <li><a data-placement="bottom" title="Log out" href="#" onClick="logout()" alt="Déconnexion"><i class="zmdi zmdi-sign-in"></i></a></li>
-                  <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="showAnotherProfil()"><i class="zmdi zmdi-settings"></i></a></li>
+                  <!--<li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true" onClick="showAnotherProfil()"><i class="zmdi zmdi-settings"></i></a></li> -->
                   <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><span id="user-status" class="icon-circle bg-light-green xsmall"></span></a>
                       <ul class="dropdown-menu" id="status_co">
                         <li class="header">STATUS</li>
@@ -352,6 +352,7 @@
                   <div class="chat-with" id="conversation_title"></div>
                   <a href="#" onclick="inviteConvContact()">
                       <i class="zmdi zmdi-account-add hidden" id="add-contact-conv"></i>
+                      <i class="zmdi zmdi-notifications-add hidden" id="add-bot-conv"></i>
                   </a>
                   <ul id="contact-list"></ul>
               </div>
@@ -371,6 +372,7 @@
               <i class="zmdi zmdi-file-text"></i>
             </a>
             <button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewMessage()">Envoyer</button><div class="chat-message clearfix hidden" id="chat_div">
+            
             
           
           </div>
@@ -393,7 +395,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="profile-sub-header">
+                      <!-- <div class="profile-sub-header">
                           <div class="box-list">
                               <ul class="text-center">
                                   <li> <a href="#" onClick="navigateTo('profilbox')" class=""><i class="zmdi zmdi-attachment"></i>
@@ -405,7 +407,7 @@
                                   </li>
                               </ul>
                           </div>
-                      </div>
+                      </div> -->
                   </section>
               </div>
           </div>
@@ -464,14 +466,14 @@
                                   <label for="radio_2">Port 3389</label>
                                 </div>
                               </form>
-                            
+
                             <hr/>
-                              
+
                                 <p> <b>Audio :</b> </p>
                                   <select id="selectAudio" selected="1" class="selectstyle">
                                   </select>
 
-                            
+
                             <hr/>
                               <p><b>Vidéo :</b></p>
                               <select id="selectCam" selected="1" class="selectstyle">
@@ -577,16 +579,16 @@
                           </div>
                           <div class="col-sm-6">
                             <div class="chat" style="width: 100%!important;">
-                              <div class="chat-history" id="messages"></div>
+                              <div class="chat-history" id="chats"></div>
                             <!-- end chat-history -->
                             <div class="chat-message clearfix" id="chat_div">
                               <div class="form-group">
                                   <div class="form-line">
-                                      <div id="chat_files" class="hidden"></div>
-                                      <input type="text" class="form-control" placeholder="Saisir un message" id="chat_box">
+                                      <div id="private_chat_files" class="hidden"></div>
+                                      <input type="text" class="form-control" placeholder="Saisir un message" id="private_chat_box">
                                   </div>
                               </div>
-                              <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findAttachment()">
+                              <a href="#" class="btn btn-sm btn-raised btn-info" onclick="findChatAttachment()">
                                 <i class="zmdi zmdi-file-text"></i>
                               </a><button class="btn btn-sm btn-raised btn-default pull-right" onclick="sendNewChatMessage()">Envoyer</button></div>
                             </div>

@@ -8,6 +8,8 @@ var message_interval;   //On stocke tous les intervaux ici pour les stopper à l
 var chat_interval;
 var lazyload_interval;
 
+var current_contact_id = 0;
+
 var chats = {};
 
 const ipc = require('electron').ipcRenderer
@@ -315,11 +317,11 @@ function updateChat(contact_id){
         if(debug.length > 0){   //Si il y a des messages renvoyés
           var contact_li = document.querySelector('.contact[data-id="' + contact_id + '"]');
 
-          //var conv_div = document.querySelector('.conversation[data-id="' + conversation.id + '"]');    //On récupére la div de la conversation dans la liste
+          //var conv_div = document.querySelector('.labels .contact[data-id="' + contact_id + '"]');    //On récupére la div de la conversation dans la liste
 
-          if(debug[debug.length-1].time > connected_user.last_logout){   //Si le dernier message est plus récent que la dernière connexion
-            conv_div.querySelector('.status').classList.add('new');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
-          }
+          //if(debug[debug.length-1].time > connected_user.last_logout){   //Si le dernier message est plus récent que la dernière connexion
+            //conv_div.querySelector('.status').classList.remove('hidden');   //Puis on ajoute une classe pour indiquer qu'il y a un nouveau message
+          //}
 
           if(contact_id == current_contact_id){   //Si la conversation mis à jour est la conversation actuelle en focus alors on ajoute les messages
             for(var i = 0; i<debug.length; i++){

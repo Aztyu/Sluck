@@ -53,6 +53,8 @@ function updateConversations(conversations){
       var conv_div = document.createElement('div');
       conv_div.classList.add('conversation');
       conv_div.setAttribute('data-id', conversation.id);    //On stocke l'id de la conversation
+      conv_div.setAttribute('data-shared', conversation.shared);
+      conv_div.setAttribute('data-admin', conversation.admin);
       conv_div.addEventListener("click", switchConversationEvt); //On défini le onClick
 
       var conv_status = document.createElement('div');
@@ -95,8 +97,14 @@ function switchConversationEvt(event){
 function switchConversation(conversation_div){
   var add_contact_conv = document.querySelector('#add-contact-conv');
 
+  var add_bot_conv = document.querySelector('#add-bot-conv');
+
   if(current_conversation.shared) {
     add_contact_conv.classList.remove('hidden');
+    add_bot_conv.classList.remove('hidden');
+  }else{
+    add_contact_conv.classList.add('hidden');
+    add_bot_conv.classList.remove('hidden');
   }
 
   var remove_li = document.querySelectorAll('.contact-list-li');
@@ -136,6 +144,8 @@ function switchConversation(conversation_div){
     }
 
     current_conversation = conversation;
+
+      initContextMenu(); //On initialise le clic sur le pseudo des gnes
   }
 }
 
@@ -194,7 +204,7 @@ function addNewMessage(message){
 //La fonction permet d'afficher un nouveau message dans le chat
 //param message Un objet message
 function addNewChat(message){
-  var message_div = document.getElementById('chat_messages');
+  var message_div = document.getElementById('chats');
 
   if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
     message_div.appendChild(getMessageDiv(message));
@@ -206,6 +216,12 @@ function addNewChat(message){
 //La fonction va vider les messages dans l'affichage principal
 function clearMessages(){
   var message_div = document.getElementById('messages');
+  message_div.innerHTML = '';
+}
+
+//La fonction va vider les messages du chat de contact
+function clearChatMessages(){
+  var message_div = document.getElementById('chats');
   message_div.innerHTML = '';
 }
 
@@ -342,6 +358,37 @@ $(document).on('click', 'a[href^="http"]', function(event) {
     shell.openExternal(this.href);
 });
 
+function sendNewChatMessage(){
+  var message_box = document.getElementById('private_chat_box');    //On récupére le contenu du message
+  var message_file = document.getElementById('private_chat_files');
+
+  var message = {};
+
+  if(message_box.classList.contains('hidden')){
+    message.file = message_file.getAttribute('data-src');
+  }else{
+    message.content = message_box.value;
+  }
+
+  message.time = Date.now();
+
+  createChatMessage(message, current_contact_id).then(function (data) {    //Envoie du message à l'API
+      console.log(data);
+      var message_obj = JSON.parse(data);    //On récupére une liste d'objet Message JSON
+
+      if(!chats[current_contact_id].messages){   //Si la conversation n'a pas de message alors on l'initialise
+          chats[current_contact_id].messages = [];
+      }
+
+      chats[current_contact_id].messages.push(message_obj);    //On ajoute le message
+      addNewChat(message_obj);     //On affiche le message
+      message_box.value = ''; // on vide la textarea
+      removeChatFile();           //On supprime les fichiers si ils y en a
+  }, function (err) {
+      console.log(err);
+  });
+}
+
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
   var message_box = document.getElementById('chat_box');    //On récupére le contenu du message
@@ -383,25 +430,27 @@ function searchConversation(){
 
       var conv_div = document.getElementById('conversations_join');   //On crée les éléments qui seront affichés dans la liste
       conv_div.innerHTML = '';
-      for(var i =0; i<debug.length; i++){
-        var new_conv = document.createElement('div');
+      if(debug){
+        for(var i =0; i<debug.length; i++){
+          var new_conv = document.createElement('div');
 
-        var conv_text = document.createElement('p');
-        conv_text.innerHTML = debug[i].name;
+          var conv_text = document.createElement('p');
+          conv_text.innerHTML = debug[i].name;
 
-        var conv_button = document.createElement('button');
-        conv_button.setAttribute('data-id', debug[i].id);   //On donne l'id de la conversation
-        conv_button.addEventListener("click", function(elem){   //On ajoute la possiblité de rejoindre en cliquant sur un bouton
-            var button = elem.target;
-            var conversation_id = button.getAttribute('data-id');
-            joinConversation(conversation_id);    //On appelle la fonction pour rejoindre
-        });
-        conv_button.innerHTML = "Join";
+          var conv_button = document.createElement('button');
+          conv_button.setAttribute('data-id', debug[i].id);   //On donne l'id de la conversation
+          conv_button.addEventListener("click", function(elem){   //On ajoute la possiblité de rejoindre en cliquant sur un bouton
+              var button = elem.target;
+              var conversation_id = button.getAttribute('data-id');
+              joinConversation(conversation_id);    //On appelle la fonction pour rejoindre
+          });
+          conv_button.innerHTML = "Join";
 
-        new_conv.appendChild(conv_text);
-        new_conv.appendChild(conv_button);
+          new_conv.appendChild(conv_text);
+          new_conv.appendChild(conv_button);
 
-        conv_div.appendChild(new_conv);
+          conv_div.appendChild(new_conv);
+        }
       }
   }, function (err) {
       console.log(err);
@@ -506,11 +555,11 @@ function searchContacts(search) {
   });
 }
 
-function searchContactsAndConversations() {
+function searchContactsAndConversations(){
   var search = document.getElementById('morphsearch-kiki').value;
-
-  searchContacts(search);
   searchConversations(search);
+
+  setTimeout(function(){ searchContacts(search); }, 2000);
 }
 
 //La fonction permet d'ajouter des contacts à une conversation privée
@@ -570,7 +619,7 @@ function scrollMessages(){
 
 //La fonction permet de faire scroller vers les messages du chat tout en bas
 function scrollChatMessages(){
-  var messages = document.getElementById('chat_messages');
+  var messages = document.getElementById('chats');
   messages.scrollTop = messages.scrollHeight
 }
 
