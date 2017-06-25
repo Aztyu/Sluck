@@ -383,11 +383,11 @@ function getContextMenu(){
             isHtmlName: true
         },
         "suppr_mess": {
-            name: "<i class='material-icons'>call</i><p>Supprimer message</p>",
+            name: "<i class='material-icons'>delete_forever</i><p>Supprimer message</p>",
             isHtmlName: true
         },
         "mod": {
-            name: "<i class='material-icons'>video_call</i><p>Rendre modérateur</p>",
+            name: "<i class='material-icons'>star_rate</i><p>Promouvoir au rôle modérateur</p>",
             isHtmlName: true
         },
         "kick": {
@@ -395,7 +395,7 @@ function getContextMenu(){
             isHtmlName: true
         },
         "ban": {
-            name: "<i class='material-icons'>call</i><p>Bannir</p>",
+            name: "<i class='material-icons'>exit_to_app</i><p>Bannir</p>",
             isHtmlName: true
         }
     };
