@@ -7230,7 +7230,6 @@ input[type=range]:focus::-ms-fill-upper {
 .morphsearch .form-group .form-control {
     margin: 0;
     padding: 7px 0;
-    color: #fff;
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 .morphsearch.open {
@@ -23251,6 +23250,7 @@ color: #298890;
     border-bottom: 2px solid white;
     min-height: 450px;
     max-height: 586px;
+    overflow-y: scroll;
 }
 .chat .chat-history ul {
     padding: 0;
@@ -24584,7 +24584,8 @@ height: 238px;
 }
 @media only screen and (max-width: 1024px) {
   #sidebar {
-    transform: translateX(-110%);
+    transform: translateX(0%);
+    width: 109%;
   }
   #inbox {
     left: 0;
