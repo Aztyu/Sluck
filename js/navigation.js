@@ -54,6 +54,7 @@ function updateConversations(conversations){
       conv_div.classList.add('conversation');
       conv_div.setAttribute('data-id', conversation.id);    //On stocke l'id de la conversation
       conv_div.setAttribute('data-shared', conversation.shared);
+      conv_div.setAttribute('data-admin', conversation.admin);
       conv_div.addEventListener("click", switchConversationEvt); //On défini le onClick
 
       var conv_status = document.createElement('div');
@@ -95,6 +96,8 @@ function switchConversationEvt(event){
 //param conversation_id La conversation à passer au 1er plan
 function switchConversation(conversation_div){
   var add_contact_conv = document.querySelector('#add-contact-conv');
+
+
 
   if(current_conversation.shared) {
     add_contact_conv.classList.remove('hidden');
@@ -139,6 +142,8 @@ function switchConversation(conversation_div){
     }
 
     current_conversation = conversation;
+
+      initContextMenu(); //On initialise le clic sur le pseudo des gnes
   }
 }
 

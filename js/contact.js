@@ -23,8 +23,8 @@ function deviceInfo(){
 function deviceAudioInfo(){
   navigator.mediaDevices.enumerateDevices().then(function(devices) {
   var x = document.getElementById("selectAudio");
-  
-  devices.forEach(function(device) 
+
+  devices.forEach(function(device)
   {
     var optiondevice = device.kind;
     var option = document.createElement("option");
@@ -43,8 +43,8 @@ function deviceAudioInfo(){
 function deviceCamInfo(){
   navigator.mediaDevices.enumerateDevices().then(function(devices) {
   var x = document.getElementById("selectCam");
-  
-  devices.forEach(function(device) 
+
+  devices.forEach(function(device)
   {
     var optiondevice = device.kind;
     var option = document.createElement("option");
@@ -79,6 +79,7 @@ function getContactList(){
           var contact_li = document.createElement('li');
           contact_li.classList.add('contact');
           contact_li.setAttribute('data-id', contacts[i].contact.id);
+          contact_li.setAttribute('data-user', contacts[i].contact.contact_id);
           contact_li.setAttribute('data-name', contacts[i].contact.name);
           contact_li.setAttribute('data-peerjs', contacts[i].peerjs_id);
 
@@ -114,7 +115,6 @@ function getContactList(){
 
           contact_list.appendChild(contact_li);
       }
-      initContextMenu();
     }
   }, function (err) {
     console.log(err);
@@ -122,7 +122,6 @@ function getContactList(){
 }
 
 function openContactPageLi(elem){
-
   //elem.querySelector('.status').classList.add('hidden');  //On cache l' indocateur de message
 
   current_contact_id = elem.getAttribute('data-id');
@@ -344,30 +343,68 @@ function updateStatus(status){
 }
 
 function initContextMenu(){   //TODO bouger sur les photos de profil dans les conversations
-  /*$.contextMenu({
-      selector: '.contact',
+  $.contextMenu({
+      selector: '.chat p.name',
       trigger: 'left',
       callback: function(key, options) {
-          var m = "clicked: " + key;
-          window.console && console.log(m) || alert(m);
-      },
-      items: {
-          "profile": {
-              name: "<i class='material-icons'>account_box</i><p>Voir profil</p>",
-              isHtmlName: true
-          },
-          "direct_message": {
-              name: "<i class='material-icons'>mail</i><p>Message direct</p>",
-              isHtmlName: true
-          },
-          "audio_call": {
-              name: "<i class='material-icons'>call</i><p>Appel audio</p>",
-              isHtmlName: true
-          },
-          "video_call": {
-              name: "<i class='material-icons'>video_call</i><p>Appel video</p>",
-              isHtmlName: true
+          switch(key){
+            case 'profile':
+              var user_id = options.$trigger[0].getAttribute('data-id');
+              var li = document.querySelector('.labels .contact[data-user="' + user_id + '"]')
+              openContactPageLi(li);
+              break;
+            case "suppr_mess":
+              var message_id = options.$trigger[0].parentNode.parentNode.getAttribute('data-id');
+              deleteMessage(message_id);
+              break;
+            case "kick":
+              var user_id = options.$trigger[0].getAttribute('data-id');
+              kickUser(current_conversation.id, user_id);
+              break;
+            case "ban":
+              var user_id = options.$trigger[0].getAttribute('data-id');
+              banUser(current_conversation.id, user_id);
+              break;
+            case "mod":
+              var user_id = options.$trigger[0].getAttribute('data-id');
+              modUser(current_conversation.id, user_id);
+              break;
           }
-      }
-  });*/
+      },
+      items: getContextMenu()
+  });
+}
+
+function getContextMenu(){
+  if(current_conversation.admin == true){
+    return {
+        "profile": {
+            name: "<i class='material-icons'>account_box</i><p>Voir profil</p>",
+            isHtmlName: true
+        },
+        "suppr_mess": {
+            name: "<i class='material-icons'>call</i><p>Supprimer message</p>",
+            isHtmlName: true
+        },
+        "mod": {
+            name: "<i class='material-icons'>video_call</i><p>Rendre modérateur</p>",
+            isHtmlName: true
+        },
+        "kick": {
+            name: "<i class='material-icons'>video_call</i><p>Expulser</p>",
+            isHtmlName: true
+        },
+        "ban": {
+            name: "<i class='material-icons'>call</i><p>Bannir</p>",
+            isHtmlName: true
+        }
+    };
+  }else{
+    return {
+        "profile": {
+            name: "<i class='material-icons'>account_box</i><p>Voir profil</p>",
+            isHtmlName: true
+        }
+    };
+  }
 }
