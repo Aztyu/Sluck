@@ -624,3 +624,19 @@ function modUser(conversation_id, user_id){
     };
   });
 }
+
+function listBot(){
+  return new Promise(function (resolve, reject){
+    request({
+      headers: getAuthHeader(),
+      uri: SERVER_URL + '/api/bot/list',
+      method: 'GET'
+    }, function (err, res, body) {
+      if(res.statusCode == 200){
+        resolve(body);
+      }else{
+        return reject(err);
+      }
+    });
+  })
+}
