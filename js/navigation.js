@@ -97,12 +97,14 @@ function switchConversationEvt(event){
 function switchConversation(conversation_div){
   var add_contact_conv = document.querySelector('#add-contact-conv');
 
-
+  var add_bot_conv = document.querySelector('#add-bot-conv');
 
   if(current_conversation.shared) {
     add_contact_conv.classList.remove('hidden');
+    add_bot_conv.classList.remove('hidden');
   }else{
     add_contact_conv.classList.add('hidden');
+    add_bot_conv.classList.remove('hidden');
   }
 
   var remove_li = document.querySelectorAll('.contact-list-li');
