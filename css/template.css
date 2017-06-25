@@ -23250,6 +23250,7 @@ color: #298890;
     border-bottom: 2px solid white;
     min-height: 450px;
     max-height: 586px;
+    overflow-y: scroll;
 }
 .chat .chat-history ul {
     padding: 0;
