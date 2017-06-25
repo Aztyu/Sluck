@@ -37,6 +37,12 @@ function getContactList(){
           contact_li.setAttribute('data-name', contacts[i].contact.name);
           contact_li.setAttribute('data-peerjs', contacts[i].peerjs_id);
 
+          var contact_message = document.createElement('i');
+          contact_message.classList.add('status');
+          contact_message.classList.add('zmdi');
+          contact_message.classList.add('zmdi-email');
+          contact_message.classList.add('hidden');
+
           var contact_a = document.createElement('a');
           contact_a.innerHTML = contacts[i].contact.name;   //On utilise le nom du contact qui peut être modifié
 
@@ -57,6 +63,7 @@ function getContactList(){
           }
           contact_a.innerHTML += ' <span class="ball ' + status_color + '"></span>';
 
+          contact_li.appendChild(contact_message);
           contact_li.appendChild(contact_a);
           contact_li.onclick = openContactPage;
 
@@ -70,8 +77,21 @@ function getContactList(){
 }
 
 function openContactPageLi(elem){
-  showAnotherProfil();
+
+  //elem.querySelector('.status').classList.add('hidden');  //On cache l' indocateur de message
+
   current_contact_id = elem.getAttribute('data-id');
+
+  clearChatMessages();    //On vide les messages
+
+  if(chats && chats[current_contact_id]){
+    var current_messages = chats[current_contact_id].messages;
+    if(current_messages){     //Si on a déjà chargé des messages alors on les ajoutent
+      for(var j=0; j<current_messages.length; j++){
+        addNewChat(current_messages[j]);
+      }
+    }
+  }
 
   var peerjs = elem.getAttribute('data-peerjs');
 
@@ -87,8 +107,9 @@ function openContactPageLi(elem){
     }
   }
 
-  document.querySelector('#contact_name').value = elem.getAttribute('data-name');
-  document.querySelector('#contact_image').src = "http://cdn.qwirkly.fr/profile/" + current_contact_id;
+
+
+  showAnotherProfil();
 }
 
 function openContactPage(event){

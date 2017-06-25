@@ -347,6 +347,37 @@ function createMessage(message, current_conversation){
   });
 }
 
+//la fonction permet d'envoyer un message
+//param message Le contenu du message
+//param current_conversation L'id de la conversation sur laquelle envoyer le message
+function createChatMessage(message, contact_id){
+  return new Promise(function (resolve, reject) {
+    if(message.file){    //Si on passe un fichier
+      var formData = {
+        'file': fs.createReadStream(message.file)
+      }
+
+      var url = SERVER_URL + '/api/chat/send/' + contact_id;
+      var req = request.post({url : url, formData: formData, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+    }else{    //Sinon on envoie juste le message
+      var url = SERVER_URL + '/api/chat/send/' + contact_id;
+      var req = request.post({url : url, form: {'message': message.content}, headers: getAuthHeader()}, function (err, resp, body) {
+        if(!err){
+          resolve(body);
+        }else{
+          reject(err);
+        }
+      });
+    }
+  });
+}
+
 //la fonction permet de chercher toutes les conversations publiques
 function searchPublicConversation(search){
   var url = SERVER_URL + '/api/conversation/search';

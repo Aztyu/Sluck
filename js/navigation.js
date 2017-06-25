@@ -194,7 +194,7 @@ function addNewMessage(message){
 //La fonction permet d'afficher un nouveau message dans le chat
 //param message Un objet message
 function addNewChat(message){
-  var message_div = document.getElementById('chat_messages');
+  var message_div = document.getElementById('chats');
 
   if(!message_div.querySelector('message[data-id="' + message.id + '"]')){
     message_div.appendChild(getMessageDiv(message));
@@ -206,6 +206,12 @@ function addNewChat(message){
 //La fonction va vider les messages dans l'affichage principal
 function clearMessages(){
   var message_div = document.getElementById('messages');
+  message_div.innerHTML = '';
+}
+
+//La fonction va vider les messages du chat de contact
+function clearChatMessages(){
+  var message_div = document.getElementById('chats');
   message_div.innerHTML = '';
 }
 
@@ -341,6 +347,37 @@ $(document).on('click', 'a[href^="http"]', function(event) {
     event.preventDefault();
     shell.openExternal(this.href);
 });
+
+function sendNewChatMessage(){
+  var message_box = document.getElementById('private_chat_box');    //On récupére le contenu du message
+  var message_file = document.getElementById('private_chat_files');
+
+  var message = {};
+
+  if(message_box.classList.contains('hidden')){
+    message.file = message_file.getAttribute('data-src');
+  }else{
+    message.content = message_box.value;
+  }
+
+  message.time = Date.now();
+
+  createChatMessage(message, current_contact_id).then(function (data) {    //Envoie du message à l'API
+      console.log(data);
+      var message_obj = JSON.parse(data);    //On récupére une liste d'objet Message JSON
+
+      if(!chats[current_contact_id].messages){   //Si la conversation n'a pas de message alors on l'initialise
+          chats[current_contact_id].messages = [];
+      }
+
+      chats[current_contact_id].messages.push(message_obj);    //On ajoute le message
+      addNewChat(message_obj);     //On affiche le message
+      message_box.value = ''; // on vide la textarea
+      removeChatFile();           //On supprime les fichiers si ils y en a
+  }, function (err) {
+      console.log(err);
+  });
+}
 
 //La fonction qui est appelée quand on appuye sur envoyer
 function sendNewMessage(){
@@ -570,7 +607,7 @@ function scrollMessages(){
 
 //La fonction permet de faire scroller vers les messages du chat tout en bas
 function scrollChatMessages(){
-  var messages = document.getElementById('chat_messages');
+  var messages = document.getElementById('chats');
   messages.scrollTop = messages.scrollHeight
 }
 
