@@ -39,6 +39,7 @@ function expandSearch(){
 
 function unexpandSearch(){
   document.getElementById('morphsearch').classList.remove('open');
+  document.getElementById('morphsearch-kiki').value = 'Rechercher ...';
 }
 //La fonction permet de mettre à jour la liste des conversations
 //param conversations La liste de toutes les conversations
