@@ -7118,7 +7118,7 @@ h2.title {
     min-height: 30px;
     position: fixed;
     z-index: 10;
-    top: 126px;
+    top: 11%;
     right: 1%;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
@@ -7230,7 +7230,6 @@ input[type=range]:focus::-ms-fill-upper {
 .morphsearch .form-group .form-control {
     margin: 0;
     padding: 7px 0;
-    color: #fff;
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 .morphsearch.open {
@@ -24584,7 +24583,8 @@ height: 238px;
 }
 @media only screen and (max-width: 1024px) {
   #sidebar {
-    transform: translateX(-110%);
+    transform: translateX(0%);
+    width: 109%;
   }
   #inbox {
     left: 0;
