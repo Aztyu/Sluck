@@ -1,4 +1,4 @@
-SERVER_URL = "http://projet.corentinbeal.fr/sluck/";
+SERVER_URL = "http://projet.corentinbeal.fr/sluck";
 UPDATE_MESSAGE_TIME = 2000;
 PSEUDO_TIME = 50;
 UPDATE_INVITE = 5000;
