@@ -214,8 +214,10 @@ function getContactInviteList(){
 function acceptInvitation(event){
   var id = event.srcElement.getAttribute('data-id');
   var li = event.srcElement.parentNode;
+  document.querySelector('#pending-invitations .li[data-id="' + id + '"]').classList.add('hidden');
   acceptInvite(id).then(function (data){
-    li.parentNode.removeChild(li);
+
+    //li.parentNode.removeChild(li);
     console.log(data);
   }, function (err){
     console.log(err);

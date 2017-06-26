@@ -241,8 +241,10 @@ function listConversation(){
     method: 'GET'
   }, function (err, res, body) {
     if(res.statusCode == 200){
-      conversations = JSON.parse(body);
-      updateConversations(conversations);   //On appelle la fonction pour ajouter la conversation à la liste dans l'affichage
+      if(body != ""){
+        conversations = JSON.parse(body);
+        updateConversations(conversations);   //On appelle la fonction pour ajouter la conversation à la liste dans l'affichage
+      }
     }
   });
 }
@@ -647,10 +649,8 @@ function addBotToConversation(conversation_id, bot_id){
     uri: SERVER_URL + '/api/add/bot/' + conversation_id + '/' + bot_id,
     method: 'GET'
   }, function (err, res, body) {
-    if(res.statusCode == 200){
-      resolve(body);
-    }else{
-      return reject(err);
-    }
+    if(err){
+      console.log(status);
+    };
   });
 }
