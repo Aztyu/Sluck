@@ -167,6 +167,7 @@ function register(name, password, email, profile_img){
     var url = SERVER_URL + '/register';
     var req = request.post({url : url, formData: formData}, function (err, resp, body) {
       if(!err){
+        alert('Utilisateur crée');
         return body;
       }else{
         return err;
@@ -182,6 +183,7 @@ function register(name, password, email, profile_img){
     var url = SERVER_URL + '/register';
     var req = request.post({url : url, form: {'user': JSON.stringify(data)}}, function (err, resp, body) {
       if(!err){
+        alert('Utilisateur crée');
         return body;
       }else{
         return err;

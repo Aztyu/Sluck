@@ -4,7 +4,7 @@
 }
 
 #img_preview{
-  width: 100%;
+  max-height: 64px;
 }
 
 #messages{
